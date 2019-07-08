@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.CouponStoreMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.CouponStore" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="mer_id" property="merId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, coupon_id, store_id, mer_id
+  </sql>
+
+  <select id="selectStoreAllById" resultType="java.lang.String">
+    SELECT GROUP_CONCAT(distinct sto.city) AS ranges FROM xys_coupon AS cou
+         LEFT JOIN xys_coupon_store AS coute ON cou.id = coute.coupon_id
+         LEFT JOIN xys_store AS sto ON coute.store_id = sto.id
+         where cou.id = #{id}
+  </select>
+
+  <update id="updateCouponrange">
+    UPDATE xys_coupon SET coupon_use_range = #{ranges}  WHERE id = #{id}
+  </update>
+
+  <select id="selectCouponByStore" resultType="java.lang.String">
+    SELECT GROUP_CONCAT(coupon_id) FROM xys_coupon_store
+    WHERE store_id in (${id})
+  </select>
+
+  <select id="selectStorerangesById" resultType="java.lang.String">
+    SELECT GROUP_CONCAT(distinct sto.city) AS ranges FROM xys_coupon AS cou
+         LEFT JOIN xys_coupon_store AS coute ON cou.id = coute.coupon_id
+         LEFT JOIN xys_store AS sto ON coute.store_id = sto.id
+         where cou.id = #{id} AND sto.store_state = 0
+  </select>
+
+  <select id="findStoreIdByCouId" resultType="java.lang.String">
+    SELECT store_id FROM xys_coupon_store
+    WHERE coupon_id = #{id}
+  </select>
+
+    <delete id="deleteByCouId" >
+        delete from xys_coupon_store
+        where coupon_id = #{id,jdbcType=INTEGER} AND store_id IN (${ids})
+    </delete>
+
+</mapper>

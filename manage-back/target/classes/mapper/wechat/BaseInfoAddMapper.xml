@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.wechat.BaseInfoAddMapper" >
+
+  <resultMap id="BaseResultDateInfoMap" type="com.shouzan.back.entity.card.DateInfo" >
+    <result column="types" property="type" jdbcType="VARCHAR" />
+    <result column="begin_timestamp" property="begin_timestamp" jdbcType="BIGINT" />
+    <result column="end_timestamp" property="end_timestamp" jdbcType="BIGINT" />
+    <result column="fixed_term" property="fixed_term" jdbcType="INTEGER" />
+    <result column="fixed_begin_term" property="fixed_begin_term" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_DateInfo_List" >
+      types, begin_timestamp, end_timestamp, fixed_term, fixed_begin_term
+  </sql>
+
+  <resultMap id="BaseResultSkuMap" type="com.shouzan.back.entity.card.Sku" >
+    <result column="quantity" property="quantity" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_Sku_List" >
+    quantity
+  </sql>
+
+  <resultMap id="BaseResultPoiIdMap" type="java.lang.Integer" >
+    <result column="location_id_list" property="location_id_list" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_PoiId_List" >
+    location_id_list
+  </sql>
+
+  <select id="findDataInfo" resultMap="BaseResultDateInfoMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_DateInfo_List" />
+    from xys_wccard_baseinfo_add
+    where card_id = #{id,jdbcType=INTEGER} and types is not null
+  </select>
+
+  <select id="findSkuInfo" resultMap="BaseResultSkuMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_Sku_List" />
+    from xys_wccard_baseinfo_add
+    where card_id = #{id,jdbcType=INTEGER} and quantity is not null
+  </select>
+
+  <select id="findPoiInfo" resultMap="BaseResultPoiIdMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_PoiId_List" />
+    from xys_wccard_baseinfo_add
+    where card_id = #{id,jdbcType=INTEGER} and location_id_list is not null
+  </select>
+
+  <insert id="addWeChetCouponData" >
+    insert into xys_wccard_baseinfo_add
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="data.type != null" >
+        types,
+      </if>
+      <if test="data.begin_timestamp != null" >
+        begin_timestamp,
+      </if>
+      <if test="data.end_timestamp != null" >
+        end_timestamp,
+      </if>
+      <if test="data.fixed_term != null" >
+        fixed_term,
+      </if>
+      <if test="data.fixed_begin_term != null" >
+        fixed_begin_term,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="data.type != null" >
+        #{data.type,jdbcType=VARCHAR},
+      </if>
+      <if test="data.begin_timestamp != null" >
+        #{data.begin_timestamp,jdbcType=BIGINT},
+      </if>
+      <if test="data.end_timestamp != null" >
+        #{data.end_timestamp,jdbcType=BIGINT},
+      </if>
+      <if test="data.fixed_term != null" >
+        #{data.fixed_term,jdbcType=INTEGER},
+      </if>
+      <if test="data.fixed_begin_term != null" >
+        #{data.fixed_begin_term,jdbcType=INTEGER},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="addWeChetCouponSku" >
+    insert into xys_wccard_baseinfo_add
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sku.quantity != null" >
+        quantity,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sku.quantity != null" >
+        #{sku.quantity,jdbcType=BIGINT},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="addWeChetCouponPoiId" >
+    insert IGNORE into xys_wccard_baseinfo_add
+    (
+    location_id_list , card_id
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item,jdbcType=INTEGER},#{cardId,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+
+  <update id="updateWcCardInfoBaseType" parameterType="com.shouzan.back.entity.card.update.DateInfoUp" >
+    update xys_wccard_baseinfo_add
+    <set >
+      <if test="beanJson.type != null" >
+        types = #{beanJson.type,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.begin_timestamp != null" >
+        begin_timestamp = #{beanJson.begin_timestamp,jdbcType=BIGINT},
+      </if>
+      <if test="beanJson.end_timestamp != null" >
+        end_timestamp = #{beanJson.end_timestamp,jdbcType=BIGINT},
+      </if>
+      <if test="beanJson.fixed_term != null" >
+        fixed_term = #{beanJson.fixed_term,jdbcType=INTEGER},
+      </if>
+      <if test="beanJson.fixed_begin_term != null" >
+        fixed_begin_term = #{beanJson.fixed_begin_term,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id= #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findDataInfoIdByCardId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select
+    id
+    from xys_wccard_baseinfo_add
+    where card_id = #{cardId,jdbcType=INTEGER} and types IS NOT NULL
+  </select>
+
+  <delete id="deleteWcCardPoiIdList" parameterType="java.lang.Integer" >
+    DELETE
+    FROM
+        xys_wccard_baseinfo_add
+    WHERE
+        id IN ( SELECT temp.id FROM ( SELECT id FROM xys_wccard_baseinfo_add WHERE card_id = #{id,jdbcType=INTEGER} AND location_id_list IS NOT NULL ) temp )
+  </delete>
+
+  <select id="findSkuIdByCardId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select
+    id
+    from xys_wccard_baseinfo_add
+    where card_id = #{cardId,jdbcType=INTEGER} and quantity IS NOT NULL
+  </select>
+
+  <update id="updateWcCardInfoBaseSku">
+    update xys_wccard_baseinfo_add
+    <set >
+      <if test="stock.increase_stock_value != null" >
+        quantity = quantity + ${stock.increase_stock_value},
+      </if>
+      <if test="stock.reduce_stock_value != null" >
+        quantity = quantity - ${stock.reduce_stock_value},
+      </if>
+    </set>
+    where id= #{skuId,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteWeChetCouponByCardId" parameterType="java.lang.Integer" >
+    DELETE FROM xys_wccard_baseinfo_add WHERE card_id = #{id}
+  </delete>
+</mapper>

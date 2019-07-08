@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.SellRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.SellRule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sell_period" property="sellPeriod" jdbcType="TINYINT" />
+    <result column="sell_time_start" property="sellTimeStart" jdbcType="TIME" />
+    <result column="sell_time_end" property="sellTimeEnd" jdbcType="TIME" />
+    <result column="sell_number" property="sellNumber" jdbcType="INTEGER" />
+    <result column="rule_type" property="ruleType" jdbcType="TINYINT" />
+    <result column="sell_goods" property="sellGoods" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sell_period, sell_time_start, sell_time_end, sell_number, rule_type, sell_goods
+  </sql>
+
+  <select id="querySelRuleListByCouId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT * FROM xys_sell_rule
+        WHERE sell_goods = #{id}
+        ORDER BY sell_time_start , sell_Period
+  </select>
+
+  <insert id="addSellRule" parameterType="com.shouzan.back.entity.SellRule" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into xys_sell_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sellPeriod != null" >
+        sell_period,
+      </if>
+      <if test="sellTimeStart != null" >
+        sell_time_start,
+      </if>
+      <if test="sellTimeEnd != null" >
+        sell_time_end,
+      </if>
+      <if test="sellNumber != null" >
+        sell_number,
+      </if>
+      <if test="ruleType != null" >
+        rule_type,
+      </if>
+      <if test="sellGoods != null" >
+        sell_goods,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sellPeriod != null" >
+        #{sellPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="sellTimeStart != null" >
+        #{sellTimeStart,jdbcType=TIME},
+      </if>
+      <if test="sellTimeEnd != null" >
+        #{sellTimeEnd,jdbcType=TIME},
+      </if>
+      <if test="sellNumber != null" >
+        #{sellNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ruleType != null" >
+        #{ruleType,jdbcType=TINYINT},
+      </if>
+      <if test="sellGoods != null" >
+        #{sellGoods,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSellRule" parameterType="com.shouzan.back.entity.SellRule" >
+    update xys_sell_rule
+    <set >
+      <if test="sellPeriod != null" >
+        sell_period = #{sellPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="sellTimeStart != null" >
+        sell_time_start = #{sellTimeStart,jdbcType=TIME},
+      </if>
+      <if test="sellTimeEnd != null" >
+        sell_time_end = #{sellTimeEnd,jdbcType=TIME},
+      </if>
+      <if test="sellNumber != null" >
+        sell_number = #{sellNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ruleType != null" >
+        rule_type = #{ruleType,jdbcType=TINYINT},
+      </if>
+      <if test="sellGoods != null" >
+        sell_goods = #{sellGoods,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteSellRule">
+      DELETE FROM xys_sell_rule
+      WHERE id IN ( SELECT grep.id FROM
+      ( SELECT id AS id
+      FROM xys_sell_rule  WHERE sell_goods = #{cid} and id NOT IN (${sid}) ) AS grep )
+  </delete>
+
+</mapper>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.wechat.CardMapper" >
+
+  <resultMap id="BaseResultCardMap" type="com.shouzan.back.entity.card.Card" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="card_type" property="card_type" jdbcType="VARCHAR" />
+    <result column="card_score" property="card_score" jdbcType="INTEGER" />
+    <result column="card_price" property="card_price" jdbcType="DECIMAL" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="wc_chat_card_id" property="card_id" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_Card_List" >
+    id, card_type ,card_score ,card_price ,creator_id ,create_time, last_edit_id , last_edit_time ,wc_chat_card_id
+  </sql>
+
+  <resultMap id="BaseResultGeneralMap" type="com.shouzan.back.entity.card.GeneralCoupon" >
+    <result column="default_detail" property="default_detail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_General_List" >
+    default_detail
+  </sql>
+
+  <resultMap id="BaseResultCouponMap" type="com.shouzan.back.entity.card.CardCoupon" >
+    <result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+    <result column="coupon_shot_name" property="couponShotName" jdbcType="VARCHAR" />
+    <result column="coupon_valid_time_start" property="couponValidTimeStart" jdbcType="TIMESTAMP" />
+    <result column="coupon_valid_time_end" property="couponValidTimeEnd" jdbcType="TIMESTAMP" />
+    <result column="mer_id" property="merId" jdbcType="INTEGER" />
+    <result column="bank_id" property="bankId" jdbcType="INTEGER" />
+    <result column="describes" property="describes" jdbcType="VARCHAR" />
+    <result column="matter" property="matter" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+    <result column="coupon_stock_id" property="couponStockId" jdbcType="VARCHAR" />
+    <result column="coupon_image" property="couponImage" jdbcType="VARCHAR" />
+    <result column="coupon_stocks" property="couponStocks" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_Coupon_List" >
+    coupon_name, coupon_shot_name, coupon_valid_time_start, coupon_valid_time_end,
+    mer_id, bank_id, describes, matter, price, discount_price, coupon_stock_id, coupon_image,
+    coupon_stocks
+  </sql>
+
+  <resultMap id="BaseResultPageMap" type="com.shouzan.back.entity.card.page.CardPage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="card_type" property="card_type" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="mutual_state" property="mutual_state" jdbcType="TINYINT" />
+    <result column="quantity" property="quantity" jdbcType="BIGINT" />
+    <result column="wc_chat_card_id" property="card_id" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="findCardInfo" resultMap="BaseResultCardMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_Card_List" />
+    from xys_wccard_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findGeneralInfo" resultMap="BaseResultGeneralMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_General_List" />
+    from xys_wccard_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="addWeChetCouponInfo" parameterType="com.shouzan.back.entity.card.Card" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+    insert into xys_wccard_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="card_type != null" >
+        card_type,
+      </if>
+      <if test="card_score != null" >
+        card_score,
+      </if>
+      <if test="card_price != null" >
+        card_price,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="general_coupon.default_detail != null" >
+        default_detail,
+      </if>
+      <if test="card_id != null" >
+        wc_chat_card_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="card_type != null" >
+        #{card_type,jdbcType=VARCHAR},
+      </if>
+      <if test="card_score != null" >
+        #{card_score,jdbcType=INTEGER},
+      </if>
+      <if test="card_price != null" >
+        #{card_price,jdbcType=DECIMAL},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="general_coupon.default_detail != null" >
+        #{general_coupon.default_detail,jdbcType=VARCHAR},
+      </if>
+      <if test="card_id != null" >
+        #{card_id,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateWcCardInfoCard">
+    update xys_wccard_card
+    <set >
+      <if test=" userId != null" >
+        last_edit_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test=" card.card_score != null" >
+        card_score = #{card.card_score,jdbcType=INTEGER},
+      </if>
+      <if test=" card.card_price != null" >
+        card_price = #{card.card_price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{cardId,jdbcType=INTEGER}
+  </update>
+
+  <select id="findIdByCardId" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select
+    id
+    from xys_wccard_card
+    where wc_chat_card_id = #{cardId,jdbcType=INTEGER}
+  </select>
+
+  <update id="addOrUpdateMerCouponInfo">
+    update xys_wccard_card
+    <set >
+      <if test="coupon.couponName != null" >
+        coupon_name = #{coupon.couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon.couponShotName != null" >
+        coupon_shot_name = #{coupon.couponShotName,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon.couponValidTimeStart != null" >
+        coupon_valid_time_start = #{coupon.couponValidTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coupon.couponValidTimeEnd != null" >
+        coupon_valid_time_end = #{coupon.couponValidTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coupon.merId != null" >
+        mer_id = #{coupon.merId,jdbcType=INTEGER},
+      </if>
+      <if test="coupon.bankId != null" >
+        bank_id = #{coupon.bankId,jdbcType=INTEGER},
+      </if>
+      <if test="coupon.describes != null" >
+        describes = #{coupon.describes,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon.matter != null" >
+        matter = #{coupon.matter,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon.price != null" >
+        price = #{coupon.price,jdbcType=DECIMAL},
+      </if>
+      <if test="coupon.discountPrice != null" >
+        discount_price = #{coupon.discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="coupon.couponStockId != null" >
+        coupon_stock_id = #{coupon.couponStockId,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon.couponImage != null" >
+        coupon_image = #{coupon.couponImage,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon.couponStocks != null" >
+        coupon_stocks = #{coupon.couponStocks,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findCouponInfo" resultMap="BaseResultCouponMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_Coupon_List" />
+    from xys_wccard_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    COUNT(*)
+    FROM xys_wccard_card WHERE deleted = 0
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultPageMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    card.id ,card.card_type ,base.title ,card.mutual_state ,aque.quantity ,card.wc_chat_card_id
+    FROM xys_wccard_card card
+    LEFT JOIN xys_wccard_baseinfo base ON card.id = base.card_id
+    LEFT JOIN (
+    SELECT
+    quantity, card_id FROM xys_wccard_baseinfo_add  WHERE quantity IS NOT NULL ) aque ON card.id = aque.card_id
+    WHERE card.deleted = 0
+    ORDER BY card.create_time DESC
+  </select>
+
+  <update id="deleteWeChetCoupon" parameterType="java.lang.String">
+    update xys_wccard_card
+    set deleted = 1
+    where wc_chat_card_id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateCouponStock">
+    update xys_wccard_card
+    set coupon_stocks = #{quantity}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="insertWeChatCardId">
+    update xys_wccard_card
+    set wc_chat_card_id = #{cardId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteWeChetCouponById" parameterType="java.lang.Integer" >
+    DELETE FROM xys_wccard_card WHERE id = #{id}
+  </delete>
+
+</mapper>

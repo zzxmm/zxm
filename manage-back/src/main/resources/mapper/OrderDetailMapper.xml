@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.OrderDetail" >
+  <id column="id" property="id" jdbcType="INTEGER" />
+  <result column="order_id" property="orderId" jdbcType="INTEGER" />
+  <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+  <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+  <result column="good_price" property="goodPrice" jdbcType="DECIMAL" />
+  <result column="mer_id" property="merId" jdbcType="INTEGER" />
+  <result column="mer_name" property="merName" jdbcType="VARCHAR" />
+  <result column="bank_id" property="bankId" jdbcType="INTEGER" />
+  <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+</resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, goods_id, goods_name, goods_num, good_price, mer_id, mer_name, bank_id,
+    bank_name
+  </sql>
+
+  <select id="queryOrderDetailById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from xys_order_detail  where order_id = #{id}
+  </select>
+
+</mapper>

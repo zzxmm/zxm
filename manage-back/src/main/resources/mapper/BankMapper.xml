@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.BankMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.Bank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_shot_name" property="bankShotName" jdbcType="VARCHAR" />
+    <result column="creditcard_apply_url" property="creditcardApplyUrl" jdbcType="VARCHAR" />
+    <result column="service_tel_number" property="serviceTelNumber" jdbcType="VARCHAR" />
+    <result column="enable_state" property="enableState" jdbcType="TINYINT" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="bank_linkman_name" property="bankLinkmanName" jdbcType="VARCHAR" />
+    <result column="bank_linkman_tel" property="bankLinkmanTel" jdbcType="VARCHAR" />
+    <result column="bank_linkman_wechat" property="bankLinkmanWechat" jdbcType="VARCHAR" />
+    <result column="bank_linkman_position" property="bankLinkmanPosition" jdbcType="VARCHAR" />
+    <result column="is_select" property="isSelect" jdbcType="TINYINT" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="floor_logo" property="floorLogo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bank_name, bank_shot_name, creditcard_apply_url, service_tel_number, enable_state, 
+    logo_url, level, bank_linkman_name, bank_linkman_tel, bank_linkman_wechat, bank_linkman_position, 
+    is_select, priority, create_time, creator_id, last_edit_time, last_edit_id, floor_logo
+  </sql>
+
+  <select id="queryBankListCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select 
+    count(id)
+    from xys_bank
+    <where>
+    <if test="keywords != null  and keywords != '' " >
+      and (bank_name LIKE #{keywords} or bank_shot_name LIKE #{keywords} or service_tel_number LIKE #{keywords} or bank_linkman_name LIKE #{keywords})
+    </if>
+    <if test="id != null " >
+      and id = #{id}
+    </if>
+    <if test="status != null " >
+      and enable_state = #{status}
+    </if>
+    <if test="createTimeStart != null" >
+      and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    </where>
+  </select>
+
+  <select id="queryBankList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_bank
+    <where>
+    <if test="keywords != null  and keywords != '' " >
+      and (bank_name LIKE #{keywords} or bank_shot_name LIKE #{keywords} or service_tel_number LIKE #{keywords} or bank_linkman_name LIKE #{keywords})
+    </if>
+    <if test="id != null " >
+      and id = #{id}
+    </if>
+    <if test="status != null " >
+      and enable_state = #{status}
+    </if>
+    <if test="createTimeStart != null" >
+      and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    </where>
+     ORDER BY enable_state DESC , is_select DESC , priority DESC, create_time DESC
+  </select>
+
+  <select id="queryBankInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_bank where id = #{id}
+  </select>
+
+  <update id="updateBank">
+   		UPDATE xys_bank
+   		   SET enable_state = #{status}
+   	 	 WHERE id IN (${id})
+  </update>
+
+  <select id="selectBankList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from xys_bank where  enable_state = 1
+      ORDER BY priority DESC , create_time DESC
+  </select>
+
+  <insert id="addInfo" parameterType="com.shouzan.back.entity.Bank" >
+    insert into xys_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bankShotName != null" >
+        bank_shot_name,
+      </if>
+      <if test="creditcardApplyUrl != null" >
+        creditcard_apply_url,
+      </if>
+      <if test="serviceTelNumber != null" >
+        service_tel_number,
+      </if>
+      <if test="enableState != null" >
+        enable_state,
+      </if>
+      <if test="logoUrl != null and logoUrl!= '' " >
+        logo_url,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="bankLinkmanName != null" >
+        bank_linkman_name,
+      </if>
+      <if test="bankLinkmanTel != null" >
+        bank_linkman_tel,
+      </if>
+      <if test="bankLinkmanWechat != null" >
+        bank_linkman_wechat,
+      </if>
+      <if test="bankLinkmanPosition != null" >
+        bank_linkman_position,
+      </if>
+      <if test="isSelect != null" >
+        is_select,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="floorLogo != null" >
+        floor_logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null and bankName!= '' " >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankShotName != null and bankShotName!= '' " >
+        #{bankShotName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditcardApplyUrl != null" >
+        #{creditcardApplyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTelNumber != null" >
+        #{serviceTelNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="enableState != null" >
+        #{enableState,jdbcType=TINYINT},
+      </if>
+      <if test="logoUrl != null and logoUrl!= '' " >
+        #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="bankLinkmanName != null" >
+        #{bankLinkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLinkmanTel != null" >
+        #{bankLinkmanTel,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLinkmanWechat != null" >
+        #{bankLinkmanWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLinkmanPosition != null" >
+        #{bankLinkmanPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="isSelect != null" >
+        #{isSelect,jdbcType=TINYINT},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="floorLogo != null" >
+        #{floorLogo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateBankInfo" parameterType="com.shouzan.back.entity.Bank" >
+    update xys_bank
+    <set >
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankShotName != null" >
+        bank_shot_name = #{bankShotName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditcardApplyUrl != null" >
+        creditcard_apply_url = #{creditcardApplyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTelNumber != null" >
+        service_tel_number = #{serviceTelNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="enableState != null" >
+        enable_state = #{enableState,jdbcType=TINYINT},
+      </if>
+      <if test="logoUrl != null" >
+        logo_url = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="bankLinkmanName != null" >
+        bank_linkman_name = #{bankLinkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLinkmanTel != null" >
+        bank_linkman_tel = #{bankLinkmanTel,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLinkmanWechat != null" >
+        bank_linkman_wechat = #{bankLinkmanWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLinkmanPosition != null" >
+        bank_linkman_position = #{bankLinkmanPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="isSelect != null" >
+        is_select = #{isSelect,jdbcType=TINYINT},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="floorLogo != null" >
+        floor_logo = #{floorLogo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findIdStringAll" resultType="java.lang.String" >
+    SELECT GROUP_CONCAT(id) FROM xys_bank WHERE enable_state = 1
+  </select>
+
+</mapper>

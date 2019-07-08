@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.website.WebsiteTextMapper" >
+
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.website.WebsiteText" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="case_name" property="caseName" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="coverUrl" property="coverUrl" jdbcType="VARCHAR" />
+    <collection property="imgs" ofType="com.shouzan.back.entity.website.WebsiteImg">
+      <result column="text_id" property="textId" jdbcType="INTEGER"/>
+      <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+      <result column="is_cover" property="isCover" jdbcType="TINYINT"/>
+      <result column="response" property="response" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    tex.id, tex.case_name, tex.introduction, tex.creator_id, tex.create_time, tex.last_edit_id,
+     tex.last_edit_time,tex.coverUrl,
+    img.text_id, img.img_url , img.is_cover
+  </sql>
+
+  <select id="selectWebsiteById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM (
+      SELECT
+      texn.id,
+      texn.case_name,
+      texn.introduction,
+      texn.creator_id,
+      texn.create_time,
+      texn.last_edit_id,
+      texn.last_edit_time,
+      imgn.img_url AS coverUrl
+      FROM
+      xys_website_text texn
+      LEFT JOIN xys_website_img imgn ON imgn.text_id = texn.id
+      WHERE
+      imgn.is_cover = 0   ) tex
+    LEFT JOIN xys_website_img img ON img.text_id = tex.id
+    where tex.id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryWebsiteTextListCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    count(DISTINCT tex.id)
+    FROM (
+    SELECT
+    texn.id,
+    texn.case_name,
+    texn.introduction,
+    texn.creator_id,
+    texn.create_time,
+    texn.last_edit_id,
+    texn.last_edit_time,
+    imgn.img_url AS coverUrl
+    FROM
+    xys_website_text texn
+    LEFT JOIN xys_website_img imgn ON imgn.text_id = texn.id
+    WHERE
+    imgn.is_cover = 0   ) tex
+    LEFT JOIN  xys_website_img img ON tex.id = img.text_id
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (tex.case_name LIKE #{keywords} or tex.creator_id LIKE #{keywords} )
+      </if>
+      <if test="id != null " >
+        and tex.id = #{id}
+      </if>
+      <if test="createTimeStart != null" >
+        and tex.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and tex.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+
+  <select id="queryWebsiteTextList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    <include refid="Base_Column_List" />
+    FROM (
+    SELECT
+    texn.id,
+    texn.case_name,
+    texn.introduction,
+    texn.creator_id,
+    texn.create_time,
+    texn.last_edit_id,
+    texn.last_edit_time,
+    imgn.img_url AS coverUrl
+    FROM
+    xys_website_text texn
+    LEFT JOIN xys_website_img imgn ON imgn.text_id = texn.id
+    WHERE
+    imgn.is_cover = 0  LIMIT #{current},#{pageSize} ) tex
+    LEFT JOIN  xys_website_img img ON tex.id = img.text_id
+    <where>
+      <if test="search.keywords != null  and search.keywords != '' " >
+        and (tex.case_name LIKE #{search.keywords} or tex.creator_id LIKE #{search.keywords} )
+      </if>
+      <if test="search.id != null " >
+        and tex.id = #{search.id}
+      </if>
+      <if test="search.createTimeStart != null" >
+        and tex.create_time <![CDATA[ >= ]]> '${search.createTimeStart}'
+      </if>
+      <if test="search.createTimeEnd != null" >
+        and tex.create_time <![CDATA[ <= ]]> '${search.createTimeEnd}'
+      </if>
+    </where>
+    order by tex.create_time desc
+  </select>
+
+  <delete id="deleteWebsiteById" parameterType="java.lang.Integer" >
+    delete from xys_website_text
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertWebsiteText" useGeneratedKeys="true" keyProperty="id" keyColumn="id"  >
+    insert into xys_website_text
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="caseName != null" >
+        case_name,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="caseName != null" >
+        #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateWebsiteById" >
+    update xys_website_text
+    <set >
+      <if test="caseName != null" >
+        case_name = #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

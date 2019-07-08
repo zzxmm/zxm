@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.AdvertMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.Advert" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="advert_name" property="advertName" jdbcType="VARCHAR" />
+    <result column="cover_pic" property="coverPic" jdbcType="VARCHAR" />
+    <result column="advert_details" property="advertDetails" jdbcType="VARCHAR" />
+    <result column="advert_url" property="advertUrl" jdbcType="VARCHAR" />
+    <result column="upshelf_time" property="upshelfTime" jdbcType="TIMESTAMP" />
+    <result column="downshelf_time" property="downshelfTime" jdbcType="TIMESTAMP" />
+    <result column="advert_state" property="advertState" jdbcType="TINYINT" />
+    <result column="advert_position" property="advertPosition" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="is_select" property="isSelect" jdbcType="TINYINT" />
+    <result column="is_preferen" property="isPreferen" jdbcType="TINYINT" />
+    <result column="bank_id" property="bankId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, advert_name, cover_pic, advert_details, advert_url, upshelf_time, downshelf_time, 
+    advert_state, advert_position, create_time, creator_id, last_edit_time, last_edit_id ,
+    priority , is_select , is_preferen , bank_id
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    count(id)
+    from xys_advert
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (advert_name LIKE #{keywords} or advert_details LIKE #{keywords} )
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+      <if test="name != null" >
+        and advert_name = #{name}
+      </if>
+      <if test="status != null " >
+        and advert_state = #{status}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    ali.id, ali.advert_name, ali.cover_pic, ali.advert_details, ali.advert_url, ali.upshelf_time, ali.downshelf_time,
+    ali.advert_state, ali.advert_position, ali.create_time, ali.creator_id, ali.last_edit_time, ali.last_edit_id
+    FROM(
+    SELECT * FROM(
+    select * from xys_advert where advert_state = 0  order by create_time desc) up
+    UNION
+    SELECT * FROM(
+    select * from xys_advert where advert_state = 2  order by create_time desc) wi
+    UNION
+    SELECT * FROM(
+    select * from xys_advert where advert_state = 1  order by create_time desc) dow
+    ) ali
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (ali.advert_name LIKE #{keywords} or ali.advert_details LIKE #{keywords} )
+      </if>
+      <if test="createTimeStart != null" >
+        and ali.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and ali.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+      <if test="name != null" >
+        and ali.advert_name = #{name}
+      </if>
+      <if test="status != null " >
+        and ali.advert_state = #{status}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryAdvertById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from xys_advert where id = #{id}
+  </select>
+
+  <update id="updateAdvertStatus">
+   		UPDATE xys_advert
+   		   SET advert_state = #{status}
+   	 	 WHERE id IN (${id})
+  </update>
+
+  <update id="updateAdvertInfoById" parameterType="com.shouzan.back.entity.Advert" >
+    update xys_advert
+    <set >
+      <if test="advertName != null" >
+        advert_name = #{advertName,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPic != null" >
+        cover_pic = #{coverPic,jdbcType=VARCHAR},
+      </if>
+      <if test="advertDetails != null" >
+        advert_details = #{advertDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="advertUrl != null" >
+        advert_url = #{advertUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="upshelfTime != null" >
+        upshelf_time = #{upshelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downshelfTime != null" >
+        downshelf_time = #{downshelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertState != null" >
+        advert_state = #{advertState,jdbcType=TINYINT},
+      </if>
+      <if test="advertPosition != null" >
+        advert_position = #{advertPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="isSelect != null" >
+        is_select = #{isSelect,jdbcType=TINYINT},
+      </if>
+      <if test="isPreferen != null" >
+        is_preferen = #{isPreferen,jdbcType=TINYINT},
+      </if>
+      <if test="bankId != null" >
+        bank_id = #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankId == 0" >
+        bank_id = null,
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertAdvertInfo" parameterType="com.shouzan.back.entity.Advert" >
+    insert into xys_advert
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="advertName != null" >
+        advert_name,
+      </if>
+      <if test="coverPic != null" >
+        cover_pic,
+      </if>
+      <if test="advertDetails != null" >
+        advert_details,
+      </if>
+      <if test="advertUrl != null" >
+        advert_url,
+      </if>
+      <if test="upshelfTime != null" >
+        upshelf_time,
+      </if>
+      <if test="downshelfTime != null" >
+        downshelf_time,
+      </if>
+      <if test="advertState != null" >
+        advert_state,
+      </if>
+      <if test="advertPosition != null" >
+        advert_position,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="isSelect != null" >
+        is_select,
+      </if>
+      <if test="isPreferen != null" >
+        is_preferen,
+      </if>
+      <if test="bankId != null" >
+        bank_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="advertName != null" >
+        #{advertName,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPic != null" >
+        #{coverPic,jdbcType=VARCHAR},
+      </if>
+      <if test="advertDetails != null" >
+        #{advertDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="advertUrl != null" >
+        #{advertUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="upshelfTime != null" >
+        #{upshelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downshelfTime != null" >
+        #{downshelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertState != null" >
+        #{advertState,jdbcType=TINYINT},
+      </if>
+      <if test="advertPosition != null" >
+        #{advertPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="isSelect != null" >
+        #{isSelect,jdbcType=TINYINT},
+      </if>
+      <if test="isPreferen != null" >
+        #{isPreferen,jdbcType=TINYINT},
+      </if>
+      <if test="bankId != null" >
+        #{bankId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="batchInsertAdvertInfo" parameterType="com.shouzan.back.entity.Advert" >
+    insert into xys_advert
+      (
+      advert_name,
+      advert_url,
+      upshelf_time,
+      downshelf_time,
+      bank_id,
+      creator_id
+      )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item.advertName,jdbcType=VARCHAR},
+      <if test="item.advertUrl != '' " >
+        #{item.advertUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="item.advertUrl == '' " >
+        null,
+      </if>
+      #{item.upshelfTime,jdbcType=TIMESTAMP},
+      #{item.downshelfTime,jdbcType=TIMESTAMP},
+      #{item.bankId,jdbcType=INTEGER},
+      #{userId,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+
+  <update id="updateAdvertStatusByBank" >
+   		UPDATE xys_advert
+   		   SET advert_state = 1
+   	 	 WHERE bank_id IN (${id})
+  </update>
+
+</mapper>

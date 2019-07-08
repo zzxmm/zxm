@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- 开启后可以通过jmx动态控制日志级别(springboot Admin的功能) -->
+    <jmxConfigurator/>
+
+
+ <appender name="ROLLING2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+     <!--  <file>E:\360\mylog.txt</file>  -->
+      <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+           <!-- WINDOWS下，会自动在当前项目下创建logs文件夹与log文件 -->
+           <!-- <fileNamePattern>mylogs\mylog-%d{yyyy-MM-dd }.%i.log</fileNamePattern> -->
+            <!-- Linux -->
+            <fileNamePattern>${user.dir}/mylogs/mylog-%d{yyyy-MM-dd }.%i.log</fileNamePattern>
+            <maxFileSize>3MB</maxFileSize>    
+            <maxHistory>1000</maxHistory>
+        <totalSizeCap>20GB</totalSizeCap>
+     </rollingPolicy>
+
+  <encoder>
+     <pattern>[ %-5level] [%date{yyyy-MM-dd HH:mm:ss}] %logger{96} [%line] - %msg%n</pattern>、
+     <charset>UTF-8</charset>
+  </encoder>
+</appender>
+
+     <!-- 如果不用root 就只有分开包的  用了root就也有 总体的 然后 再分包  就是两个策略的日志里 总体的都有 然后 哪个又日志产生了 再放到不同目录-->
+     <root level="INFO">
+          <appender-ref ref="ROLLING2" />
+     </root>
+
+</configuration>

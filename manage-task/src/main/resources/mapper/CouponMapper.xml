@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.task.mapper.CouponMapper" >
+
+    <update id="couponTimingUpper" >
+        UPDATE xys_coupon set coupon_state = 0 , is_display = 0
+           WHERE coupon_state = 1 and upshelf_time <![CDATA[ < ]]> '${localeDate}'
+    </update>
+
+    <update id="couponTimingLower" >
+        UPDATE xys_coupon set coupon_state = 3 , is_display = 1 , is_sell = 1
+	       WHERE coupon_state in (0,2) and downshelf_time <![CDATA[ < ]]> '${localeDate}'
+    </update>
+
+    <update id="couponIsSellUpdate" >
+        UPDATE xys_coupon SET is_sell = 0  WHERE id IN (
+        SELECT id FROM (
+        SELECT cou.id FROM xys_coupon cou
+        LEFT JOIN xys_sell_rule seru ON cou.id = seru.sell_goods
+        WHERE cou.coupon_state = 0  AND cou.is_sell = 1
+        AND seru.sell_period = #{week}
+        AND seru.sell_time_start <![CDATA[ <= ]]> #{time}  AND #{time} <![CDATA[ < ]]> seru.sell_time_end ) tal
+        UNION
+		SELECT id FROM(SELECT cou.id
+		FROM xys_coupon cou
+		LEFT JOIN xys_sell_rule seru ON cou.id = seru.sell_goods
+		WHERE cou.coupon_state = 0 AND cou.is_sell = 1 AND seru.id IS NULL ) tal )
+    </update>
+
+    <update id="couponNoSellUpdate" >
+        UPDATE xys_coupon SET is_sell = 1  WHERE id IN (
+        SELECT id FROM (
+        SELECT cou.id FROM xys_coupon cou
+        LEFT JOIN xys_sell_rule seru ON cou.id = seru.sell_goods
+        WHERE cou.coupon_state = 0  AND cou.is_sell = 0
+        AND seru.sell_period = #{week}
+        AND seru.sell_time_end <![CDATA[ <= ]]>  #{time} ) tal
+        UNION
+		SELECT id FROM(
+		SELECT cou.id FROM xys_coupon cou
+		LEFT JOIN xys_sell_rule seru ON cou.id = seru.sell_goods
+		WHERE cou.coupon_state = 3	AND cou.is_sell = 0 ) tal )
+    </update>
+
+</mapper>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.SystemUserMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.SystemUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="e_mail" property="email" jdbcType="VARCHAR" />
+    <result column="user_state" property="userState" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="delted" property="delted" jdbcType="TINYINT" />
+    <result column="user_headimg" property="userHeadimg" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="user_center_id" property="userCenterId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_account, user_password, user_name, phone, sex, e_mail, user_state, create_time, 
+    creator_id, last_edit_time, last_edit_id, delted, user_headimg, openid, address ,user_center_id
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    count(id)
+    from xys_system_user where delted = 0
+      <if test="keywords != null  and keywords != '' " >
+        and (user_name LIKE #{keywords} or phone LIKE #{keywords} or e_mail LIKE #{keywords} or address LIKE #{keywords})
+      </if>
+      <if test="status != null " >
+        and user_state = #{status}
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    <include refid="Base_Column_List" />
+    from xys_system_user where delted = 0
+      <if test="keywords != null  and keywords != '' " >
+        and (user_name LIKE #{keywords} or phone LIKE #{keywords} or e_mail LIKE #{keywords} or address LIKE #{keywords})
+      </if>
+      <if test="status != null " >
+        and user_state = #{status}
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+  </select>
+
+  <insert id="addSystemUserInfo" parameterType="com.shouzan.back.entity.SystemUser" >
+    insert into xys_system_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="email != null" >
+        e_mail,
+      </if>
+      <if test="userState != null" >
+        user_state,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="delted != null" >
+        delted,
+      </if>
+      <if test="userHeadimg != null" >
+        user_headimg,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="userCenterId != null" >
+        user_center_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null" >
+        #{userState,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="delted != null" >
+        #{delted,jdbcType=TINYINT},
+      </if>
+      <if test="userHeadimg != null" >
+        #{userHeadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userCenterId != null" >
+        #{userCenterId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSystemUserInfo" parameterType="com.shouzan.back.entity.SystemUser" >
+    update xys_system_user
+    <set >
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="email != null" >
+        e_mail = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null" >
+        user_state = #{userState,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="delted != null" >
+        delted = #{delted,jdbcType=TINYINT},
+      </if>
+      <if test="userHeadimg != null" >
+        user_headimg = #{userHeadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_center_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="deleteSystemUserInfo">
+    update xys_system_user
+    set delted = 1
+    where user_center_id in (${id})
+  </update>
+
+  <select id="selectSystemUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from xys_system_user where id = #{id}
+  </select>
+
+  <select id="selectUserInfoByCenterId" resultType="java.lang.Integer" >
+    select
+    count(id)
+    from xys_system_user
+    where user_center_id = #{id}
+  </select>
+
+  <select id="findUserByCenterId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from xys_system_user where user_center_id = #{id}
+  </select>
+
+  <select id="findIdByAccount" resultType="java.lang.Integer" >
+    select
+    id
+    from xys_system_user where user_account = #{accId}
+  </select>
+
+</mapper>

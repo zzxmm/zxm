@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.ActivityMapper" >
+    <resultMap id="BaseResultMap" type="com.shouzan.back.entity.Activity" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+        <result column="activity_type" property="activityType" jdbcType="TINYINT" />
+        <result column="activity_start_time" property="activityStartTime" jdbcType="TIMESTAMP" />
+        <result column="activity_end_time" property="activityEndTime" jdbcType="TIMESTAMP" />
+        <result column="cover_pic" property="coverPic" jdbcType="VARCHAR" />
+        <result column="activity_details" property="activityDetails" jdbcType="VARCHAR" />
+        <result column="matter" property="matter" jdbcType="VARCHAR" />
+        <result column="activity_state" property="activityState" jdbcType="TINYINT" />
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+        <result column="activity_param_id" property="activityParamId" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+        <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+        <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+        <result column="goods_tag" property="goodsTag" jdbcType="VARCHAR" />
+        <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, activity_name, activity_type, activity_start_time, activity_end_time, cover_pic, 
+    activity_details, matter, activity_state, goods_id, activity_param_id, create_time, 
+    creator_id, last_edit_time, last_edit_id, goods_tag, discount_price
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    count(id)
+    from xys_activity
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (activity_name LIKE #{keywords} or activity_details LIKE #{keywords})
+      </if>
+      <if test="status != null " >
+        and activity_state = #{status}
+      </if>
+      <if test="startTimeStart != null" >
+        and activity_start_time <![CDATA[ >= ]]> '${startTimeStart}'
+      </if>
+      <if test="startTimeEnd != null" >
+        and activity_end_time <![CDATA[ <= ]]> '${startTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+      SELECT
+      ali.id, ali.activity_name, ali.activity_type, ali.activity_start_time, ali.activity_end_time, ali.cover_pic,
+      ali.activity_details, ali.matter, ali.activity_state, ali.goods_id, ali.activity_param_id, ali.create_time,
+      ali.creator_id, ali.last_edit_time, ali.last_edit_id, ali.goods_tag, ali.discount_price
+      FROM(
+      SELECT * FROM(
+      select * from xys_activity where activity_state = 0  order by create_time desc) up
+      UNION
+      SELECT * FROM(
+      select * from xys_activity where activity_state = 2  order by create_time desc) wi
+      UNION
+      SELECT * FROM (
+      select * from xys_activity where activity_state = 3  order by create_time desc) nu
+      UNION
+      SELECT * FROM(
+      select * from xys_activity where activity_state = 1  order by create_time desc) dow
+      ) ali
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (ali.activity_name LIKE #{keywords} or ali.activity_details LIKE #{keywords})
+      </if>
+      <if test="status != null " >
+            and ali.activity_state = #{status}
+      </if>
+      <if test="startTimeStart != null" >
+        and ali.activity_start_time <![CDATA[ >= ]]> '${startTimeStart}'
+      </if>
+      <if test="startTimeEnd != null" >
+        and ali.activity_end_time <![CDATA[ <= ]]> '${startTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+  <select id="activityInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from xys_activity where id = #{id}
+  </select>
+
+  <update id="updateStatusUp">
+   		UPDATE xys_activity
+   		   SET activity_state = 0
+   	 	 WHERE id = #{id} and activity_state = 1 and activity_start_time <![CDATA[ <= ]]> #{date} and activity_end_time <![CDATA[ >= ]]> #{date}
+  </update>
+
+  <update id="updateStatusDown">
+   		UPDATE xys_activity
+   		   SET activity_state = 1
+   	 	 WHERE id = #{id} and activity_state in (0,2) and activity_start_time <![CDATA[ <= ]]> #{date} and activity_end_time <![CDATA[ >= ]]> #{date}
+  </update>
+
+  <update id="updateStatusByCouUp">
+   		UPDATE xys_activity
+   		   SET activity_state = #{status}
+   	 	 WHERE goods_id = #{id} and activity_state = 1 and activity_start_time <![CDATA[ <= ]]> #{date} and activity_end_time <![CDATA[ >= ]]> #{date}
+  </update>
+
+  <update id="updateStatusByCouDown">
+   		UPDATE xys_activity
+   		   SET activity_state = #{status}
+   	 	 WHERE goods_id = #{id} and activity_end_time <![CDATA[ >= ]]> #{date}
+  </update>
+
+  <insert id="addInfo" parameterType="com.shouzan.back.entity.Activity" >
+    insert into xys_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activityName != null and activityName != '' " >
+        activity_name,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="activityStartTime != null" >
+        activity_start_time,
+      </if>
+      <if test="activityEndTime != null" >
+        activity_end_time,
+      </if>
+      <if test="coverPic != null and coverPic != '' " >
+        cover_pic,
+      </if>
+      <if test="activityDetails != null and activityDetails != '' " >
+        activity_details,
+      </if>
+      <if test="matter != null and matter != '' " >
+        matter,
+      </if>
+      <if test="activityState != null" >
+        activity_state,
+      </if>
+      <if test="goodsId != null  and goodsId != '' " >
+        goods_id,
+      </if>
+      <if test="activityParamId != null" >
+        activity_param_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="goodsTag != null and goodsTag != '' " >
+        goods_tag,
+      </if>
+      <if test="discountPrice != null" >
+        discount_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="activityName != null  and activityName != '' " >
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=TINYINT},
+      </if>
+      <if test="activityStartTime != null" >
+        #{activityStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityEndTime != null" >
+        #{activityEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coverPic != null and coverPic != '' " >
+        #{coverPic,jdbcType=VARCHAR},
+      </if>
+      <if test="activityDetails != null and activityDetails != '' " >
+        #{activityDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="matter != null and matter != '' " >
+        #{matter,jdbcType=VARCHAR},
+      </if>
+      <if test="activityState != null" >
+        #{activityState,jdbcType=TINYINT},
+      </if>
+      <if test="goodsId != null and goodsId != '' " >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityParamId != null" >
+        #{activityParamId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTag != null and goodsTag != '' " >
+        #{goodsTag,jdbcType=VARCHAR},
+      </if>
+      <if test="discountPrice != null" >
+        #{discountPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="addParamInfo" parameterType="com.shouzan.back.entity.ActivityParam" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+      insert into xys_activity_param
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+          <if test="id != null" >
+              id,
+          </if>
+          <if test="upLimitPeople != null" >
+              up_limit_people,
+          </if>
+          <if test="subtractPrice != null" >
+              subtract_price,
+          </if>
+          <if test="subtractLimitPrice != null" >
+              subtract_limit_price,
+          </if>
+          <if test="groupSubtractPrice != null" >
+              group_subtract_price,
+          </if>
+          <if test="preferenAmount != null" >
+              preferen_amount,
+          </if>
+          <if test="quickBuyPrice != null" >
+              quick_buy_price,
+          </if>
+          <if test="dayLimit != null" >
+              day_limit,
+          </if>
+          <if test="activityLimit != null" >
+              activity_limit,
+          </if>
+          <if test="accountLimit != null" >
+              account_limit,
+          </if>
+          <if test="partActivityNum != null" >
+              part_activity_num,
+          </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+          <if test="id != null" >
+              #{id,jdbcType=INTEGER},
+          </if>
+          <if test="upLimitPeople != null" >
+              #{upLimitPeople,jdbcType=INTEGER},
+          </if>
+          <if test="subtractPrice != null" >
+              #{subtractPrice,jdbcType=DECIMAL},
+          </if>
+          <if test="subtractLimitPrice != null" >
+              #{subtractLimitPrice,jdbcType=DECIMAL},
+          </if>
+          <if test="groupSubtractPrice != null" >
+              #{groupSubtractPrice,jdbcType=DECIMAL},
+          </if>
+          <if test="preferenAmount != null" >
+              #{preferenAmount,jdbcType=DECIMAL},
+          </if>
+          <if test="quickBuyPrice != null" >
+              #{quickBuyPrice,jdbcType=DECIMAL},
+          </if>
+          <if test="dayLimit != null" >
+              #{dayLimit,jdbcType=INTEGER},
+          </if>
+          <if test="activityLimit != null" >
+              #{activityLimit,jdbcType=VARCHAR},
+          </if>
+          <if test="accountLimit != null" >
+              #{accountLimit,jdbcType=VARCHAR},
+          </if>
+          <if test="partActivityNum != null" >
+              #{partActivityNum,jdbcType=INTEGER},
+          </if>
+      </trim>
+  </insert>
+
+
+    <update id="updateActivityInfo" parameterType="com.shouzan.back.entity.Activity" >
+        update xys_activity
+        <set >
+            <if test="activityName != null" >
+                activity_name = #{activityName,jdbcType=VARCHAR},
+            </if>
+            <if test="activityType != null" >
+                activity_type = #{activityType,jdbcType=TINYINT},
+            </if>
+            <if test="activityStartTime != null" >
+                activity_start_time = #{activityStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activityEndTime != null" >
+                activity_end_time = #{activityEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="coverPic != null" >
+                cover_pic = #{coverPic,jdbcType=VARCHAR},
+            </if>
+            <if test="activityDetails != null" >
+                activity_details = #{activityDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="matter != null" >
+                matter = #{matter,jdbcType=VARCHAR},
+            </if>
+            <if test="activityState != null" >
+                activity_state = #{activityState,jdbcType=TINYINT},
+            </if>
+            <if test="goodsId != null" >
+                goods_id = #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="activityParamId != null" >
+                activity_param_id = #{activityParamId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null" >
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="lastEditTime != null" >
+                last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastEditId != null" >
+                last_edit_id = #{lastEditId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsTag != null" >
+                goods_tag = #{goodsTag,jdbcType=VARCHAR},
+            </if>
+            <if test="discountPrice != null" >
+                discount_price = #{discountPrice,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateActivityStatus">
+   		UPDATE xys_activity
+   		   SET activity_state = #{status}
+   	 	 WHERE id IN (${id})
+  </update>
+
+    <update id="updateStatusByCoupon">
+   		UPDATE xys_activity
+   		   SET activity_state = #{status}
+   	 	 WHERE goods_id = #{couId}
+  </update>
+
+    <update id="updateStatusByGooods">
+   		UPDATE xys_activity
+   		   SET activity_state = #{status}
+   	 	 WHERE goods_id in (${id})
+  </update>
+
+</mapper>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.wechat.AdvancedInfoMapper" >
+
+  <resultMap id="BaseResultUseConditionMap" type="com.shouzan.back.entity.card.UseCondition" >
+    <result column="accept_category" property="accept_category" jdbcType="VARCHAR" />
+    <result column="reject_category" property="reject_category" jdbcType="VARCHAR" />
+    <result column="can_use_with_other_discount" property="can_use_with_other_discount" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_UseCondition_List" >
+    accept_category, reject_category, can_use_with_other_discount
+  </sql>
+
+  <resultMap id="BaseResultAbstractMap" type="com.shouzan.back.entity.card.AbstractTemp" >
+    <result column="abstract" property="abstractTempInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_Abstract_List" >
+   abstract
+  </sql>
+
+  <resultMap id="BaseResultIConUrtMap" type="java.lang.String" >
+    <result column="icon_url_list" property="icon_url_list" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_IConUr_List" >
+    icon_url_list
+  </sql>
+
+  <resultMap id="BaseResultTextImageListMap" type="com.shouzan.back.entity.card.TextImageList" >
+    <result column="image_url" property="image_url" jdbcType="VARCHAR" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_TextImageList_List" >
+   image_url,text
+  </sql>
+
+  <resultMap id="BaseResultTimeLimitMap" type="com.shouzan.back.entity.card.TimeLimit" >
+    <result column="types" property="type" jdbcType="VARCHAR" />
+    <result column="begin_hour" property="begin_hour" jdbcType="INTEGER" />
+    <result column="end_hour" property="end_hour" jdbcType="INTEGER" />
+    <result column="begin_minute" property="begin_minute" jdbcType="INTEGER" />
+    <result column="end_minute" property="end_minute" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_TimeLimit_List" >
+   types, begin_hour, end_hour, begin_minute, end_minute
+  </sql>
+
+  <resultMap id="BaseResultAdvancedInfoMap" type="java.lang.String" >
+    <result column="business_service" property="business_service" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_AdvancedInfo_List" >
+     business_service
+  </sql>
+
+  <select id="findUseInfo" resultMap="BaseResultUseConditionMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_UseCondition_List" />
+    from xys_wccard_advancedinfo
+    where card_id = #{id,jdbcType=INTEGER} and accept_category is not null
+  </select>
+
+  <select id="findAbsInfo" resultMap="BaseResultAbstractMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_Abstract_List" />
+    from xys_wccard_advancedinfo
+    where card_id = #{id,jdbcType=INTEGER} and abstract is not null
+  </select>
+
+  <select id="findTextImgInfo" resultMap="BaseResultTextImageListMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_TextImageList_List" />
+    from xys_wccard_advancedinfo
+    where card_id = #{id,jdbcType=INTEGER} and image_url is not null
+  </select>
+
+  <select id="findTimeInfo" resultMap="BaseResultTimeLimitMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_TimeLimit_List" />
+    from xys_wccard_advancedinfo
+    where card_id = #{id,jdbcType=INTEGER} and types is not null
+  </select>
+
+  <select id="findBusInfo" resultMap="BaseResultAdvancedInfoMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_AdvancedInfo_List" />
+    from xys_wccard_advancedinfo
+    where card_id = #{id,jdbcType=INTEGER} and business_service is not null
+  </select>
+
+  <select id="findIconInfo" resultMap="BaseResultIConUrtMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_IConUr_List" />
+    from xys_wccard_advancedinfo
+    where card_id = #{id,jdbcType=INTEGER} and icon_url_list is not null
+  </select>
+
+  <insert id="addWeChetCouponUse" >
+    insert into xys_wccard_advancedinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="use.accept_category != null" >
+        accept_category,
+      </if>
+      <if test="use.reject_category != null" >
+        reject_category,
+      </if>
+      <if test="use.can_use_with_other_discount != null" >
+        can_use_with_other_discount,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="use.accept_category != null" >
+        #{use.accept_category,jdbcType=VARCHAR},
+      </if>
+      <if test="use.reject_category != null" >
+        #{use.reject_category,jdbcType=VARCHAR},
+      </if>
+      <if test="use.can_use_with_other_discount != null" >
+        #{use.can_use_with_other_discount,jdbcType=BIT},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="addWeChetCouponAbs" >
+    insert into xys_wccard_advancedinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="abs.abstractTempInfo != null" >
+        abstract,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="abs.abstractTempInfo != null" >
+        #{abs.abstractTempInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="addWeChetCouponAbsIcon" >
+    insert IGNORE into xys_wccard_advancedinfo
+      (
+        icon_url_list , card_id
+      )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item,jdbcType=VARCHAR},#{cardId,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="addWeChetCouponTextImg" >
+    insert IGNORE into xys_wccard_advancedinfo
+      (
+      image_url , text , card_id
+      )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item.image_url,jdbcType=VARCHAR},#{item.text,jdbcType=VARCHAR},
+      #{cardId,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="addWeChetCouponTime" >
+    insert IGNORE into xys_wccard_advancedinfo
+      (
+      types , begin_hour , end_hour , begin_minute ,end_minute ,card_id
+      )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item.type,jdbcType=VARCHAR},#{item.begin_hour,jdbcType=INTEGER},
+      #{item.end_hour,jdbcType=INTEGER},#{item.begin_minute,jdbcType=INTEGER},
+      #{item.end_minute,jdbcType=INTEGER},#{cardId,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="addWeChetCouponBus" >
+    insert IGNORE into xys_wccard_advancedinfo
+    (
+    business_service , card_id
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item,jdbcType=VARCHAR},#{cardId,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteWeChetCouponByCardId" parameterType="java.lang.Integer" >
+    DELETE FROM xys_wccard_advancedinfo WHERE card_id = #{id}
+  </delete>
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.operate.RechargeOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.operate.RechargeOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="wechat_order_no" property="wechatOrderNo" jdbcType="VARCHAR" />
+    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="order_state" property="orderState" jdbcType="TINYINT" />
+    <result column="cheap_price" property="cheapPrice" jdbcType="DECIMAL" />
+    <result column="actual_price" property="actualPrice" jdbcType="DECIMAL" />
+    <result column="order_type" property="orderType" jdbcType="TINYINT" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="good_price" property="goodPrice" jdbcType="DECIMAL" />
+    <result column="wechat_openid" property="wechatOpenid" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="refresh_time" property="refreshTime" jdbcType="TIMESTAMP" />
+    <result column="recharge_tel" property="rechargeTel" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="nick_name" property="userName" jdbcType="VARCHAR" />
+    <result column="phone" property="userTel" jdbcType="VARCHAR" />
+
+    <result column="reap_user_id" property="reapUserId" jdbcType="INTEGER" />
+    <result column="reap_user_openid" property="reapUserOpenId" jdbcType="VARCHAR" />
+    <association property="reapUser" javaType="com.shouzan.back.entity.User" >
+      <id column="reap_user_id" property="id" jdbcType="INTEGER" />
+      <result column="reap_phone" property="phone" jdbcType="VARCHAR" />
+      <result column="sex" property="sex" jdbcType="TINYINT" />
+      <result column="reapOpenid" property="openid" jdbcType="VARCHAR" />
+      <result column="reap_nick_name" property="nickName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+     ord.id, ord.order_no, ord.wechat_order_no, ord.order_amount, ord.order_state, ord.cheap_price,
+     ord.actual_price, ord.order_type, ord.goods_id, ord.goods_name, ord.good_price, ord.wechat_openid,
+     ord.create_time, ord.refresh_time ,usr.nick_name, usr.phone ,usr.id as user_id , ord.recharge_tel,
+     ord.reap_user_id, ord.reap_user_openid AS reapOpenid, urp.nick_name AS reap_nick_name , urp.phone AS reap_phone
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    count(ord.id)
+    FROM xys_recharge_order ord
+    LEFT JOIN xys_user usr ON ord.user_id = usr.id
+    where ord.order_type = 0
+    <if test="keywords != null  and keywords != '' " >
+      and (ord.order_no = #{keywords} or ord.goods_name LIKE '%${keywords}%' or ord.wechat_openid LIKE '%${keywords}%' or usr.nick_name LIKE '%${keywords}%' or ord.recharge_tel LIKE '%${keywords}%')
+    </if>
+    <if test="createTimeStart != null" >
+      and ord.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and ord.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    <if test="status != null" >
+      and ord.order_state = #{status}
+    </if>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    <include refid="Base_Column_List" />
+    FROM xys_recharge_order ord
+    LEFT JOIN xys_user usr ON ord.user_id = usr.id
+    LEFT JOIN xys_user urp ON ord.reap_user_id = urp.id
+    where ord.order_type = 0
+    <if test="keywords != null  and keywords != '' " >
+      and (ord.order_no = #{keywords} or ord.goods_name LIKE '%${keywords}%' or ord.wechat_openid LIKE '%${keywords}%' or usr.nick_name LIKE '%${keywords}%' or ord.recharge_tel LIKE '%${keywords}%')
+    </if>
+    <if test="createTimeStart != null" >
+      and ord.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and ord.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    <if test="status != null" >
+      and ord.order_state = #{status}
+    </if>
+    ORDER BY ord.create_time DESC
+  </select>
+
+  <select id="queryOrderById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from xys_recharge_order ord
+    LEFT JOIN xys_user usr ON ord.user_id = usr.id
+    LEFT JOIN xys_user urp ON ord.reap_user_id = urp.id
+    where ord.id = #{id} and ord.order_type = 0
+  </select>
+
+</mapper>

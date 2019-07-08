@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>manage-parent</artifactId>
+        <groupId>com.shouzan.creditcooperatives</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>manage-center</artifactId>
+    <properties>
+        <hystrix.version>1.5.12</hystrix.version>
+    </properties>
+    <dependencies>
+        <!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-undertow</artifactId>
+            </dependency> -->
+        <!--增加eureka-server的依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!--用于测试的，本例可省略 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- war yong -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
+
+        <!-- <dependency> <groupId>com.spotify</groupId> <artifactId>docker-maven-plugin</artifactId>
+            <version>0.4.13</version> </dependency> -->
+
+    </dependencies>
+
+    <!--<profiles>-->
+        <!--<profile>-->
+            <!--<id>dev</id>-->
+            <!--<properties>-->
+                <!--<envFlag>dev</envFlag>-->
+            <!--</properties>-->
+            <!--<activation>-->
+                <!--<activeByDefault>true</activeByDefault>-->
+            <!--</activation>-->
+        <!--</profile>-->
+        <!--<profile>-->
+            <!--<id>test</id>-->
+            <!--<properties>-->
+                <!--<envFlag>test</envFlag>-->
+            <!--</properties>-->
+            <!--&lt;!&ndash;<activation>&ndash;&gt;-->
+            <!--&lt;!&ndash;<activeByDefault>true</activeByDefault>&ndash;&gt;-->
+            <!--&lt;!&ndash;</activation>&ndash;&gt;-->
+        <!--</profile>-->
+        <!--<profile>-->
+            <!--<id>pro</id>-->
+            <!--<properties>-->
+                <!--<envFlag>pro</envFlag>-->
+            <!--</properties>-->
+            <!--&lt;!&ndash;<activation>&ndash;&gt;-->
+            <!--&lt;!&ndash;<activeByDefault>true</activeByDefault>&ndash;&gt;-->
+            <!--&lt;!&ndash;</activation>&ndash;&gt;-->
+        <!--</profile>-->
+    <!--</profiles>-->
+
+    <build>
+        <finalName>manage-center</finalName>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<excludes>-->
+                    <!--<exclude>application.yml</exclude>-->
+                    <!--<exclude>application-dev.yml</exclude>-->
+                    <!--<exclude>application-test.yml</exclude>-->
+                    <!--<exclude>application-pro.yml</exclude>-->
+                <!--</excludes>-->
+            <!--</resource>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<includes>-->
+                    <!--<include>application.yml</include>-->
+                    <!--<include>application-${envFlag}.yml</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+        <!--</resources>-->
+        <plugins>
+
+            <!-- 0822 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- <plugin> <groupId>com.spotify</groupId> <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version> <executions> <execution> <phase>package</phase>
+                <goals> <goal>build</goal> </goals> </execution> </executions> <configuration>
+                <imageName>${docker.image.prefix}/${project.artifactId}</imageName> <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                <resources> <resource> <targetPath>/</targetPath> <directory>${project.build.directory}</directory>
+                <include>${project.build.finalName}.jar</include> </resource> </resources>
+                </configuration> </plugin> -->
+
+            <!-- <plugin> <groupId>com.spotify</groupId> <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version> <executions> <execution> <phase>package</phase>
+                <goals> <goal>build</goal> </goals> </execution> </executions> <configuration>
+                <imageName>first</imageName> <baseImage>java</baseImage> <entryPoint>["java",
+                "-jar", "/${project.build.finalName}.jar"]</entryPoint> <resources> <resource>
+                <targetPath>/</targetPath> <directory>${project.build.directory}</directory>
+                <include>${project.build.finalName}.jar</include> </resource> </resources>
+                </configuration> </plugin> -->
+
+        </plugins>
+    </build>
+
+    <!-- 0920 -->
+    <reporting>
+        <plugins>
+            <!--<plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration> <findbugsXmlOutput>true</findbugsXmlOutput> <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                <xmlOutput>true</xmlOutput> </configuration> </plugin> -->
+
+            <!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version> <configuration> <configLocation>checkstyle.xml</configLocation>
+                </configuration> </plugin> -->
+
+        </plugins>
+    </reporting>
+
+
+    <packaging>jar</packaging>
+</project>

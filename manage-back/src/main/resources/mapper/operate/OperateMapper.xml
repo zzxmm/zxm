@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.operate.OperateMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.operate.Operate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="background" property="background" jdbcType="VARCHAR" />
+    <result column="card_img" property="cardImg" jdbcType="VARCHAR" />
+    <result column="card_details" property="cardDetails" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="card_stocks" property="cardStocks" jdbcType="INTEGER" />
+    <result column="card_state" property="cardState" jdbcType="TINYINT" />
+    <result column="reduce_tag" property="reduceTag" jdbcType="VARCHAR" />
+    <result column="wechat_batches" property="wechatBatches" jdbcType="VARCHAR" />
+    <result column="card_price" property="cardPrice" jdbcType="DECIMAL" />
+    <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+    <result column="upshelf_time" property="upshelfTime" jdbcType="TIMESTAMP" />
+    <result column="downshelf_time" property="downshelfTime" jdbcType="TIMESTAMP" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="coupon_valid_time_start" property="couponValidTimeStart" jdbcType="TIMESTAMP" />
+    <result column="coupon_valid_time_end" property="couponValidTimeEnd" jdbcType="TIMESTAMP" />
+    <result column="operate_type" property="operateType" jdbcType="TINYINT" />
+    <result column="telephone_bill" property="telephoneBill" jdbcType="INTEGER" />
+    <result column="tel_limit_count" property="telLimitCount" jdbcType="INTEGER" />
+    <result column="white_base_id" property="whiteBaseId" jdbcType="INTEGER" />
+    <result column="code_base_id" property="codeBaseId" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="is_achievements" property="isAchievements" jdbcType="TINYINT" />
+    <result column="rebate_money" property="rebateMoney" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, background, card_img, card_details, creator_id, create_time, last_edit_id, last_edit_time, 
+    card_name, card_stocks, card_state, reduce_tag, wechat_batches, card_price, discount_price, 
+    upshelf_time, downshelf_time, link_url ,coupon_valid_time_start , coupon_valid_time_end,
+    operate_type, telephone_bill, tel_limit_count ,white_base_id, code_base_id, message, is_achievements, rebate_money
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    COUNT(*)
+    from xys_operate_theme  WHERE deleted = 0
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_operate_theme   WHERE deleted = 0
+    ORDER BY card_state ,create_time DESC
+  </select>
+
+  <insert id="addOperateInfo" parameterType="com.shouzan.back.entity.operate.Operate" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+    insert into xys_operate_theme
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="background != null" >
+        background,
+      </if>
+      <if test="cardImg != null" >
+        card_img,
+      </if>
+      <if test="cardDetails != null" >
+        card_details,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="cardName != null" >
+        card_name,
+      </if>
+      <if test="cardStocks != null" >
+        card_stocks,
+      </if>
+      <if test="cardState != null" >
+        card_state,
+      </if>
+      <if test="reduceTag != null" >
+        reduce_tag,
+      </if>
+      <if test="wechatBatches != null" >
+        wechat_batches,
+      </if>
+      <if test="cardPrice != null" >
+        card_price,
+      </if>
+      <if test="discountPrice != null" >
+        discount_price,
+      </if>
+      <if test="upshelfTime != null" >
+        upshelf_time,
+      </if>
+      <if test="downshelfTime != null" >
+        downshelf_time,
+      </if>
+      <if test="linkUrl != null" >
+        link_url,
+      </if>
+      <if test="couponValidTimeStart != null" >
+        coupon_valid_time_start,
+      </if>
+      <if test="couponValidTimeEnd != null" >
+        coupon_valid_time_end,
+      </if>
+      <if test="operateType != null" >
+        operate_type,
+      </if>
+      <if test="telephoneBill != null" >
+        telephone_bill,
+      </if>
+      <if test="telLimitCount != null" >
+        tel_limit_count,
+      </if>
+      <if test="whiteBaseId != null" >
+        white_base_id,
+      </if>
+      <if test="codeBaseId != null" >
+         code_base_id,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="isAchievements != null" >
+        is_achievements,
+      </if>
+      <if test="rebateMoney != null" >
+        rebate_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="background != null" >
+        #{background,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImg != null" >
+        #{cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardDetails != null" >
+        #{cardDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardStocks != null" >
+        #{cardStocks,jdbcType=INTEGER},
+      </if>
+      <if test="cardState != null" >
+        #{cardState,jdbcType=TINYINT},
+      </if>
+      <if test="reduceTag != null" >
+        #{reduceTag,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatBatches != null" >
+        #{wechatBatches,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPrice != null" >
+        #{cardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null" >
+        #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="upshelfTime != null" >
+        #{upshelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downshelfTime != null" >
+        #{downshelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkUrl != null" >
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponValidTimeStart != null" >
+        #{couponValidTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponValidTimeEnd != null" >
+        #{couponValidTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=TINYINT},
+      </if>
+      <if test="telephoneBill != null" >
+        #{telephoneBill,jdbcType=INTEGER},
+      </if>
+      <if test="telLimitCount != null" >
+        #{telLimitCount,jdbcType=INTEGER},
+      </if>
+      <if test="whiteBaseId != null" >
+        #{whiteBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="codeBaseId != null" >
+        #{codeBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="isAchievements != null" >
+        #{isAchievements,jdbcType=TINYINT},
+      </if>
+      <if test="rebateMoney != null" >
+        #{rebateMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateCardStatus">
+    update xys_operate_theme
+    set card_state = #{status}
+    where id IN (${id})
+  </update>
+
+  <update id="updateOperateCardInfo" parameterType="com.shouzan.back.entity.operate.Operate" >
+    update xys_operate_theme
+    <set >
+      <if test="background != null" >
+        background = #{background,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImg != null" >
+        card_img = #{cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardDetails != null" >
+        card_details = #{cardDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardName != null" >
+        card_name = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardState != null" >
+        card_state = #{cardState,jdbcType=TINYINT},
+      </if>
+      <if test="reduceTag != null" >
+        reduce_tag = #{reduceTag,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatBatches != null" >
+        wechat_batches = #{wechatBatches,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPrice != null" >
+        card_price = #{cardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null" >
+        discount_price = #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="upshelfTime != null" >
+        upshelf_time = #{upshelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downshelfTime != null" >
+        downshelf_time = #{downshelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkUrl != null" >
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponValidTimeStart != null" >
+        coupon_valid_time_start = #{couponValidTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponValidTimeEnd != null" >
+        coupon_valid_time_end = #{couponValidTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateType != null" >
+        operate_type = #{operateType,jdbcType=TINYINT},
+      </if>
+      <if test="telephoneBill != null" >
+        telephone_bill = #{telephoneBill,jdbcType=INTEGER},
+      </if>
+      <if test="telLimitCount != null" >
+        tel_limit_count = #{telLimitCount,jdbcType=INTEGER},
+      </if>
+      <if test="whiteBaseId != null" >
+        white_base_id = #{whiteBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="codeBaseId != null" >
+        code_base_id = #{codeBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="isAchievements != null" >
+        is_achievements = #{isAchievements,jdbcType=TINYINT},
+      </if>
+      <if test="rebateMoney != null" >
+        rebate_money = #{rebateMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_operate_theme
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <update id="deleteInfoById" parameterType="java.lang.Integer">
+    update xys_operate_theme
+    set deleted = 1,card_state = 2
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectInfoByStrId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from xys_operate_theme  WHERE id in (${id})
+  </select>
+
+  <update id="setOperateLinkUrl" >
+    update xys_operate_theme
+    set link_url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="resetOperateCardStock" >
+    update xys_operate_theme
+    set card_stocks = #{count,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.MerchantsMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.Merchants" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mer_name" property="merName" jdbcType="VARCHAR" />
+    <result column="mer_shot_name" property="merShotName" jdbcType="VARCHAR" />
+    <result column="service_tel_number" property="serviceTelNumber" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="linkman_name" property="linkmanName" jdbcType="VARCHAR" />
+    <result column="linkman_tel" property="linkmanTel" jdbcType="VARCHAR" />
+    <result column="linkman_wechat" property="linkmanWechat" jdbcType="VARCHAR" />
+    <result column="enable_state" property="enableState" jdbcType="TINYINT" />
+    <result column="mer_introduce" property="merIntroduce" jdbcType="VARCHAR" />
+    <result column="mer_grade" property="merGrade" jdbcType="TINYINT" />
+    <result column="evaluate_grade" property="evaluateGrade" jdbcType="TINYINT" />
+    <result column="business_hours" property="businessHours" jdbcType="VARCHAR" />
+    <result column="business_license" property="businessLicense" jdbcType="VARCHAR" />
+    <result column="unified_number" property="unifiedNumber" jdbcType="VARCHAR" />
+    <result column="servicenum" property="servicenum" jdbcType="TINYINT" />
+    <result column="is_select" property="isSelect" jdbcType="TINYINT" />
+    <result column="mer_cover" property="merCover" jdbcType="VARCHAR" />
+    <result column="mer_center_id" property="merCenterId" jdbcType="INTEGER" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="wechat_mch_id" property="wechatMchId" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, mer_name, mer_shot_name, service_tel_number, create_time, creator_id,
+    logo_url, linkman_name, linkman_tel, linkman_wechat, enable_state, mer_introduce,
+    mer_grade, evaluate_grade, business_hours, business_license, unified_number, servicenum,
+    is_select, mer_cover ,mer_center_id  ,last_edit_id ,wechat_mch_id ,priority
+  </sql>
+
+  <select id="selectMerAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from xys_merchants WHERE enable_state = 1
+  </select>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    count(id)
+    from xys_merchants
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (mer_name LIKE #{keywords} or mer_shot_name LIKE #{keywords} or linkman_name LIKE #{keywords} or mer_introduce LIKE #{keywords})
+      </if>
+      <if test="status != null " >
+        and enable_state = #{status}
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+      <if test="starStar != null" >
+        and mer_grade = #{starStar}
+      </if>
+      <if test="grade != null" >
+        and evaluate_grade = #{grade}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+  select
+    mer.id, mer.mer_name, mer.mer_shot_name, mer.service_tel_number, mer.create_time, mer.creator_id,mer.wechat_mch_id,
+    mer.logo_url, mer.linkman_name, mer.linkman_tel, mer.linkman_wechat, mer.enable_state, mer.mer_introduce,
+    mer.mer_grade, mer.evaluate_grade, mer.business_hours, mer.business_license, mer.unified_number, mer.servicenum,
+    mer.is_select, mer.mer_cover, GROUP_CONCAT(ty.type_name) as merTypeName ,mer.priority
+  from xys_merchants AS mer
+    LEFT JOIN xys_type_relation AS tr ON  mer.id = tr.merchant_id
+    LEFT JOIN xys_type AS ty ON tr.type_id = ty.id
+  <where>
+    <if test="keywords != null  and keywords != '' " >
+      and (mer.mer_name LIKE #{keywords} or mer.mer_shot_name LIKE #{keywords} or mer.linkman_name LIKE #{keywords} or mer.mer_introduce LIKE #{keywords})
+    </if>
+    <if test="status != null " >
+      and mer.enable_state = #{status}
+    </if>
+    <if test="createTimeStart != null and createTimeStart != '' " >
+      and mer.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null and createTimeEnd != '' " >
+      and mer.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    <if test="starStar != null and starStar != '' " >
+      and mer.mer_grade = #{starStar}
+    </if>
+    <if test="grade != null and grade != '' " >
+      and mer.evaluate_grade = #{grade}
+    </if>
+  </where>
+      GROUP BY  mer.id
+         order by mer.is_select desc , mer.create_time desc
+</select>
+
+  <select id="selectMerInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    mer.id, mer.mer_name, mer.mer_shot_name, mer.service_tel_number, mer.create_time, mer.creator_id,
+    mer.logo_url, mer.linkman_name, mer.linkman_tel, mer.linkman_wechat, mer.enable_state, mer.mer_introduce,
+    mer.mer_grade, mer.evaluate_grade, mer.business_hours, mer.business_license, mer.unified_number, mer.servicenum,
+    mer.is_select, mer.mer_cover, GROUP_CONCAT(ty.id) as merTypeName ,mer_center_id,mer.wechat_mch_id ,mer.priority
+  from xys_merchants AS mer
+    LEFT JOIN xys_type_relation AS tr ON  mer.id = tr.merchant_id
+    LEFT JOIN xys_type AS ty ON tr.type_id = ty.id
+       where mer.id = #{id}
+  </select>
+
+  <update id="updateMerchantsStatus">
+   		UPDATE xys_merchants
+   		   SET enable_state = #{status}
+   	 	 WHERE mer_center_id IN (${id})
+  </update>
+
+  <insert id="insertMerchantsInFo" parameterType="com.shouzan.back.entity.Merchants" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into xys_merchants
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="merName != null" >
+        mer_name,
+      </if>
+      <if test="merShotName != null" >
+        mer_shot_name,
+      </if>
+      <if test="serviceTelNumber != null" >
+        service_tel_number,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="logoUrl != null" >
+        logo_url,
+      </if>
+      <if test="linkmanName != null" >
+        linkman_name,
+      </if>
+      <if test="linkmanTel != null" >
+        linkman_tel,
+      </if>
+      <if test="linkmanWechat != null" >
+        linkman_wechat,
+      </if>
+      <if test="enableState != null" >
+        enable_state,
+      </if>
+      <if test="merIntroduce != null" >
+        mer_introduce,
+      </if>
+      <if test="merGrade != null" >
+        mer_grade,
+      </if>
+      <if test="evaluateGrade != null" >
+        evaluate_grade,
+      </if>
+      <if test="businessHours != null" >
+        business_hours,
+      </if>
+      <if test="businessLicense != null" >
+        business_license,
+      </if>
+      <if test="unifiedNumber != null" >
+        unified_number,
+      </if>
+      <if test="servicenum != null" >
+        servicenum,
+      </if>
+      <if test="isSelect != null" >
+        is_select,
+      </if>
+      <if test="merCover != null" >
+        mer_cover,
+      </if>
+      <if test="merCenterId != null" >
+        mer_center_id,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="wechatMchId != null" >
+        wechat_mch_id,
+      </if>
+      <if test="priority != null" >
+      priority,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="merName != null" >
+        #{merName,jdbcType=VARCHAR},
+      </if>
+      <if test="merShotName != null" >
+        #{merShotName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTelNumber != null" >
+        #{serviceTelNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="logoUrl != null" >
+        #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null" >
+        #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanTel != null" >
+        #{linkmanTel,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanWechat != null" >
+        #{linkmanWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="enableState != null" >
+        #{enableState,jdbcType=TINYINT},
+      </if>
+      <if test="merIntroduce != null" >
+        #{merIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="merGrade != null" >
+        #{merGrade,jdbcType=TINYINT},
+      </if>
+      <if test="evaluateGrade != null" >
+        #{evaluateGrade,jdbcType=TINYINT},
+      </if>
+      <if test="businessHours != null" >
+        #{businessHours,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null" >
+        #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="unifiedNumber != null" >
+        #{unifiedNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="servicenum != null" >
+        #{servicenum,jdbcType=TINYINT},
+      </if>
+      <if test="isSelect != null" >
+        #{isSelect,jdbcType=TINYINT},
+      </if>
+      <if test="merCover != null" >
+        #{merCover,jdbcType=VARCHAR},
+      </if>
+      <if test="merCenterId != null" >
+        #{merCenterId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime},
+      </if>
+      <if test="wechatMchId != null" >
+        #{wechatMchId,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+      #{priority,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateMerchantsInFo" parameterType="com.shouzan.back.entity.Merchants" >
+    update xys_merchants
+    <set >
+      <if test="merName != null" >
+        mer_name = #{merName,jdbcType=VARCHAR},
+      </if>
+      <if test="merShotName != null" >
+        mer_shot_name = #{merShotName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTelNumber != null" >
+        service_tel_number = #{serviceTelNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="logoUrl != null" >
+        logo_url = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null" >
+        linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanTel != null" >
+        linkman_tel = #{linkmanTel,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanWechat != null" >
+        linkman_wechat = #{linkmanWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="enableState != null" >
+        enable_state = #{enableState,jdbcType=TINYINT},
+      </if>
+      <if test="merIntroduce != null" >
+        mer_introduce = #{merIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="merGrade != null" >
+        mer_grade = #{merGrade,jdbcType=TINYINT},
+      </if>
+      <if test="evaluateGrade != null" >
+        evaluate_grade = #{evaluateGrade,jdbcType=TINYINT},
+      </if>
+      <if test="businessHours != null" >
+        business_hours = #{businessHours,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null" >
+        business_license = #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="unifiedNumber != null" >
+        unified_number = #{unifiedNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="servicenum != null" >
+        servicenum = #{servicenum,jdbcType=TINYINT},
+      </if>
+      <if test="isSelect != null" >
+        is_select = #{isSelect,jdbcType=TINYINT},
+      </if>
+      <if test="merCover != null" >
+        mer_cover = #{merCover,jdbcType=VARCHAR},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="wechatMchId != null" >
+        wechat_mch_id = #{wechatMchId,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mer_center_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectMerInfoByCenterId" resultType="java.lang.Integer" >
+    select
+    count(id)
+    from xys_merchants
+    where mer_center_id = #{id}
+  </select>
+
+  <select id="findInfoByCouponCenter" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_merchants
+    where id = #{id}
+  </select>
+
+    <select id="findInfoById" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from xys_merchants
+        where id = #{id}
+    </select>
+
+  <select id="queryIdByCenterId" resultType="java.lang.String">
+    select
+    GROUP_CONCAT(id)
+    from xys_merchants
+    where  mer_center_id in (${id})
+    </select>
+
+  <select id="findIdByCenterId" resultType="java.lang.Integer">
+    select
+    id
+    from xys_merchants
+    where  mer_center_id = #{id}
+    </select>
+
+  <select id="findMerCenterIdByMerId" resultType="java.lang.String">
+    select
+    mer_center_id
+    from xys_merchants
+    where  id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.operate.CodeBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.operate.CodeBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_name" property="baseName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_name, create_time, creator_id, last_edit_time, last_edit_id
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    count(base.id)
+    FROM xys_code_base base
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and ( base.id LIKE #{keywords} or base.base_name LIKE #{keywords} )
+      </if>
+      <if test="belonged != null  and belonged != '' " >
+        and base.id NOT IN (${belonged})
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM xys_code_base base
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and ( base.id LIKE #{keywords} or base.base_name LIKE #{keywords} )
+      </if>
+      <if test="belonged != null  and belonged != '' " >
+        and base.id NOT IN (${belonged})
+      </if>
+    </where>
+    order by base.create_time desc
+  </select>
+
+  <insert id="createCodeBase" parameterType="com.shouzan.back.entity.operate.CodeBase" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into xys_code_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="baseName != null" >
+        base_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="baseName != null" >
+        #{baseName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateCodeBase" parameterType="com.shouzan.back.entity.operate.CodeBase" >
+    update xys_code_base
+    <set >
+      <if test="baseName != null" >
+        base_name = #{baseName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteCodeBase" parameterType="java.lang.Integer" >
+    delete from xys_code_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <select id="findInfoById" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM xys_code_base base
+    where base.id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findInIdByOperate" resultType="java.lang.String" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT GROUP_CONCAT(code_base_id)
+    FROM xys_operate_theme
+    <where>
+      <if test="id != null" >
+        and code_base_id <![CDATA[ <> ]]> #{id}
+      </if>
+    </where>
+  </select>
+
+</mapper>

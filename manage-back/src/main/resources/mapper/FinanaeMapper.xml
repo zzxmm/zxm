@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.FinanceMapper" >
+    <resultMap id="BaseResultMapCon" type="com.shouzan.back.entity.ConsumeRecord" >
+        <id column="cid" property="cid" jdbcType="INTEGER" />
+        <result column="cbatch_id" property="cbatchId" jdbcType="INTEGER" />
+        <result column="cdiscount_id" property="cdiscountId" jdbcType="BIGINT" />
+        <result column="cdiscount_type" property="cdiscountType" jdbcType="VARCHAR" />
+        <result column="cdiscount_money" property="cdiscountMoney" jdbcType="DECIMAL" />
+        <result column="corder_money" property="corderMoney" jdbcType="DECIMAL" />
+        <result column="ctransaction_type" property="ctransactionType" jdbcType="VARCHAR" />
+        <result column="cpayment_number" property="cpaymentNumber" jdbcType="VARCHAR" />
+        <result column="cconsume_time" property="cconsumeTime" jdbcType="TIMESTAMP" />
+        <result column="cconsume_mer" property="cconsumeMer" jdbcType="INTEGER" />
+        <result column="cequipment_number" property="cequipmentNumber" jdbcType="VARCHAR" />
+        <result column="cbank_serialnumber" property="cbankSerialnumber" jdbcType="VARCHAR" />
+        <result column="ccreate_time" property="ccreateTime" jdbcType="TIMESTAMP" />
+        <result column="ccreator_id" property="ccreatorId" jdbcType="INTEGER" />
+        <result column="cinformation" property="cinformation" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List_con" >
+    pucad.cid, pucad.cbatch_id, pucad.cdiscount_id, pucad.cdiscount_type, pucad.cdiscount_money, pucad.corder_money, pucad.ctransaction_type,
+    pucad.cpayment_number, pucad.cconsume_time, pucad.cconsume_mer, pucad.cequipment_number, pucad.cbank_serialnumber,
+    pucad.ccreate_time, pucad.ccreator_id, pucad.cinformation
+    </sql>
+    <resultMap id="BaseResultMapPur" type="com.shouzan.back.entity.PurchaseRecord" >
+        <id column="pid" property="pid" jdbcType="INTEGER" />
+        <result column="pbatch_id" property="pbatchId" jdbcType="INTEGER" />
+        <result column="pdiscount_id" property="pdiscountId" jdbcType="BIGINT" />
+        <result column="pdiscount_type" property="pdiscountType" jdbcType="VARCHAR" />
+        <result column="pdiscount_money" property="pdiscountMoney" jdbcType="DECIMAL" />
+        <result column="porder_money" property="porderMoney" jdbcType="DECIMAL" />
+        <result column="ptransaction_type" property="ptransactionType" jdbcType="VARCHAR" />
+        <result column="ppayment_number" property="ppaymentNumber" jdbcType="VARCHAR" />
+        <result column="pconsume_time" property="pconsumeTime" jdbcType="TIMESTAMP" />
+        <result column="pconsume_mer" property="pconsumeMer" jdbcType="INTEGER" />
+        <result column="pequipment_number" property="pequipmentNumber" jdbcType="VARCHAR" />
+        <result column="pbank_serialnumber" property="pbankSerialnumber" jdbcType="VARCHAR" />
+        <result column="pcreate_time" property="pcreateTime" jdbcType="TIMESTAMP" />
+        <result column="pcreator_id" property="pcreatorId" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List_pur" >
+        pucad.pid, pucad.pbatch_id, pucad.pdiscount_id, pucad.pdiscount_type, pucad.pdiscount_money, pucad.porder_money, pucad.ptransaction_type,
+        pucad.ppayment_number, pucad.pconsume_time, pucad.pconsume_mer, pucad.pequipment_number, pucad.pbank_serialnumber,
+        pucad.pcreate_time, pucad.pcreator_id
+    </sql>
+    <resultMap id="BaseAllResultMap" type="com.shouzan.back.entity.FinalAccount" >
+        <result column="card_state" property="cardState" jdbcType="TINYINT" />
+            <result column="cbatch_id" property="cbatchId" jdbcType="INTEGER" />
+            <result column="cdiscount_id" property="cdiscountId" jdbcType="BIGINT" />
+            <result column="cdiscount_type" property="cdiscountType" jdbcType="VARCHAR" />
+            <result column="cdiscount_money" property="cdiscountMoney" jdbcType="DECIMAL" />
+            <result column="corder_money" property="corderMoney" jdbcType="DECIMAL" />
+            <result column="ctransaction_type" property="ctransactionType" jdbcType="VARCHAR" />
+            <result column="cpayment_number" property="cpaymentNumber" jdbcType="VARCHAR" />
+            <result column="cconsume_time" property="cconsumeTime" jdbcType="TIMESTAMP" />
+            <result column="cconsume_mer" property="cconsumeMer" jdbcType="INTEGER" />
+            <result column="cequipment_number" property="cequipmentNumber" jdbcType="VARCHAR" />
+            <result column="cbank_serialnumber" property="cbankSerialnumber" jdbcType="VARCHAR" />
+            <result column="ccreate_time" property="ccreateTime" jdbcType="TIMESTAMP" />
+            <result column="ccreator_id" property="ccreatorId" jdbcType="INTEGER" />
+            <result column="cinformation" property="cinformation" jdbcType="VARCHAR" />
+            <result column="pbatch_id" property="pbatchId" jdbcType="INTEGER" />
+            <result column="pdiscount_id" property="pdiscountId" jdbcType="BIGINT" />
+            <result column="pdiscount_type" property="pdiscountType" jdbcType="VARCHAR" />
+            <result column="pdiscount_money" property="pdiscountMoney" jdbcType="DECIMAL" />
+            <result column="porder_money" property="porderMoney" jdbcType="DECIMAL" />
+            <result column="ptransaction_type" property="ptransactionType" jdbcType="VARCHAR" />
+            <result column="ppayment_number" property="ppaymentNumber" jdbcType="VARCHAR" />
+            <result column="pconsume_time" property="pconsumeTime" jdbcType="TIMESTAMP" />
+            <result column="pconsume_mer" property="pconsumeMer" jdbcType="INTEGER" />
+            <result column="pequipment_number" property="pequipmentNumber" jdbcType="VARCHAR" />
+            <result column="pbank_serialnumber" property="pbankSerialnumber" jdbcType="VARCHAR" />
+            <result column="pcreate_time" property="pcreateTime" jdbcType="TIMESTAMP" />
+            <result column="pcreator_id" property="pcreatorId" jdbcType="INTEGER" />
+    </resultMap>
+
+
+  <insert id="addConsumeRecordList" parameterType="java.util.List">
+        insert IGNORE into xys_consume_record
+        (
+         cbatch_id, cdiscount_id,
+         cdiscount_type, cdiscount_money,
+         corder_money, ctransaction_type,
+         cpayment_number, cconsume_time,
+         cconsume_mer, cequipment_number,
+         cbank_serialnumber,ccreator_id,
+         cinformation
+        )
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+          (
+            #{item.cbatchId,jdbcType=INTEGER}, #{item.cdiscountId,jdbcType=BIGINT},
+            #{item.cdiscountType,jdbcType=VARCHAR}, #{item.cdiscountMoney,jdbcType=DECIMAL},
+            #{item.corderMoney,jdbcType=DECIMAL},#{item.ctransactionType,jdbcType=VARCHAR},
+            #{item.cpaymentNumber,jdbcType=VARCHAR}, #{item.cconsumeTime,jdbcType=TIMESTAMP},
+            #{item.cconsumeMer,jdbcType=INTEGER}, #{item.cequipmentNumber,jdbcType=VARCHAR},
+            #{item.cbankSerialnumber,jdbcType=VARCHAR},#{item.ccreatorId,jdbcType=INTEGER},
+            #{item.cinformation,jdbcType=VARCHAR}
+          )
+        </foreach>
+  </insert>
+
+  <insert id="addPurchaseRecordList" parameterType="java.util.List">
+        insert IGNORE into xys_purchase_record
+        (
+          pbatch_id, pdiscount_id,
+          pdiscount_type, pdiscount_money,
+          porder_money,ptransaction_type,
+          ppayment_number, pconsume_time,
+          pconsume_mer, pequipment_number,
+          pbank_serialnumber,pcreator_id
+        )
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+          (
+            #{item.cbatchId,jdbcType=INTEGER},#{item.cdiscountId,jdbcType=BIGINT},
+            #{item.cdiscountType,jdbcType=VARCHAR},#{item.cdiscountMoney,jdbcType=DECIMAL},
+            #{item.corderMoney,jdbcType=DECIMAL},#{item.ctransactionType,jdbcType=VARCHAR},
+            #{item.cpaymentNumber,jdbcType=VARCHAR},#{item.cconsumeTime,jdbcType=TIMESTAMP},
+            #{item.cconsumeMer,jdbcType=INTEGER},#{item.cequipmentNumber,jdbcType=VARCHAR},
+            #{item.cbankSerialnumber,jdbcType=VARCHAR},#{item.ccreatorId,jdbcType=INTEGER}
+          )
+        </foreach>
+  </insert>
+
+    <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+              SELECT COUNT(*) FROM (
+                SELECT * FROM
+                  ( SELECT * FROM
+                    ( SELECT * FROM
+                       ( SELECT pur.* , ord.order_no AS ordernoa FROM xys_purchase_record pur LEFT JOIN xys_order ord
+                         ON pur.ppayment_number = ord.wechat_order_no
+                         UNION
+                         SELECT pur.* , ord.order_no AS ordernoa FROM xys_purchase_record pur RIGHT JOIN xys_order ord
+                         on pur.ppayment_number = ord.wechat_order_no ) pur WHERE pur.pid IS NOT NULL
+                         ) pur ) pur
+                    LEFT JOIN
+                    ( SELECT * FROM
+                       ( SELECT * FROM
+                       ( SELECT car.order_no AS ordernob ,car.card_state ,cor.* FROM xys_cardrecord car LEFT JOIN xys_consume_record cor
+                         ON  car.wechat_coupon_id = cor.cdiscount_id
+                         UNION
+                         SELECT car.order_no AS ordernob ,car.card_state , cor.*   FROM xys_cardrecord car RIGHT JOIN xys_consume_record cor
+                         ON  car.wechat_coupon_id = cor.cdiscount_id ) cor WHERE cor.cid IS NOT NULL
+                         ) cor ) cor
+                    ON pur.ordernoa = cor.ordernob
+                UNION
+                SELECT * FROM
+                  ( SELECT * FROM
+                    ( SELECT * FROM
+                      ( SELECT pur.* , ord.order_no AS ordernoa FROM xys_purchase_record pur LEFT JOIN xys_order ord
+                        ON pur.ppayment_number = ord.wechat_order_no
+                        UNION
+                        SELECT pur.* , ord.order_no AS ordernoa FROM xys_purchase_record pur RIGHT JOIN xys_order ord
+                        on pur.ppayment_number = ord.wechat_order_no ) pur WHERE pur.pid IS NOT NULL
+                        ) pur ) pur
+                    RIGHT JOIN
+                    ( SELECT * FROM
+                       (  SELECT * FROM
+                       (  SELECT car.order_no AS ordernob ,car.card_state , cor.*  FROM xys_cardrecord car LEFT JOIN xys_consume_record cor
+                          ON  car.wechat_coupon_id = cor.cdiscount_id
+                          UNION
+                          SELECT car.order_no AS ordernob ,car.card_state , cor.*  FROM xys_cardrecord car RIGHT JOIN xys_consume_record cor
+                          ON  car.wechat_coupon_id = cor.cdiscount_id ) cor WHERE cor.cid IS NOT NULL
+                          ) cor ) cor
+                    ON pur.ordernoa = cor.ordernob
+              ) pucad
+        <where>
+            <if test="belonged != null  " >
+                and ( pucad.cbatch_id in (${belonged}) or pucad.pbatch_id in (${belonged}) )
+            </if>
+            <if test="grade != null  " >
+                and pucad.card_state in (${grade})
+            </if>
+            <if test="startTimeStart != null" >
+                and ( pucad.cconsume_time <![CDATA[ >= ]]> '${startTimeStart}' or pucad.pconsume_time <![CDATA[ >= ]]> '${startTimeStart}' )
+            </if>
+            <if test="startTimeEnd != null" >
+                and ( pucad.cconsume_time <![CDATA[ <= ]]> '${startTimeEnd}' or pucad.pconsume_time <![CDATA[ <= ]]> '${startTimeEnd}' )
+            </if>
+        </where>
+    </select>
+
+    <select id="queryPageList" resultMap="BaseAllResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+        SELECT   pucad.card_state ,
+        <include refid="Base_Column_List_con" /> ,<include refid="Base_Column_List_pur" />
+        FROM (
+                SELECT * FROM
+                  ( SELECT * FROM
+                    ( SELECT * FROM
+                       ( SELECT pur.* , ord.order_no AS ordernoa FROM xys_purchase_record pur LEFT JOIN xys_order ord
+                         ON pur.ppayment_number = ord.wechat_order_no
+                         UNION
+                         SELECT pur.* , ord.order_no AS ordernoa FROM xys_purchase_record pur RIGHT JOIN xys_order ord
+                         on pur.ppayment_number = ord.wechat_order_no ) pur WHERE pur.pid IS NOT NULL
+                         ) pur ) pur
+                    LEFT JOIN
+                    ( SELECT * FROM
+                       ( SELECT * FROM
+                       ( SELECT car.order_no AS ordernob ,car.card_state ,cor.* FROM xys_cardrecord car LEFT JOIN xys_consume_record cor
+                         ON  car.wechat_coupon_id = cor.cdiscount_id
+                         UNION
+                         SELECT car.order_no AS ordernob ,car.card_state , cor.*   FROM xys_cardrecord car RIGHT JOIN xys_consume_record cor
+                         ON  car.wechat_coupon_id = cor.cdiscount_id ) cor WHERE cor.cid IS NOT NULL
+                         ) cor ) cor
+                    ON pur.ordernoa = cor.ordernob
+                UNION
+                SELECT * FROM
+                  ( SELECT * FROM
+                    ( SELECT * FROM
+                      ( SELECT pur.* , ord.order_no AS ordernoa FROM xys_purchase_record pur LEFT JOIN xys_order ord
+                        ON pur.ppayment_number = ord.wechat_order_no
+                        UNION
+                        SELECT pur.* , ord.order_no AS ordernoa FROM xys_purchase_record pur RIGHT JOIN xys_order ord
+                        on pur.ppayment_number = ord.wechat_order_no ) pur WHERE pur.pid IS NOT NULL
+                        ) pur ) pur
+                    RIGHT JOIN
+                    ( SELECT * FROM
+                       (  SELECT * FROM
+                       (  SELECT car.order_no AS ordernob ,car.card_state , cor.*  FROM xys_cardrecord car LEFT JOIN xys_consume_record cor
+                          ON  car.wechat_coupon_id = cor.cdiscount_id
+                          UNION
+                          SELECT car.order_no AS ordernob ,car.card_state , cor.*  FROM xys_cardrecord car RIGHT JOIN xys_consume_record cor
+                          ON  car.wechat_coupon_id = cor.cdiscount_id ) cor WHERE cor.cid IS NOT NULL
+                          ) cor ) cor
+                    ON pur.ordernoa = cor.ordernob
+              ) pucad
+        <where>
+            <if test="belonged != null " >
+                and ( pucad.cbatch_id in (${belonged}) or pucad.pbatch_id in (${belonged}) )
+            </if>
+            <if test="grade != null " >
+                and pucad.card_state in (${grade})
+            </if>
+            <if test="startTimeStart != null" >
+                and ( pucad.cconsume_time <![CDATA[ >= ]]> '${startTimeStart}' or pucad.pconsume_time <![CDATA[ >= ]]> '${startTimeStart}' )
+            </if>
+            <if test="startTimeEnd != null" >
+                and ( pucad.cconsume_time <![CDATA[ <= ]]> '${startTimeEnd}' or pucad.pconsume_time <![CDATA[ <= ]]> '${startTimeEnd}' )
+            </if>
+        </where>
+    </select>
+
+</mapper>

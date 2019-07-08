@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.website.WebsiteImgMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.website.WebsiteImg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="text_id" property="textId" jdbcType="INTEGER" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="is_cover" property="isCover" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, text_id, img_url , is_cover
+  </sql>
+
+  <insert id="addWebsitaImgsInfo" >
+    insert into xys_website_img
+    (
+    text_id,
+    img_url,
+    is_cover
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{textId},
+      #{item.imgUrl},
+      #{item.isCover}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByTextId" parameterType="java.lang.Integer" >
+    delete from xys_website_img
+    where text_id = #{textId,jdbcType=INTEGER}
+  </delete>
+
+</mapper>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.website.WebsiteCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.website.WebsiteCustomer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="select_type" property="selectType" jdbcType="TINYINT" />
+    <result column="customer_type" property="customerType" jdbcType="TINYINT" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, select_type, customer_type, customer_name, phone, create_time, state, last_edit_id, 
+    last_edit_time
+  </sql>
+
+  <select id="queryByStateList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_website_customer
+    where state = #{state,jdbcType=TINYINT}
+  </select>
+
+  <select id="queryWebsiteCustomerListCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    count(id)
+    from xys_website_customer
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (customer_name LIKE #{keywords} or phone LIKE #{keywords} )
+      </if>
+      <if test="id != null " >
+        and id = #{id}
+      </if>
+      <if test="status != null " >
+        and state = #{status}
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+
+  <select id="queryWebsiteCustomerList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+  select
+  <include refid="Base_Column_List" />
+  from xys_website_customer
+  <where>
+    <if test="keywords != null  and keywords != '' " >
+      and (customer_name LIKE #{keywords} or phone LIKE #{keywords} )
+    </if>
+    <if test="status != null " >
+      and state = #{status}
+    </if>
+    <if test="createTimeStart != null" >
+      and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+  </where>
+</select>
+
+  <insert id="insertWedsitaTextInfo" parameterType="com.shouzan.back.entity.website.WebsiteCustomer">
+    insert into xys_website_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="selectType != null" >
+        select_type,
+      </if>
+      <if test="customerType != null" >
+        customer_type,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="selectType != null" >
+        #{selectType,jdbcType=TINYINT},
+      </if>
+      <if test="customerType != null" >
+        #{customerType,jdbcType=TINYINT},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateWedsitaTextInfo" >
+    update xys_website_customer
+    <set >
+      <if test="selectType != null" >
+        select_type = #{selectType,jdbcType=TINYINT},
+      </if>
+      <if test="customerType != null" >
+        customer_type = #{customerType,jdbcType=TINYINT},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateBystate">
+    update xys_website_customer
+    set state = #{state},last_edit_id = #{userId}
+    WHERE id = #{id}
+  </update>
+
+</mapper>

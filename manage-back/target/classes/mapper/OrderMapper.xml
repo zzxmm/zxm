@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.Order" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="wechat_order_no" property="wechatOrderNo" jdbcType="VARCHAR" />
+    <result column="main_openid" property="mainOpenid" jdbcType="VARCHAR" />
+    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="order_state" property="orderState" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="wechat_openid" property="wechatOpenid" jdbcType="VARCHAR" />
+    <result column="refresh_time" property="refreshTime" jdbcType="TIMESTAMP" />
+    <result column="cheap_price" property="cheapPrice" jdbcType="DECIMAL" />
+    <result column="actual_price" property="actualPrice" jdbcType="DECIMAL" />
+
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="userTel" property="userTel" jdbcType="VARCHAR" />
+    <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+    <result column="merName" property="merName" jdbcType="VARCHAR" />
+    <result column="bankName" property="bankName" jdbcType="VARCHAR" />
+
+    <result column="reap_user_id" property="reapUserId" jdbcType="INTEGER" />
+    <result column="reap_user_openid" property="reapUserOpenId" jdbcType="VARCHAR" />
+    <association property="reapUser" javaType="com.shouzan.back.entity.User" >
+      <id column="reap_user_id" property="id" jdbcType="INTEGER" />
+      <result column="reap_phone" property="phone" jdbcType="VARCHAR" />
+      <result column="sex" property="sex" jdbcType="TINYINT" />
+      <result column="reapOpenid" property="openid" jdbcType="VARCHAR" />
+      <result column="reap_nick_name" property="nickName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ord.id, ord.order_no, ord.wechat_order_no, ord.order_amount, ord.order_state, ord.create_time,
+    ord.wechat_openid, ord.refresh_time, ord.cheap_price, ord.actual_price,ord.main_openid, ord.user_id AS userId,
+    ord.reap_user_id, ord.reap_user_openid AS reapOpenid, urp.nick_name AS reap_nick_name , urp.phone AS reap_phone
+  </sql>
+  <resultMap id="BaseResultDetailMap" type="com.shouzan.back.entity.OrderDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="good_price" property="goodPrice" jdbcType="DECIMAL" />
+    <result column="mer_id" property="merId" jdbcType="INTEGER" />
+    <result column="mer_name" property="merName" jdbcType="VARCHAR" />
+    <result column="bank_id" property="bankId" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Detail_Column_List" >
+    orddet.goods_id, orddet.goods_name, orddet.goods_num, orddet.good_price, orddet.mer_id, orddet.mer_name, orddet.bank_id,
+    orddet.bank_name
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    count(ord.id)
+    FROM xys_order as ord
+    LEFT JOIN  xys_order_detail as orddet  on ord.id = orddet.order_id
+    LEFT JOIN  xys_user as us  on ord.user_id	= us.id
+    where ord.order_type = #{types}
+      <if test="keywords != null  and keywords != '' " >
+        and ( ord.order_no = #{keywords} or orddet.goods_name LIKE '%${keywords}%' or orddet.mer_name LIKE '%${keywords}%' or orddet.bank_name LIKE '%${keywords}%' or us.nick_name LIKE '%${keywords}%' or us.phone LIKE '%${keywords}%')
+      </if>
+    <if test="createTimeStart != null" >
+      and ord.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and ord.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    <if test="status != null" >
+      and ord.order_state = #{status}
+    </if>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    ord.id, ord.order_no, ord.wechat_order_no, ord.order_amount, ord.order_state, ord.create_time,
+    ord.wechat_openid, ord.refresh_time, ord.cheap_price, ord.actual_price,ord.main_openid ,
+    us.id as userId, us.nick_name as userName, us.phone as userTel, orddet.bank_name as bankName,
+    orddet.goods_name as goodsName, orddet.mer_name as merName ,
+    ord.reap_user_id, ord.reap_user_openid AS reapOpenid, urp.nick_name AS reap_nick_name , urp.phone AS reap_phone
+    FROM xys_order as ord
+    LEFT JOIN  xys_order_detail as orddet  on ord.id = orddet.order_id
+    LEFT JOIN  xys_user as us  on ord.user_id	= us.id
+    LEFT JOIN xys_user urp ON ord.reap_user_id = urp.id
+    where ord.order_type = #{types}
+      <if test="keywords != null  and keywords != '' " >
+        and ( ord.order_no = #{keywords} or orddet.goods_name LIKE '%${keywords}%' or orddet.mer_name LIKE '%${keywords}%' or orddet.bank_name LIKE '%${keywords}%' or us.nick_name LIKE '%${keywords}%' or us.phone LIKE '%${keywords}%')
+      </if>
+    <if test="createTimeStart != null" >
+      and ord.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and ord.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    <if test="status != null" >
+      and ord.order_state = #{status}
+    </if>
+     ORDER BY ord.create_time DESC
+  </select>
+
+  <select id="queryOrderById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    FROM xys_order as ord
+    LEFT JOIN xys_user urp ON ord.reap_user_id = urp.id
+    where ord.id = #{id}
+  </select>
+
+  <update id="updateOrderStatus">
+    update xys_order
+    set order_state = 5
+    where id = #{id}
+  </update>
+
+  <select id="selectOrderByNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from xys_order as ord
+    LEFT JOIN xys_user urp ON ord.reap_user_id = urp.id
+    where ord.order_no = #{orderNo}
+  </select>
+
+  <update id="refundOrderByOrderNo">
+    update xys_order
+    set order_state = 1
+    where order_no = #{orderNo}
+  </update>
+
+</mapper>

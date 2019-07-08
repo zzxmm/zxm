@@ -1,0 +1,1222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ca854306-8633-40df-9915-e68a508989ec" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/mylogs/mylog-2019-06-28.0.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mylogs/mylog-2019-06-29.0.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mylogs/mylog-2019-06-30.0.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mylogs/mylog-2019-06-30.1.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mylogs/mylog-2019-07-01.0.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mylogs/mylog-2019-07-03.0.log" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/manage-task/target/" />
+    <ignored path="$PROJECT_DIR$/manage-center/target/" />
+    <ignored path="$PROJECT_DIR$/manage-common/target/" />
+    <ignored path="$PROJECT_DIR$/manage-gate/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/manage-back/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/AchievementController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4266">
+              <caret line="260" selection-start-line="260" selection-end-line="260" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/work/repository/repository/org/springframework/spring-core/4.3.4.RELEASE/spring-core-4.3.4.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1584">
+              <caret line="103" selection-start-line="103" selection-end-line="103" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rpc/MobileFeignService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/vo/SearchSatisfy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/work/repository/repository/org/springframework/spring-aop/4.3.4.RELEASE/spring-aop-4.3.4.RELEASE-sources.jar!/org/springframework/aop/framework/CglibAopProxy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11556">
+              <caret line="719" selection-start-line="719" selection-end-line="719" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/vo/WithdrawalRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/application-dev.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1512">
+              <caret line="84" column="21" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/BillsController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="57" column="17" lean-forward="true" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package.json" />
+        <option value="FxmlFile" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>resttemplate</find>
+      <find>RestTemplate</find>
+      <find>integralRecord</find>
+      <find>openid</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="zhouman &lt;1023595228@qq.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/website/WebsiteTextMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/UserMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/User.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/IntegralRecordBiz.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/IntegralBizImpl.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/IntegralController.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/integral/IntegralRule.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/OrderMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/CouponMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/OrderMapper.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/integral/IntegralRecordMapper.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/WhiteListController.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/integral/IntegralRuleMapper.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/IntegralRuleBiz.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/IntegralRuleImpl.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/Coupon.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/CouponBizImpl.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/Order.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/CardrecordMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/OrderController.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/extend/ExtendUser.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/UserController.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/OrderBizImpl.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/integral/IntegralRecord.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/AchievementRule.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/AchievementRuleImp.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/AchievementRuleImpl.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/integral/IntegralRuleMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/achievement/AchievementsRule.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/achievement/AchievementsRecord.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/extend/ExtendExchangeMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/achievement/AchievementsRecordMapper.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/AchievementRecordBiz.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/AchievementRuleController.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/WholeEnableController.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/achievement/AchievementsRuleMapper.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/AchievementRuleBiz.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/AchievementRuleBizImpl.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/achievement/AchievementsExchange.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/achievement/AchievementsRuleMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/achievement/AchievementsExchangeMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/achievement/AchievementsExchangeMapper.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/AchievementRecordBizImpl.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/achievement/AchievementsRecordMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/mapper/integral/IntegralRecordMapper.xml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/vo/WithdrawalRequest.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/ExtendController.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/AchievementController.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rpc/MobileFeignService.java" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/resources/application-dev.yml" />
+        <option value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/BillsController.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="userSettingsFile" value="$USER_HOME$/work/apache-maven-3.6.1/conf/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+    <option name="enabledProfiles">
+      <list>
+        <option value="test" />
+      </list>
+    </option>
+    <option name="disabledProfiles">
+      <list>
+        <option value="DefaultProfile" />
+        <option value="dev" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="Profiles" type="6783ec58:MavenProjectsStructure$ProfilesNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="manage-back" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="manage-back" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.8" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="18" />
+    <option name="y" value="26" />
+    <option name="width" value="1389" />
+    <option name="height" value="804" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="manage-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manage-parent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="manage-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manage-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="manage-back" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="manage-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manage-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="manage-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="manage-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manage-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="manage-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="manage-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manage-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="manage-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="manage-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manage-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="manage-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="back" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/vo" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.shouzan.back.biz" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/vo" />
+      <recent name="$PROJECT_DIR$/manage-back/src/main/resources/mapper/achievement" />
+      <recent name="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/achievement" />
+      <recent name="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/achievement" />
+      <recent name="$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/integral" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.BackService">
+    <configuration name="BackService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="manage-back" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.shouzan.back.BackService" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CenterBootstrap" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="manage-center" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.shouzan.center.CenterBootstrap" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GateBootstrap" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="manage-gate" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.shouzan.gate.GateBootstrap" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="manage-task" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.shouzan.task.TaskApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ca854306-8633-40df-9915-e68a508989ec" name="Default Changelist" comment="" />
+      <created>1558234718432</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1558234718432</updated>
+      <workItem from="1558234720810" duration="539000" />
+      <workItem from="1558251096472" duration="9920000" />
+      <workItem from="1558326553884" duration="5292000" />
+      <workItem from="1558403343802" duration="902000" />
+      <workItem from="1558424616801" duration="1294000" />
+      <workItem from="1558425974094" duration="6754000" />
+      <workItem from="1558490274923" duration="13223000" />
+      <workItem from="1558576490476" duration="17746000" />
+      <workItem from="1558668334188" duration="4286000" />
+      <workItem from="1558875610972" duration="264000" />
+      <workItem from="1558931251418" duration="38130000" />
+      <workItem from="1559094843552" duration="20158000" />
+      <workItem from="1559181093189" duration="20857000" />
+      <workItem from="1559267902587" duration="17825000" />
+      <workItem from="1559529633909" duration="6043000" />
+      <workItem from="1559617568899" duration="3696000" />
+      <workItem from="1559705174936" duration="4556000" />
+      <workItem from="1559726372886" duration="1407000" />
+      <workItem from="1559786760689" duration="5995000" />
+      <workItem from="1560138759312" duration="1947000" />
+      <workItem from="1560156192055" duration="1760000" />
+      <workItem from="1560223685225" duration="4468000" />
+      <workItem from="1560304563843" duration="11610000" />
+      <workItem from="1560334080858" duration="597000" />
+      <workItem from="1560392324121" duration="5919000" />
+      <workItem from="1560478019381" duration="13849000" />
+      <workItem from="1560823134380" duration="7693000" />
+      <workItem from="1560910945775" duration="2105000" />
+      <workItem from="1560996672251" duration="2028000" />
+      <workItem from="1561360954767" duration="2109000" />
+      <workItem from="1561445828008" duration="10711000" />
+      <workItem from="1561620006197" duration="9305000" />
+      <workItem from="1561803689670" duration="946000" />
+      <workItem from="1561872736655" duration="432000" />
+      <workItem from="1561873186817" duration="13801000" />
+      <workItem from="1561947043926" duration="4515000" />
+      <workItem from="1561954048278" duration="717000" />
+      <workItem from="1561954814058" duration="11584000" />
+      <workItem from="1562032592391" duration="4715000" />
+      <workItem from="1562040082872" duration="9652000" />
+      <workItem from="1562121477133" duration="12728000" />
+      <workItem from="1562208374659" duration="1440000" />
+      <workItem from="1562292584532" duration="12319000" />
+      <workItem from="1562551878259" duration="931000" />
+    </task>
+    <task id="LOCAL-00001" summary="修改日志打印信息">
+      <created>1558321569853</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1558321569853</updated>
+    </task>
+    <task id="LOCAL-00002" summary="添加封装属性">
+      <created>1558585428428</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1558585428428</updated>
+    </task>
+    <task id="LOCAL-00003" summary="官网案例封面优化">
+      <created>1558940545924</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1558940545924</updated>
+    </task>
+    <task id="LOCAL-00004" summary="案例列表视图优化">
+      <created>1559189967228</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1559189967228</updated>
+    </task>
+    <task id="LOCAL-00005" summary="会员积分基础结构">
+      <created>1559192166427</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1559192166427</updated>
+    </task>
+    <task id="LOCAL-00006" summary="完善积分规则部分功能优化">
+      <created>1560310119646</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1560310119646</updated>
+    </task>
+    <task id="LOCAL-00007" summary="修改积分全局标量返回值">
+      <created>1560324108027</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1560324108027</updated>
+    </task>
+    <task id="LOCAL-00008" summary="修改会员积分展示信息">
+      <created>1560738860254</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1560738860254</updated>
+    </task>
+    <task id="LOCAL-00009" summary="将积分openid查询换为userId查询">
+      <created>1560824660586</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1560824660586</updated>
+    </task>
+    <task id="LOCAL-00010" summary="绩效规则功能实现">
+      <created>1561543570424</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1561543570424</updated>
+    </task>
+    <task id="LOCAL-00011" summary="绩效记录,绩效提现功能实现">
+      <created>1561954260814</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1561954260814</updated>
+    </task>
+    <task id="LOCAL-00012" summary="修改绩效全局控制参数">
+      <created>1561957051278</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1561957051278</updated>
+    </task>
+    <task id="LOCAL-00013" summary="修改日志打印信息">
+      <created>1561965874792</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1561965874792</updated>
+    </task>
+    <task id="LOCAL-00014" summary="添加绩效规则详情功能,绩效提现优化">
+      <created>1561971514762</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1561971514762</updated>
+    </task>
+    <task id="LOCAL-00015" summary="解决绩效提现状态修改bug,删除积分中用户表中的openid">
+      <created>1562042145589</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1562042145589</updated>
+    </task>
+    <task id="LOCAL-00016" summary="佣金提现方案优化">
+      <created>1562062280813</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1562062280813</updated>
+    </task>
+    <task id="LOCAL-00017" summary="解决佣金提现无法调用BUG">
+      <created>1562145508182</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1562145508183</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="326768000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="18" y="26" width="1389" height="804" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21232368" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286517" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.49157304" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.61657304" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3286517" />
+      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3286119" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.3286119" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.33567417" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.042134833" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.2494244" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.29694322" />
+      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.065330364" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" weight="0.3292402" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" weight="0.3292402" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20100144" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286517" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.61095506" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.34269664" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3286517" />
+      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3286119" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.3286119" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.6530899" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.042134833" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.2494244" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.29694322" />
+      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.13304721" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" weight="0.3292402" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" weight="0.3292402" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="添加封装属性" />
+    <MESSAGE value="官网案例封面优化" />
+    <MESSAGE value="案例列表视图优化" />
+    <MESSAGE value="会员积分基础结构" />
+    <MESSAGE value="完善积分规则部分功能优化" />
+    <MESSAGE value="修改积分全局标量返回值" />
+    <MESSAGE value="修改会员积分展示信息" />
+    <MESSAGE value="将积分openid查询换为userId查询" />
+    <MESSAGE value="绩效规则功能实现" />
+    <MESSAGE value="绩效记录,绩效提现功能实现" />
+    <MESSAGE value="修改绩效全局控制参数" />
+    <MESSAGE value="修改日志打印信息" />
+    <MESSAGE value="添加绩效规则详情功能,绩效提现优化" />
+    <MESSAGE value="解决绩效提现状态修改bug,删除积分中用户表中的openid" />
+    <MESSAGE value="佣金提现方案优化" />
+    <MESSAGE value="解决佣金提现无法调用BUG" />
+    <option name="LAST_COMMIT_MESSAGE" value="解决佣金提现无法调用BUG" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/AchievementRecordBizImpl.java</url>
+          <line>45</line>
+          <properties />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/AchievementController.java</url>
+          <line>260</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://$USER_HOME$/work/repository/repository/org/springframework/spring-web/4.3.4.RELEASE/spring-web-4.3.4.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="138" selection-start-line="138" selection-end-line="138" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/work/repository/repository/org/springframework/spring-webmvc/4.3.4.RELEASE/spring-webmvc-4.3.4.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="116" selection-start-line="116" selection-end-line="116" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/AchievementRuleController.java" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_212.jdk/Contents/Home/src.zip!/java/util/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="144" column="7" lean-forward="true" selection-start-line="144" selection-start-column="7" selection-end-line="144" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/WebsiteContorller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/WebsitaTextBizImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-979">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/WebsiteTextBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/website/WebsiteTextMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/achievement/AchievementsRecordMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/WholeEnableController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1648">
+          <caret line="141" column="28" selection-start-line="141" selection-start-column="28" selection-end-line="141" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/integral/IntegralRuleMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="20" column="45" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="20" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/CodeBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-375">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/FinanceBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/IntegralBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-221">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/MerBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-334">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/WebsiteCustomerBizImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-825">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/ActivityBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="97" column="9" lean-forward="true" selection-start-line="94" selection-start-column="12" selection-end-line="97" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/ActivityController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="82" column="9" selection-start-line="76" selection-start-column="8" selection-end-line="82" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/AchievementRuleBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1656">
+          <caret line="105" column="99" selection-start-line="105" selection-start-column="99" selection-end-line="105" selection-end-column="99" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/BankMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="35" column="50" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/integral/IntegralRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="29" column="24" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/AchievementRuleBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/achievement/AchievementsRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="30" column="27" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/achievement/AchievementsRule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="37" column="10" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/achievement/AchievementsRuleMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/entity/achievement/AchievementsExchange.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="55" column="27" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/mapper/achievement/AchievementsExchangeMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/achievement/AchievementsRuleMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-218">
+          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/website/WebsiteTextMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="16" column="46" lean-forward="true" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/website/WebsiteImgMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-28" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/website/WebsiteCustomerMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-28" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/integral/IntegralRuleMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-28" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/integral/IntegralRecordMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1681">
+          <caret line="31" column="11" lean-forward="true" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/achievement/AchievementsExchangeMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1332">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/achievement/AchievementsRecordMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="57" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/impl/AchievementRecordBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="93" column="79" selection-start-line="93" selection-start-column="79" selection-end-line="93" selection-end-column="79" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/AchievementRecordBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/mapper/extend/ExtendRecordMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="34" column="39" lean-forward="true" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/CardrecordBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/biz/ActivityBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="27" column="1" lean-forward="true" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rpc/MerFeignService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/BankController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1152">
+          <caret line="81" column="21" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/ExtendController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="73" column="56" selection-start-line="73" selection-start-column="56" selection-end-line="73" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/AchievementController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4266">
+          <caret line="260" selection-start-line="260" selection-end-line="260" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/work/repository/repository/org/springframework/spring-core/4.3.4.RELEASE/spring-core-4.3.4.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1584">
+          <caret line="103" selection-start-line="103" selection-end-line="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rpc/MobileFeignService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/vo/SearchSatisfy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/work/repository/repository/org/springframework/spring-aop/4.3.4.RELEASE/spring-aop-4.3.4.RELEASE-sources.jar!/org/springframework/aop/framework/CglibAopProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11556">
+          <caret line="719" selection-start-line="719" selection-end-line="719" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/vo/WithdrawalRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/resources/application-dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1512">
+          <caret line="84" column="21" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage-back/src/main/java/com/shouzan/back/rest/BillsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="57" column="17" lean-forward="true" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>manage-back</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+  <component name="mavenExecuteGoalHistory">
+    <option value="" />
+  </component>
+</project>

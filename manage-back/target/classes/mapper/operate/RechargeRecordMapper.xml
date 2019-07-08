@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.operate.RechargeRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.operate.RechargeRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="wechat_openid" property="wechatOpenid" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="record_type" property="recordType" jdbcType="TINYINT" />
+    <result column="recharge_tel" property="rechargeTel" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="telephone_bill" property="telephoneBill" jdbcType="DECIMAL" />
+    <result column="recharge_no" property="rechargeNo" jdbcType="VARCHAR" />
+    <result column="third_order_no" property="thirdOrderNo" jdbcType="VARCHAR" />
+    <result column="third_order_cash" property="thirdOrderCash" jdbcType="DECIMAL" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="nick_name" property="userName" jdbcType="VARCHAR" />
+    <result column="card_name" property="goodsName" jdbcType="VARCHAR" />
+
+    <result column="reap_user_id" property="reapUserId" jdbcType="INTEGER" />
+    <result column="reap_user_openid" property="reapUserOpenId" jdbcType="VARCHAR" />
+    <association property="reapUser" javaType="com.shouzan.back.entity.User" >
+      <id column="reap_user_id" property="id" jdbcType="INTEGER" />
+      <result column="reap_phone" property="phone" jdbcType="VARCHAR" />
+      <result column="sex" property="sex" jdbcType="TINYINT" />
+      <result column="reapOpenid" property="openid" jdbcType="VARCHAR" />
+      <result column="reap_nick_name" property="nickName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    recd.id, recd.order_no, recd.state, recd.wechat_openid, recd.goods_id, recd.record_type,
+    recd.recharge_no, recd.third_order_no , usr.nick_name, usr.id as user_id, ope.card_name,
+    recd.recharge_tel, recd.create_time, recd.last_edit_time, recd.telephone_bill, recd.third_order_cash,
+    recd.reap_user_id, recd.reap_user_openid AS reapOpenid, urp.nick_name AS reap_nick_name , urp.phone AS reap_phone
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    SELECT
+    count(recd.id)
+    FROM
+    xys_recharge_record  recd
+    LEFT JOIN xys_user usr ON recd.user_id = usr.id
+    LEFT JOIN xys_operate_theme ope ON ope.id = recd.goods_id
+    WHERE
+    recd.record_type = 0
+    <if test="keywords != null  and  keywords != '' " >
+      and ( recd.order_no = #{keywords} or usr.id LIKE '%${keywords}%' or recd.goods_id LIKE '%${keywords}%' or recd.recharge_tel LIKE '%${keywords}%' or usr.nick_name LIKE '%${keywords}%' or ope.card_name LIKE '%${keywords}%')
+    </if>
+    <if test="createTimeStart != null" >
+      and recd.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and recd.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    <if test="status != null" >
+      and recd.state = #{status}
+    </if>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    xys_recharge_record  recd
+    LEFT JOIN xys_user usr ON recd.user_id = usr.id
+    LEFT JOIN xys_operate_theme ope ON ope.id = recd.goods_id
+    LEFT JOIN xys_user urp ON recd.reap_user_id = urp.id
+    WHERE
+    recd.record_type = 0
+    <if test="keywords != null  and  keywords != '' " >
+      and ( recd.order_no = #{keywords} or usr.id LIKE '%${keywords}%' or recd.goods_id LIKE '%${keywords}%' or recd.recharge_tel LIKE '%${keywords}%' or usr.nick_name LIKE '%${keywords}%' or ope.card_name LIKE '%${keywords}%')
+    </if>
+    <if test="createTimeStart != null" >
+      and recd.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and recd.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+    <if test="status != null" >
+      and recd.state = #{status}
+    </if>
+    ORDER BY recd.create_time DESC
+  </select>
+
+  <select id="findRechCardrecordById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_recharge_record recd
+    LEFT JOIN	xys_user usr ON recd.user_id = usr.id
+    LEFT JOIN xys_operate_theme ope ON ope.id = recd.goods_id
+    LEFT JOIN xys_user urp ON recd.reap_user_id = urp.id
+    where recd.id = #{id}
+  </select>
+
+</mapper>

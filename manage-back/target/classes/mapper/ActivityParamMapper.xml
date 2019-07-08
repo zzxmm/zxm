@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.ActivityParamMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.ActivityParam" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="up_limit_people" property="upLimitPeople" jdbcType="INTEGER" />
+    <result column="subtract_price" property="subtractPrice" jdbcType="DECIMAL" />
+    <result column="subtract_limit_price" property="subtractLimitPrice" jdbcType="DECIMAL" />
+    <result column="group_subtract_price" property="groupSubtractPrice" jdbcType="DECIMAL" />
+    <result column="preferen_amount" property="preferenAmount" jdbcType="DECIMAL" />
+    <result column="quick_buy_price" property="quickBuyPrice" jdbcType="DECIMAL" />
+    <result column="day_limit" property="dayLimit" jdbcType="INTEGER" />
+    <result column="activity_limit" property="activityLimit" jdbcType="VARCHAR" />
+    <result column="account_limit" property="accountLimit" jdbcType="VARCHAR" />
+    <result column="part_activity_num" property="partActivityNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, up_limit_people, subtract_price, subtract_limit_price, group_subtract_price, 
+    preferen_amount, quick_buy_price, day_limit, activity_limit, account_limit, part_activity_num
+  </sql>
+
+  <update id="updateActivityParam" parameterType="com.shouzan.back.entity.ActivityParam" >
+    update xys_activity_param
+    <set >
+      <if test="upLimitPeople != null" >
+        up_limit_people = #{upLimitPeople,jdbcType=INTEGER},
+      </if>
+      <if test="subtractPrice != null" >
+        subtract_price = #{subtractPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="subtractLimitPrice != null" >
+        subtract_limit_price = #{subtractLimitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="groupSubtractPrice != null" >
+        group_subtract_price = #{groupSubtractPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="preferenAmount != null" >
+        preferen_amount = #{preferenAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="quickBuyPrice != null" >
+        quick_buy_price = #{quickBuyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="dayLimit != null" >
+        day_limit = #{dayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="activityLimit != null" >
+        activity_limit = #{activityLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="accountLimit != null" >
+        account_limit = #{accountLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="partActivityNum != null" >
+        part_activity_num = #{partActivityNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectParamInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from xys_activity_param where id = #{id}
+  </select>
+
+</mapper>

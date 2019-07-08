@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.WhiteMapper" >
+  <resultMap id="BaseResultBaseMap" type="com.shouzan.back.entity.white.WhiteBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_name" property="baseName" jdbcType="VARCHAR" />
+    <result column="base_sign" property="baseSign" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_Base_List" >
+    base.id, base.base_name, base.base_sign, base.create_time, base.creator_id,
+     base.last_edit_time, base.last_edit_id
+  </sql>
+
+  <resultMap id="BaseResultUserMap" type="com.shouzan.back.entity.white.WhiteUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_User_List" >
+    id, phone, creator_id, create_time
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    count(base.id)
+    FROM xys_white_list_base base
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and ( base.id LIKE #{keywords} or base.base_name LIKE #{keywords} )
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultBaseMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    <include refid="Base_Column_Base_List" />
+    FROM xys_white_list_base base
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and ( base.id LIKE #{keywords} or base.base_name LIKE #{keywords} )
+      </if>
+    </where>
+    order by base.create_time desc
+  </select>
+
+  <update id="createUserTable" parameterType="java.lang.String">
+    CREATE TABLE `whitelist`.`xys_white_user_${sign}`  (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `phone` varchar(32) NULL COMMENT '手机号',
+    `creator_id` int(11) NULL COMMENT '录入人',
+    `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '录入时间',
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `IX_NI_PHONE`(`phone`) USING BTREE COMMENT '手机号唯一索引'
+    )COMMENT = '${baseName}-白名单用户表';
+  </update>
+
+  <insert id="addWhiteBaseInfo" parameterType="com.shouzan.back.entity.white.WhiteBase" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into xys_white_list_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="baseName != null" >
+        base_name,
+      </if>
+      <if test="baseSign != null" >
+        base_sign,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="baseName != null" >
+        #{baseName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseSign != null" >
+        #{baseSign,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateWhiteBase" parameterType="com.shouzan.back.entity.white.WhiteBase" >
+    update xys_white_list_base
+    <set >
+      <if test="baseName != null" >
+        base_name = #{baseName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findInfoBySign" resultMap="BaseResultBaseMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_Base_List" />
+    FROM xys_white_list_base base
+    where  base.base_sign = #{sign}
+  </select>
+
+  <select id="findBaseSignById" resultType="java.lang.String" parameterType="java.lang.Integer">
+    SELECT
+    base_sign
+    FROM xys_white_list_base
+    where  id = #{id}
+  </select>
+
+  <insert id="batchInsertList">
+    insert IGNORE into `whitelist`.`xys_white_user_${sign}`
+    (
+    phone, creator_id
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item.phone,jdbcType=INTEGER},#{item.creatorId,jdbcType=INTEGER}
+      )
+    </foreach>
+
+  </insert>
+
+  <select id="findInfoById" resultMap="BaseResultBaseMap">
+    SELECT
+    <include refid="Base_Column_Base_List" />
+    FROM xys_white_list_base base
+    where  base.id = #{id}
+  </select>
+
+</mapper>

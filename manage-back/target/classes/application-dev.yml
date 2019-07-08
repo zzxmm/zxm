@@ -1,0 +1,144 @@
+logging:
+  level:
+    tk.mybatis: DEBUG
+    com.shouzan.back: DEBUG
+
+spring:
+  application:
+    name: manage-back
+  jackson:
+    #        date-format: yyyy-MM-dd HH:mm:ss
+    #        time-zone: GMT+8
+    default-property-inclusion: non-null
+    serialization:
+      write-dates-as-timestamps: true
+
+  http:
+    multipart:
+      max-file-size: 102400KB
+      max-request-size: 102400KB
+  #    jms:
+  #        pub-sub-domain: true
+  redis: # y
+    database: 0
+    host: 140.143.122.180
+    port: 6379
+    password: redisDbs
+    pool:
+      max-active: 20
+  datasource:
+#name: dev
+    url: jdbc:mysql://127.0.0.1:3306/szxys?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: root
+    password: 123456
+
+#    # test
+#    url: jdbc:mysql://bj-cdb-d7nuqu78.sql.tencentcdb.com:62699/szxys?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+#    username: root
+#    password: Rfvnji_08905Dbs!
+
+
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+mybatis:
+  type-aliases-package: com.shouzan.back.entity  #解决java jar 运行报错  原先 classpath:**
+  mapper-locations: classpath:mapper/**/*.xml
+
+mapper:
+  before: true
+  not-empty: false
+server:
+  port: 7901
+
+eureka:
+  instance:
+    statusPageUrlPath: /info
+    healthCheckUrlPath: /health
+    # docker 部署开启
+  #        prefer-ip-address: true
+  #        ip-address: 192.168.103.199
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+#      defaultZone: http://140.143.132.159:8761/eureka/,http://140.143.122.180:8761/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+swagger:
+  basepackage: com.shouzan.back
+  service:
+    name: Manage Back
+    description: Manage Back后端服务
+    developer: maB
+
+#TODO正式上线时需要修改网关域名
+constant:
+  gateWayUrl: https://www.shouzan365.com
+  #    gateWayUrl: http://gate.3w.dkys.org
+
+#微信使用的参数
+wx:
+  token: qingfenkaifangpingtai #如果没有授权给第三方开放平台，在公众号填写开发配置的时候必须要按照我们这个填写，否则不能实现公众号的业务
+  payTemplateCode: OPENTM407387946 #支付通知模板code 在微信公众号后台获取
+  third:
+    token: qingfenkaifangpingtai #微信第三方平台token
+    encodingAesKey: asddsgfsadfdsaf2dsaf32dsfasfdsc322wsaf32fsa #微信第三方平台消息加解密key
+    appid: wxbc900a4d89268ee7 #微信第三方平台APPID
+    appSecret: e0b0c62ff73d68f2d24e7a70348da202 #微信第三方平台APPSECRET
+  miniorder:
+    appid: 123123 #点餐小程序appid
+    appSecret: 123123 #点餐小程序appsecret
+
+
+ribbon:
+  #debug调试时，可能会报连接超时等异常 。可通过调整如下两个参数，增加调试时间
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+## 不同环境的配置信息
+#reids token key
+private_tokenKey: WX_XYS_SUB_ACCESSTOKEN_wxcd4c2f0afdf0f6e7
+#redis data base
+private_redisDB: 14
+#server path
+private_path: /Users/bin.yang/Desktop/ftp
+#tencent cos server path
+private_cospath: shouzan-static/common_static/images/uat
+#card Immediate use center-url
+center_url: csxys.shouzan365.cn?type=skyl&couponId=
+#Operate H5 url
+operate_url: https://csxys.shouzan365.cn/#/bank-display-page?couponId=
+
+
+#短信相关
+message:
+  sms:
+    appId: 1400168014 #腾讯云短信服务SDK AppID
+    appKey: d1be42e0fa7f8f861cd62edb3b7588d1 #腾讯云短信服务SDK AppKey
+    templeId: 245176 #验证码短信模板ID
+    smsSign: 手赞金服 #短信服务签名内容
+    code:
+      templeId: 317789 #运营H5串码短信模板ID
+

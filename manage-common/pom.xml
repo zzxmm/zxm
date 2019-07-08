@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>manage-parent</artifactId>
+		<groupId>com.shouzan.creditcooperatives</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+<!-- 	 <configuration> -->
+<!-- 	    <mainClass>com.xx.webapps.api.main.WebappsApiBidMain</mainClass> -->
+<!-- 	 </configuration> -->
+	
+	<artifactId>manage-common</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<start-class>com.xx.webapps.api.main.WebappsApiBidMain</start-class>
+	</properties>
+	<dependencies>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter</artifactId> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+<!-- 			<version>4.3.4.RELEASE</version> -->
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+<!-- 			<version>3.1.0</version> -->
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-webmvc</artifactId> -->
+<!-- 			<version>4.1.3.RELEASE</version> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		
+		<!-- qf 加的  -->
+		<dependency>
+        	<groupId>commons-lang</groupId>
+        	<artifactId>commons-lang</artifactId>
+        	<version>2.6</version>
+        </dependency>
+        
+        <dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+<!-- 		    <version>2.9.0</version> -->
+       </dependency>
+       
+       <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.33</version>
+       </dependency>
+
+       <dependency>
+		<groupId>org</groupId>
+		<artifactId>jdom</artifactId>
+		<version>1.1</version>
+	</dependency>
+
+		<!--<dependency> -->
+		<!--<groupId>org.springframework</groupId> -->
+		<!--<artifactId>spring-web</artifactId> -->
+		<!--<version>4.1.3.RELEASE</version> -->
+		<!--</dependency> -->
+
+
+		<!-- war yong -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-tomcat</artifactId> -->
+<!-- 		</dependency> -->
+
+
+		<!--mybatis -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.mybatis.spring.boot</groupId> -->
+<!-- 			<artifactId>mybatis-spring-boot-starter</artifactId> -->
+<!-- 			<version>1.3.0</version> -->
+<!-- 		</dependency> -->
+		
+		<!--mapper -->
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<!--pagehelper -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
+		</dependency> 
+		
+		<!-- valide -->
+		<dependency>
+		   <groupId>org.hibernate</groupId>
+		   <artifactId>hibernate-validator</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<finalName>manage-common</finalName>
+		<plugins>
+			<!-- 0822 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-maven-plugin</artifactId>
+	            <configuration>
+	                <classifier>exec</classifier><!--这个是重点 -->
+	            </configuration>
+	        </plugin>
+		</plugins>
+	</build>
+
+	<packaging>jar</packaging>
+	
+
+	
+</project>

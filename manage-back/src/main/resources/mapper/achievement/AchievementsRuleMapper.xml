@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.achievement.AchievementsRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.achievement.AchievementsRule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="restricted_up" property="restrictedUp" jdbcType="DECIMAL" />
+    <result column="restricted_low" property="restrictedLow" jdbcType="DECIMAL" />
+    <result column="restricted_interval" property="restrictedInterval" jdbcType="INTEGER" />
+    <result column="rule_details" property="ruleDetails" jdbcType="VARCHAR" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, rule_name, restricted_up, restricted_low, restricted_interval, rule_details, 
+    last_edit_id, last_edit_time
+  </sql>
+  <select id="selectRule" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from xys_achievements_rule
+  </select>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    COUNT(id)
+    FROM
+    xys_achievements_rule
+    <if test="keywords != null  and keywords != '' " >
+      and (rule_name LIKE #{keywords} )
+    </if>
+    <if test="createTimeStart != null" >
+      and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+    </if>
+    <if test="createTimeEnd != null" >
+      and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+    </if>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    xys_achievements_rule
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (rule_name LIKE #{keywords} )
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+  <select id="selectRuleById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_achievements_rule
+    where id = #{id}
+  </select>
+
+  <update id="updateById" parameterType="com.shouzan.back.entity.achievement.AchievementsRule" >
+    update xys_achievements_rule
+    <set >
+      <if test="ruleName != null" >
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="restrictedUp != null" >
+        restricted_up = #{restrictedUp,jdbcType=DECIMAL},
+      </if>
+      <if test="restrictedLow != null" >
+        restricted_low = #{restrictedLow,jdbcType=DECIMAL},
+      </if>
+      <if test="restrictedInterval != null" >
+        restricted_interval = #{restrictedInterval,jdbcType=INTEGER},
+      </if>
+      <if test="ruleDetails != null" >
+        rule_details = #{ruleDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateAchievementEnableStatus">
+    update xys_zone_whole_control
+    set state = #{status} , last_edit_id = #{userId}
+    where type = 2
+  </update>
+
+  <select id="findAchievementEnableStatus" resultType="java.lang.Integer">
+    select state FROM xys_zone_whole_control
+    where type = 2
+  </select>
+
+</mapper>

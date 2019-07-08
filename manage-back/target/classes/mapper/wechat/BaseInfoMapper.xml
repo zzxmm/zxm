@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.wechat.BaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.card.BaseInfo" >
+    <result column="logo_url" property="logo_url" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brand_name" jdbcType="VARCHAR" />
+    <result column="code_type" property="code_type" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="notice" property="notice" jdbcType="VARCHAR" />
+    <result column="service_phone" property="service_phone" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="use_limit" property="use_limit" jdbcType="INTEGER" />
+    <result column="get_limit" property="get_limit" jdbcType="INTEGER" />
+    <result column="use_custom_code" property="use_custom_code" jdbcType="BIT" />
+    <result column="bind_openid" property="bind_openid" jdbcType="BIT" />
+    <result column="can_share" property="can_share" jdbcType="BIT" />
+    <result column="can_give_friend" property="can_give_friend" jdbcType="BIT" />
+    <result column="center_title" property="center_title" jdbcType="VARCHAR" />
+    <result column="center_sub_title" property="center_sub_title" jdbcType="VARCHAR" />
+    <result column="center_url" property="center_url" jdbcType="VARCHAR" />
+    <result column="custom_url_name" property="custom_url_name" jdbcType="VARCHAR" />
+    <result column="custom_url_sub_title" property="custom_url_sub_title" jdbcType="VARCHAR" />
+    <result column="promotion_url_name" property="promotion_url_name" jdbcType="VARCHAR" />
+    <result column="promotion_url" property="promotion_url" jdbcType="VARCHAR" />
+    <result column="get_custom_code_mode" property="get_custom_code_mode" jdbcType="VARCHAR" />
+    <result column="use_all_locations" property="use_all_locations" jdbcType="VARCHAR" />
+    <result column="custom_app_brand_user_name" property="custom_app_brand_user_name" jdbcType="VARCHAR" />
+    <result column="custom_app_brand_pass" property="custom_app_brand_pass" jdbcType="VARCHAR" />
+    <result column="promotion_url_sub_title" property="promotion_url_sub_title" jdbcType="VARCHAR" />
+    <result column="promotion_app_brand_user_name" property="promotion_app_brand_user_name" jdbcType="VARCHAR" />
+    <result column="promotion_app_brand_pass" property="promotion_app_brand_pass" jdbcType="VARCHAR" />
+    <result column="custom_url" property="custom_url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    logo_url, brand_name, code_type, title, color, notice, service_phone, description,
+    use_limit, get_limit, use_custom_code, bind_openid, can_share, can_give_friend, center_title, 
+    center_sub_title, center_url, custom_url_name, custom_url_sub_title, promotion_url_name, 
+    promotion_url, get_custom_code_mode, use_all_locations, custom_app_brand_user_name, 
+    custom_app_brand_pass,promotion_url_sub_title,promotion_app_brand_user_name,promotion_app_brand_pass,custom_url
+  </sql>
+
+  <select id="findBaseInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_wccard_baseinfo
+    where card_id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="addWeChetCouponBase" parameterType="com.shouzan.back.entity.card.BaseInfo">
+    insert into xys_wccard_baseinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logo_url != null" >
+        logo_url,
+      </if>
+      <if test="brand_name != null" >
+        brand_name,
+      </if>
+      <if test="code_type != null" >
+        code_type,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+      <if test="notice != null" >
+        notice,
+      </if>
+      <if test="service_phone != null" >
+        service_phone,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="use_limit != null" >
+        use_limit,
+      </if>
+      <if test="get_limit != null" >
+        get_limit,
+      </if>
+      <if test="use_custom_code != null" >
+        use_custom_code,
+      </if>
+      <if test="bind_openid != null" >
+        bind_openid,
+      </if>
+      <if test="can_share != null" >
+        can_share,
+      </if>
+      <if test="can_give_friend != null" >
+        can_give_friend,
+      </if>
+      <if test="center_title != null" >
+        center_title,
+      </if>
+      <if test="center_sub_title != null" >
+        center_sub_title,
+      </if>
+      <if test="center_url != null" >
+        center_url,
+      </if>
+      <if test="custom_url_name != null" >
+        custom_url_name,
+      </if>
+      <if test="custom_url_sub_title != null" >
+        custom_url_sub_title,
+      </if>
+      <if test="promotion_url_name != null" >
+        promotion_url_name,
+      </if>
+      <if test="promotion_url != null" >
+        promotion_url,
+      </if>
+      <if test="get_custom_code_mode != null" >
+        get_custom_code_mode,
+      </if>
+      <if test="use_all_locations != null" >
+        use_all_locations,
+      </if>
+      <if test="custom_app_brand_user_name != null" >
+        custom_app_brand_user_name,
+      </if>
+      <if test="custom_app_brand_pass != null" >
+        custom_app_brand_pass,
+      </if>
+      <if test="promotion_url_sub_title != null" >
+        promotion_url_sub_title,
+      </if>
+      <if test="promotion_app_brand_user_name != null" >
+        promotion_app_brand_user_name,
+      </if>
+      <if test="promotion_app_brand_pass != null" >
+        promotion_app_brand_pass,
+      </if>
+      <if test="custom_url != null" >
+        custom_url,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logo_url != null" >
+        #{logo_url,jdbcType=VARCHAR},
+      </if>
+      <if test="brand_name != null" >
+        #{brand_name,jdbcType=VARCHAR},
+      </if>
+      <if test="code_type != null" >
+        #{code_type,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="notice != null" >
+        #{notice,jdbcType=VARCHAR},
+      </if>
+      <if test="service_phone != null" >
+        #{service_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="use_limit != null" >
+        #{use_limit,jdbcType=INTEGER},
+      </if>
+      <if test="get_limit != null" >
+        #{get_limit,jdbcType=INTEGER},
+      </if>
+      <if test="use_custom_code != null" >
+        #{use_custom_code,jdbcType=BIT},
+      </if>
+      <if test="bind_openid != null" >
+        #{bind_openid,jdbcType=BIT},
+      </if>
+      <if test="can_share != null" >
+        #{can_share,jdbcType=BIT},
+      </if>
+      <if test="can_give_friend != null" >
+        #{can_give_friend,jdbcType=BIT},
+      </if>
+      <if test="center_title != null" >
+        #{center_title,jdbcType=VARCHAR},
+      </if>
+      <if test="center_sub_title != null" >
+        #{center_sub_title,jdbcType=VARCHAR},
+      </if>
+      <if test="center_url != null" >
+        #{center_url,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_url_name != null" >
+        #{custom_url_name,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_url_sub_title != null" >
+        #{custom_url_sub_title,jdbcType=VARCHAR},
+      </if>
+      <if test="promotion_url_name != null" >
+        #{promotion_url_name,jdbcType=VARCHAR},
+      </if>
+      <if test="promotion_url != null" >
+        #{promotion_url,jdbcType=VARCHAR},
+      </if>
+      <if test="get_custom_code_mode != null" >
+        #{get_custom_code_mode,jdbcType=VARCHAR},
+      </if>
+      <if test="use_all_locations != null" >
+        #{use_all_locations,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_app_brand_user_name != null" >
+        #{custom_app_brand_user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_app_brand_pass != null" >
+        #{custom_app_brand_pass,jdbcType=VARCHAR},
+      </if>
+      <if test="promotion_url_sub_title != null" >
+        #{promotion_url_sub_title,jdbcType=VARCHAR},
+      </if>
+      <if test="promotion_app_brand_user_name != null" >
+        #{promotion_app_brand_user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="promotion_app_brand_pass != null" >
+        #{promotion_app_brand_pass,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_url != null" >
+        #{custom_url,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateWcCardInfoBase" parameterType="com.shouzan.back.entity.card.update.BaseInfoUp" >
+    update xys_wccard_baseinfo
+    <set >
+      <if test="beanJson.logo_url != null" >
+        logo_url = #{beanJson.logo_url,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.code_type != null" >
+        code_type = #{beanJson.code_type,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.title != null" >
+        title = #{beanJson.title,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.color != null" >
+        color = #{beanJson.color,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.notice != null" >
+        notice = #{beanJson.notice,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.service_phone != null" >
+        service_phone = #{beanJson.service_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.description != null" >
+        description = #{beanJson.description,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.get_limit != null" >
+        get_limit = #{beanJson.get_limit,jdbcType=INTEGER},
+      </if>
+      <if test="beanJson.can_share != null" >
+        can_share = #{beanJson.can_share,jdbcType=BIT},
+      </if>
+      <if test="beanJson.can_give_friend != null" >
+        can_give_friend = #{beanJson.can_give_friend,jdbcType=BIT},
+      </if>
+      <if test="beanJson.center_title != null" >
+        center_title = #{beanJson.center_title,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.center_sub_title != null" >
+        center_sub_title = #{beanJson.center_sub_title,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.center_url != null" >
+        center_url = #{beanJson.center_url,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.custom_url_name != null" >
+        custom_url_name = #{beanJson.custom_url_name,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.custom_url_sub_title != null" >
+        custom_url_sub_title = #{beanJson.custom_url_sub_title,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.custom_url != null" >
+        custom_url = #{beanJson.custom_url,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.promotion_url_name != null" >
+        promotion_url_name = #{beanJson.promotion_url_name,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.promotion_url != null" >
+        promotion_url = #{beanJson.promotion_url,jdbcType=VARCHAR},
+      </if>
+      <if test="beanJson.promotion_url_sub_title != null" >
+        promotion_url_sub_title = #{beanJson.promotion_url_sub_title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+
+  <update id="insertWeChatCenterUrl">
+    update xys_wccard_baseinfo
+    set center_url = #{url,jdbcType=VARCHAR}
+    where card_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteWeChetCouponByCardId" parameterType="java.lang.Integer" >
+    DELETE FROM xys_wccard_baseinfo WHERE card_id = #{id}
+  </delete>
+
+</mapper>

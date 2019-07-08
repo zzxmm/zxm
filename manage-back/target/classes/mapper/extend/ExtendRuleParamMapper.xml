@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.extend.ExtendRuleParamMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.extend.ExtendRuleParam" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="min_num" property="minNum" jdbcType="INTEGER" />
+    <result column="max_num" property="maxNum" jdbcType="INTEGER" />
+    <result column="percentage" property="percentage" jdbcType="DECIMAL" />
+    <result column="inviter_reward" property="inviterReward" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, level, min_num, max_num, percentage * 100 as percentage , inviter_reward
+  </sql>
+
+  <insert id="addExtendRuleParam" >
+    insert into xys_extend_rule_param
+    (
+    level,
+    min_num,
+    max_num,
+    percentage,
+    inviter_reward
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item.level},
+      #{item.minNum},
+      #{item.maxNum},
+      #{item.percentage} / 100 ,
+      #{item.inviterReward}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteExtendRuleParam" >
+     DELETE FROM xys_extend_rule_param
+  </delete>
+
+  <select id="findInfoByRule" resultMap="BaseResultMap" >
+     SELECT <include refid="Base_Column_List" /> FROM xys_extend_rule_param
+  </select>
+
+</mapper>

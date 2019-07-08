@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.integral.IntegralRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.integral.IntegralRule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="rule_type" property="ruleType" jdbcType="TINYINT" />
+    <result column="day_limit" property="dayLimit" jdbcType="INTEGER" />
+    <result column="obtain_integral" property="obtainIntegral" jdbcType="INTEGER" />
+    <result column="account_limit" property="accountLimit" jdbcType="INTEGER" />
+    <result column="rule_details" property="ruleDetails" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, rule_name, rule_type, day_limit, obtain_integral, account_limit,
+    rule_details, creator_id, create_time, last_edit_id, last_edit_time
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from xys_integral_rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    COUNT(id)
+    from xys_integral_rule
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (rule_name LIKE #{keywords} or rule_type LIKE #{keywords} create_time LIKE #{keywords})
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    <include refid="Base_Column_List"/>
+    from xys_integral_rule
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (rule_name LIKE #{keywords} or rule_type LIKE #{keywords} create_time LIKE #{keywords})
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from xys_integral_rule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective"  >
+    insert into xys_integral_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ruleName != null" >
+        rule_name,
+      </if>
+      <if test="ruleType != null" >
+        rule_type,
+      </if>
+      <if test="dayLimit != null" >
+        day_limit,
+      </if>
+      <if test="obtainIntegral != null" >
+        obtain_integral,
+      </if>
+      <if test="accountLimit != null" >
+        account_limit,
+      </if>
+      <if test="ruleDetails != null" >
+        rule_details,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null" >
+        #{ruleType,jdbcType=TINYINT},
+      </if>
+      <if test="dayLimit != null" >
+        #{dayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="obtainIntegral != null" >
+        #{obtainIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="accountLimit != null" >
+        #{accountLimit,jdbcType=INTEGER},
+      </if>
+      <if test="ruleDetails != null" >
+        #{ruleDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective"  >
+    update xys_integral_rule
+    <set >
+      <if test="ruleName != null" >
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null" >
+        rule_type = #{ruleType,jdbcType=TINYINT},
+      </if>
+      <if test="dayLimit != null" >
+        day_limit = #{dayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="obtainIntegral != null" >
+        obtain_integral = #{obtainIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="accountLimit != null" >
+        account_limit = #{accountLimit,jdbcType=INTEGER},
+      </if>
+      <if test="ruleDetails != null" >
+        rule_details = #{ruleDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateIntegralEnableStatus">
+    update xys_zone_whole_control
+    set state = #{status} , last_edit_id = #{userId}
+    where type = 1
+  </update>
+
+  <select id="findIntegralEnableStatus" resultType="java.lang.Integer">
+    select state FROM xys_zone_whole_control
+    where type = 1
+  </select>
+</mapper>

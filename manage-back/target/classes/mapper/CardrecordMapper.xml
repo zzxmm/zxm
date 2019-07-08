@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.CardrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.Cardrecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="wechat_coupon_id" property="wechatCouponId" jdbcType="VARCHAR" />
+    <result column="mer_id" property="merId" jdbcType="INTEGER" />
+    <result column="bank_id" property="bankId" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="card_state" property="cardState" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="coupon_valid_time_start" property="couponValidTimeStart" jdbcType="TIMESTAMP" />
+    <result column="coupon_valid_time_end" property="couponValidTimeEnd" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+    <result column="wechat_openid" property="wechatOpenid" jdbcType="VARCHAR" />
+    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+
+    <result column="goodPrice" property="goodPrice" jdbcType="DECIMAL" />
+    <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goodsNameo" property="goodsNameo" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="userTel" property="userTel" jdbcType="VARCHAR" />
+    <result column="merName" property="merName" jdbcType="VARCHAR" />
+    <result column="cconsume_mer" property="cconsumeMer" jdbcType="INTEGER" />
+
+    <result column="reap_user_id" property="reapUserId" jdbcType="INTEGER" />
+    <result column="reap_user_openid" property="reapUserOpenId" jdbcType="VARCHAR" />
+    <association property="reapUser" javaType="com.shouzan.back.entity.User" >
+      <id column="reap_user_id" property="id" jdbcType="INTEGER" />
+      <result column="reap_phone" property="phone" jdbcType="VARCHAR" />
+      <result column="sex" property="sex" jdbcType="TINYINT" />
+      <result column="reapOpenid" property="openid" jdbcType="VARCHAR" />
+      <result column="reap_nick_name" property="nickName" jdbcType="VARCHAR" />
+    </association>
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    card.id, card.order_no, card.coupon_id, card.wechat_coupon_id, card.mer_id, card.bank_id,
+    card.card_state, card.create_time, card.last_edit_time, card.coupon_valid_time_start, card.coupon_valid_time_end,
+    card.user_id, card.user_name, card.user_tel, card.wechat_openid, cor.cconsume_mer,
+    card.reap_user_id, card.reap_user_openid AS reapOpenid, urp.nick_name AS reap_nick_name , urp.phone AS reap_phone
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+      count(card.id)
+      from xys_cardrecord card
+    LEFT JOIN xys_order orde ON card.order_no=orde.order_no
+    LEFT JOIN xys_order_detail deta ON orde.id=deta.order_id
+    LEFT JOIN xys_user us ON us.id=card.user_id
+    LEFT JOIN xys_operate_theme ope ON ope.id = card.coupon_id
+    where card.record_type = #{types}
+      <if test="keywords != null  and  keywords != '' " >
+        and ( deta.goods_name LIKE #{keywords} or deta.mer_name LIKE #{keywords} or deta.bank_name LIKE #{keywords} or us.nick_name LIKE #{keywords} or us.phone LIKE #{keywords} or ope.card_name LIKE #{keywords})
+      </if>
+      <if test="createTimeStart != null" >
+        and card.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and card.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+      <if test="status != null" >
+        and card.card_state = #{status}
+      </if>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    card.id, card.order_no, card.coupon_id, card.wechat_coupon_id, card.mer_id, card.bank_id,
+    card.card_state, card.create_time, card.last_edit_time, card.coupon_valid_time_start, card.coupon_valid_time_end,
+    card.user_id, card.user_name, card.user_tel, card.wechat_openid, ban.bank_name ,orde.actual_price AS goodPrice,
+    deta.goods_name AS goodsName, us.nick_name AS userName, us.phone AS userTel, mer.mer_name AS merName, ope.card_name AS goodsNameo,
+    cor.cconsume_mer,
+    card.reap_user_id, card.reap_user_openid AS reapOpenid, urp.nick_name AS reap_nick_name , urp.phone AS reap_phone
+    from xys_cardrecord card
+    LEFT JOIN xys_order orde ON card.order_no=orde.order_no
+    LEFT JOIN xys_order_detail deta ON orde.id=deta.order_id
+    LEFT JOIN xys_user us ON us.id=card.user_id
+    LEFT JOIN xys_operate_theme ope ON ope.id = card.coupon_id
+    LEFT JOIN xys_merchants mer ON mer.id = card.mer_id
+    LEFT JOIN xys_bank ban ON ban.id = card.bank_id
+    LEFT JOIN xys_consume_record cor ON  card.wechat_coupon_id = cor.cdiscount_id
+    LEFT JOIN xys_user urp ON card.reap_user_id = urp.id
+    where card.record_type = #{types}
+      <if test="keywords != null  and keywords != '' " >
+        and ( deta.goods_name LIKE #{keywords} or deta.mer_name LIKE #{keywords} or deta.bank_name LIKE #{keywords} or us.nick_name LIKE #{keywords} or us.phone LIKE #{keywords} or ope.card_name LIKE #{keywords})
+      </if>
+      <if test="createTimeStart != null" >
+        and card.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and card.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+      <if test="status != null" >
+        and card.card_state = #{status}
+      </if>
+    ORDER BY card.create_time DESC
+  </select>
+
+  <select id="selectCardrecordById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" /> , bank.bank_name
+    from xys_cardrecord card
+    LEFT JOIN xys_bank bank ON card.bank_id=bank.id
+    LEFT JOIN xys_consume_record cor ON  card.wechat_coupon_id = cor.cdiscount_id
+    LEFT JOIN xys_user urp ON card.reap_user_id = urp.id
+    where card.id = #{id}
+  </select>
+
+  <update id="updateCardrecordById">
+   UPDATE xys_cardrecord
+   	 SET card_state = 1
+   WHERE id IN (${id}) and card_state = 0
+  </update>
+
+  <update id="refundCardrecordByOrderNo">
+   UPDATE xys_cardrecord
+   	 SET card_state = 4
+   WHERE order_no=#{orderNo} and card_state = 0
+  </update>
+
+  <update id="paymentStatusUpdate">
+   UPDATE xys_cardrecord
+   	 SET card_state = 2
+   WHERE wechat_coupon_id in (${pay})
+  </update>
+
+  <update id="refundStatusUpdate">
+   UPDATE xys_cardrecord
+   	 SET card_state = 1
+   WHERE wechat_coupon_id in (${refu})
+  </update>
+
+</mapper>

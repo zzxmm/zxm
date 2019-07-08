@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.extend.ExtendRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.extend.ExtendRule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="details" property="details" jdbcType="VARCHAR" />
+    <result column="restricted_up" property="restrictedUp" jdbcType="DECIMAL" />
+    <result column="restricted_low" property="restrictedLow" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="restricted_interval" property="restrictedInterval" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, details, restricted_up, restricted_low, restricted_interval ,
+    create_time, creator_id, last_edit_time, last_edit_id
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    COUNT(*)
+    from xys_extend_rule
+    <where>
+      <if test="keywords != null">
+         and (id LIKE #{keywords} )
+      </if>
+      <if test="createTimeStart != null">
+        and create_time <![CDATA[ >= ]]> #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null">
+        and create_time <![CDATA[ <= ]]> #{createTimeEnd}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    <include refid="Base_Column_List" />
+    FROM
+    xys_extend_rule
+    <where>
+      <if test="keywords != null">
+        and (id LIKE #{keywords} )
+      </if>
+      <if test="createTimeStart != null">
+        and create_time <![CDATA[ >= ]]> #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null">
+        and create_time <![CDATA[ <= ]]> #{createTimeEnd}
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <select id="findCountByType" resultType="java.lang.Integer" parameterType="java.lang.Byte" >
+    select
+    COUNT(*)
+    from xys_extend_rule
+    WHERE rule_type = #{ruleType}
+  </select>
+
+  <insert id="addExtendRuleInfo" parameterType="com.shouzan.back.entity.extend.ExtendRule" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+    insert into xys_extend_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="details != null" >
+        details,
+      </if>
+      <if test="restrictedUp != null" >
+        restricted_up,
+      </if>
+      <if test="restrictedLow != null" >
+        restricted_low,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="restrictedInterval != null" >
+        restricted_interval,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="details != null" >
+        #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="restrictedUp != null" >
+        #{restrictedUp,jdbcType=DECIMAL},
+      </if>
+      <if test="restrictedLow != null" >
+        #{restrictedLow,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="restrictedInterval != null" >
+        #{restrictedInterval,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateExtendRuleInfo" parameterType="com.shouzan.back.entity.extend.ExtendRule" >
+    update xys_extend_rule
+    <set >
+      <if test="details != null" >
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="restrictedUp != null" >
+        restricted_up = #{restrictedUp,jdbcType=DECIMAL},
+      </if>
+      <if test="restrictedLow != null" >
+        restricted_low = #{restrictedLow,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id = #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="restrictedInterval != null" >
+        restricted_interval = #{restrictedInterval,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    FROM
+    xys_extend_rule
+    where id = #{id}
+  </select>
+
+  <update id="updateExtendRuleStatus">
+    update xys_extend_rule
+    set enable_state = #{status}
+    where id in (${id})
+  </update>
+
+  <update id="updateEnableStatus">
+    update xys_zone_whole_control
+    set state = #{status} , last_edit_id = #{userId}
+    where type = 0
+  </update>
+
+  <select id="findEnableStatus" resultType="java.lang.Integer">
+    select state FROM xys_zone_whole_control
+    where type = 0
+  </select>
+</mapper>

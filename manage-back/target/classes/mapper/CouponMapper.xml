@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.CouponMapper" >
+    <resultMap id="BaseResultMap" type="com.shouzan.back.entity.Coupon" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+        <result column="coupon_shot_name" property="couponShotName" jdbcType="VARCHAR" />
+        <result column="coupon_type" property="couponType" jdbcType="TINYINT" />
+        <result column="coupon_valid_time_start" property="couponValidTimeStart" jdbcType="TIMESTAMP" />
+        <result column="coupon_valid_time_end" property="couponValidTimeEnd" jdbcType="TIMESTAMP" />
+        <result column="coupon_stocks" property="couponStocks" jdbcType="INTEGER" />
+        <result column="coupon_state" property="couponState" jdbcType="TINYINT" />
+        <result column="mer_id" property="merId" jdbcType="INTEGER" />
+        <result column="bank_id" property="bankId" jdbcType="INTEGER" />
+        <result column="upshelf_time" property="upshelfTime" jdbcType="TIMESTAMP" />
+        <result column="downshelf_time" property="downshelfTime" jdbcType="TIMESTAMP" />
+        <result column="limit_buy_type" property="limitBuyType" jdbcType="TINYINT" />
+        <result column="limit_person_num" property="limitPersonNum" jdbcType="INTEGER" />
+        <result column="limit_buy_num" property="limitBuyNum" jdbcType="INTEGER" />
+        <result column="describes" property="describes" jdbcType="VARCHAR" />
+        <result column="matter" property="matter" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+        <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+        <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+        <result column="is_preferen" property="isPreferen" jdbcType="TINYINT" />
+        <result column="is_select" property="isSelect" jdbcType="TINYINT" />
+        <result column="priority" property="priority" jdbcType="INTEGER" />
+        <result column="goods_tag" property="goodsTag" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+        <result column="coupon_stock_id" property="couponStockId" jdbcType="VARCHAR" />
+        <result column="coupon_image" property="couponImage" jdbcType="VARCHAR" />
+        <result column="coupon_use_range" property="couponUseRange" jdbcType="VARCHAR" />
+        <result column="storeId" property="storeId" jdbcType="VARCHAR" />
+        <result column="is_sell" property="isSell" jdbcType="TINYINT" />
+        <result column="is_display" property="isDisplay" jdbcType="TINYINT" />
+        <result column="return_money" property="returnMoney" jdbcType="DECIMAL" />
+
+        <result column="make_integral" property="makeIntegral" jdbcType="VARCHAR" />
+        <result column="use_integral" property="useIntegral" jdbcType="TINYINT" />
+        <result column="integral_sign" property="integralSign" jdbcType="TINYINT" />
+        <result column="integral_cash" property="integralCash" jdbcType="DECIMAL" />
+        <result column="is_partake_cash" property="isPartakeCash" jdbcType="TINYINT" />
+        <result column="is_integral" property="isIntegral" jdbcType="TINYINT" />
+
+        <result column="card_package_id" property="cardPackageId" jdbcType="VARCHAR" />
+
+        <association property="bank" javaType="com.shouzan.back.entity.Bank">
+            <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+            <result column="bank_shot_name" property="bankShotName" jdbcType="VARCHAR" />
+        </association>
+        <association property="merchants" javaType="com.shouzan.back.entity.Merchants">
+            <result column="mer_name" property="merName" jdbcType="VARCHAR" />
+            <result column="mer_shot_name" property="merShotName" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, coupon_name, coupon_shot_name, coupon_type, coupon_valid_time_start, coupon_valid_time_end,
+        coupon_stocks, coupon_state, mer_id, bank_id, upshelf_time, return_money,
+        downshelf_time, limit_buy_type, limit_person_num, limit_buy_num, describes, matter,
+        create_time, creator_id, last_edit_time, last_edit_id, is_preferen, is_select, priority,
+        goods_tag, price, discount_price, coupon_stock_id, coupon_image, coupon_use_range  ,is_display,
+        make_integral, use_integral, integral_sign, integral_cash, is_partake_cash, is_integral, card_package_id
+    </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    count(id)
+    from xys_coupon
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (coupon_name LIKE #{keywords} or coupon_shot_name LIKE #{keywords} or describes LIKE #{keywords})
+      </if>
+      <if test="id != null " >
+        and id = #{id}
+      </if>
+      <if test="status != null " >
+        and coupon_state = #{status}
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+      <if test="upshelfTimeStart != null" >
+        and upshelf_time <![CDATA[ >= ]]> '${upshelfTimeStart}'
+      </if>
+      <if test="downshelfTimeEnd != null" >
+        and downshelf_time <![CDATA[ <= ]]> '${downshelfTimeEnd}'
+      </if>
+      <if test="startTimeStart != null" >
+        and coupon_valid_time_start <![CDATA[ >= ]]> '${startTimeStart}'
+      </if>
+      <if test="startTimeEnd != null" >
+        and coupon_valid_time_end <![CDATA[ <= ]]> '${startTimeEnd}'
+      </if>
+      <if test="minNumber != null  " >
+        and coupon_stocks <![CDATA[ >= ]]> '${minNumber}'
+      </if>
+      <if test="maxNumber != null  " >
+        and coupon_stocks <![CDATA[ <= ]]> '${maxNumber}'
+      </if>
+      <if test="name != null" >
+            and  coupon_use_range like '%${name}%'
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+      SELECT
+      cli.id, cli.coupon_name, cli.coupon_shot_name, cli.coupon_type, cli.coupon_valid_time_start, cli.coupon_valid_time_end,
+      cli.coupon_stocks, cli.coupon_state, cli.mer_id, cli.bank_id, cli.upshelf_time, cli.card_package_id,
+      cli.downshelf_time, cli.limit_buy_type, cli.limit_person_num, cli.limit_buy_num, cli.describes, cli.matter,
+      cli.create_time, cli.creator_id, cli.last_edit_time, cli.last_edit_id, cli.is_preferen, cli.is_select, cli.priority,
+      cli.goods_tag, cli.price, cli.discount_price, cli.coupon_stock_id, cli.coupon_image, cli.coupon_use_range  ,
+      cli.is_display, ban.bank_name, ban.bank_shot_name, mer.mer_name, mer.mer_shot_name ,cli.return_money
+      FROM xys_coupon cli
+      LEFT JOIN xys_bank ban ON cli.bank_id = ban.id
+      LEFT JOIN xys_merchants mer ON cli.mer_id = mer.id
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (cli.coupon_name LIKE #{keywords} or cli.coupon_shot_name LIKE #{keywords} or cli.describes LIKE #{keywords} or ban.bank_name LIKE #{keywords} or mer.mer_name LIKE #{keywords})
+      </if>
+      <if test="id != null " >
+        and cli.id = #{id}
+      </if>
+      <if test="status != null " >
+        and cli.coupon_state = #{status}
+      </if>
+      <if test="createTimeStart != null" >
+        and cli.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and cli.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+      <if test="upshelfTimeStart != null" >
+            and cli.upshelf_time <![CDATA[ >= ]]> '${upshelfTimeStart}'
+      </if>
+      <if test="downshelfTimeEnd != null" >
+            and cli.downshelf_time <![CDATA[ <= ]]> '${downshelfTimeEnd}'
+      </if>
+      <if test="startTimeStart != null" >
+            and cli.coupon_valid_time_start <![CDATA[ >= ]]> '${startTimeStart}'
+      </if>
+      <if test="startTimeEnd != null" >
+            and cli.coupon_valid_time_end <![CDATA[ <= ]]> '${startTimeEnd}'
+      </if>
+      <if test="minNumber != null  " >
+            and cli.coupon_stocks <![CDATA[ >= ]]> '${minNumber}'
+      </if>
+      <if test="maxNumber != null  " >
+            and cli.coupon_stocks <![CDATA[ <= ]]> '${maxNumber}'
+      </if>
+      <if test="name != null" >
+            and  cli.coupon_use_range like '%${name}%'
+      </if>
+    </where>
+      order by cli.coupon_state ,cli.is_preferen DESC , cli.priority DESC , cli.create_time desc
+  </select>
+
+  <select id="couponInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    id, coupon_name, coupon_shot_name, coupon_type, coupon_valid_time_start, coupon_valid_time_end,
+    coupon_stocks, coupon_state, mer_id, bank_id, upshelf_time, return_money, card_package_id,
+    downshelf_time, limit_buy_type, limit_person_num, limit_buy_num, describes, matter,
+    create_time, creator_id, last_edit_time, last_edit_id, is_preferen, is_select, priority,
+    goods_tag, price, discount_price, coupon_stock_id, coupon_image, coupon_use_range , is_sell , is_display ,(
+        select group_concat(cs.store_id) from xys_coupon_store  as cs  where  cs.coupon_id = #{id}
+        ) as storeId,
+        make_integral, use_integral, integral_sign, integral_cash, is_partake_cash, is_integral
+    from xys_coupon where id = #{id}
+  </select>
+
+  <insert id="addInfo" parameterType="com.shouzan.back.entity.Coupon" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+      insert into xys_coupon
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+          <if test="id != null" >
+              id,
+          </if>
+          <if test="couponName != null" >
+              coupon_name,
+          </if>
+          <if test="couponShotName != null" >
+              coupon_shot_name,
+          </if>
+          <if test="couponType != null" >
+              coupon_type,
+          </if>
+          <if test="couponValidTimeStart != null" >
+              coupon_valid_time_start,
+          </if>
+          <if test="couponValidTimeEnd != null" >
+              coupon_valid_time_end,
+          </if>
+          <if test="couponStocks != null" >
+              coupon_stocks,
+          </if>
+          <if test="couponState != null" >
+              coupon_state,
+          </if>
+          <if test="merId != null" >
+              mer_id,
+          </if>
+          <if test="bankId != null" >
+              bank_id,
+          </if>
+          <if test="upshelfTime != null" >
+              upshelf_time,
+          </if>
+          <if test="downshelfTime != null" >
+              downshelf_time,
+          </if>
+          <if test="limitBuyType != null" >
+              limit_buy_type,
+          </if>
+          <if test="limitPersonNum != null" >
+              limit_person_num,
+          </if>
+          <if test="limitBuyNum != null" >
+              limit_buy_num,
+          </if>
+          <if test="describes != null" >
+              describes,
+          </if>
+          <if test="matter != null" >
+              matter,
+          </if>
+          <if test="createTime != null" >
+              create_time,
+          </if>
+          <if test="creatorId != null" >
+              creator_id,
+          </if>
+          <if test="lastEditTime != null" >
+              last_edit_time,
+          </if>
+          <if test="lastEditId != null" >
+              last_edit_id,
+          </if>
+          <if test="isPreferen != null" >
+              is_preferen,
+          </if>
+          <if test="isSelect != null" >
+              is_select,
+          </if>
+          <if test="priority != null" >
+              priority,
+          </if>
+          <if test="goodsTag != null" >
+              goods_tag,
+          </if>
+          <if test="price != null" >
+              price,
+          </if>
+          <if test="discountPrice != null" >
+              discount_price,
+          </if>
+          <if test="couponStockId != null" >
+              coupon_stock_id,
+          </if>
+          <if test="couponImage != null" >
+              coupon_image,
+          </if>
+          <if test="couponUseRange != null" >
+              coupon_use_range,
+          </if>
+          <if test="isSell != null" >
+              is_sell,
+          </if>
+          <if test="isDisplay != null" >
+              is_display,
+          </if>
+          <if test="returnMoney != null" >
+              return_money,
+          </if>
+
+          <if test="makeIntegral != null" >
+              make_integral,
+          </if>
+          <if test="useIntegral != null" >
+              use_integral,
+          </if>
+          <if test="integralSign != null" >
+              integral_sign,
+          </if>
+          <if test="integralCash != null" >
+              integral_cash,
+          </if>
+          <if test="isPartakeCash != null" >
+              is_partake_cash,
+          </if>
+          <if test="isIntegral != null" >
+              is_integral,
+          </if>
+          <if test="cardPackageId != null" >
+              card_package_id,
+          </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+          <if test="id != null" >
+              #{id,jdbcType=INTEGER},
+          </if>
+          <if test="couponName != null" >
+              #{couponName,jdbcType=VARCHAR},
+          </if>
+          <if test="couponShotName != null" >
+              #{couponShotName,jdbcType=VARCHAR},
+          </if>
+          <if test="couponType != null" >
+              #{couponType,jdbcType=TINYINT},
+          </if>
+          <if test="couponValidTimeStart != null" >
+              #{couponValidTimeStart,jdbcType=TIMESTAMP},
+          </if>
+          <if test="couponValidTimeEnd != null" >
+              #{couponValidTimeEnd,jdbcType=TIMESTAMP},
+          </if>
+          <if test="couponStocks != null" >
+              #{couponStocks,jdbcType=INTEGER},
+          </if>
+          <if test="couponState != null" >
+              #{couponState,jdbcType=TINYINT},
+          </if>
+          <if test="merId != null" >
+              #{merId,jdbcType=INTEGER},
+          </if>
+          <if test="bankId != null" >
+              #{bankId,jdbcType=INTEGER},
+          </if>
+          <if test="upshelfTime != null" >
+              #{upshelfTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="downshelfTime != null" >
+              #{downshelfTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="limitBuyType != null" >
+              #{limitBuyType,jdbcType=TINYINT},
+          </if>
+          <if test="limitPersonNum != null" >
+              #{limitPersonNum,jdbcType=INTEGER},
+          </if>
+          <if test="limitBuyNum != null" >
+              #{limitBuyNum,jdbcType=INTEGER},
+          </if>
+          <if test="describes != null" >
+              #{describes,jdbcType=VARCHAR},
+          </if>
+          <if test="matter != null" >
+              #{matter,jdbcType=VARCHAR},
+          </if>
+          <if test="createTime != null" >
+              #{createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="creatorId != null" >
+              #{creatorId,jdbcType=INTEGER},
+          </if>
+          <if test="lastEditTime != null" >
+              #{lastEditTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="lastEditId != null" >
+              #{lastEditId,jdbcType=INTEGER},
+          </if>
+          <if test="isPreferen != null" >
+              #{isPreferen,jdbcType=TINYINT},
+          </if>
+          <if test="isSelect != null" >
+              #{isSelect,jdbcType=TINYINT},
+          </if>
+          <if test="priority != null" >
+              #{priority,jdbcType=INTEGER},
+          </if>
+          <if test="goodsTag != null" >
+              #{goodsTag,jdbcType=VARCHAR},
+          </if>
+          <if test="price != null" >
+              #{price,jdbcType=DECIMAL},
+          </if>
+          <if test="discountPrice != null" >
+              #{discountPrice,jdbcType=DECIMAL},
+          </if>
+          <if test="couponStockId != null" >
+              #{couponStockId,jdbcType=VARCHAR},
+          </if>
+          <if test="couponImage != null" >
+              #{couponImage,jdbcType=VARCHAR},
+          </if>
+          <if test="couponUseRange != null" >
+              #{couponUseRange,jdbcType=VARCHAR},
+          </if>
+          <if test="isSell != null" >
+              #{isSell,jdbcType=TINYINT},
+          </if>
+          <if test="isDisplay != null" >
+              #{isDisplay,jdbcType=TINYINT},
+          </if>
+          <if test="returnMoney != null" >
+              #{returnMoney,jdbcType=DECIMAL},
+          </if>
+
+          <if test="makeIntegral != null" >
+              #{makeIntegral,jdbcType=INTEGER},
+          </if>
+          <if test="useIntegral != null" >
+              #{useIntegral,jdbcType=INTEGER},
+          </if>
+          <if test="integralSign != null" >
+              #{integralSign,jdbcType=VARCHAR},
+          </if>
+          <if test="integralCash != null" >
+              #{integralCash,jdbcType=DECIMAL},
+          </if>
+          <if test="isPartakeCash != null" >
+              #{isPartakeCash,jdbcType=TINYINT},
+          </if>
+          <if test="isIntegral != null" >
+              #{isIntegral,jdbcType=TINYINT},
+          </if>
+          <if test="cardPackageId != null" >
+              #{cardPackageId,jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+
+  <insert id="addCouponStoreInfo" parameterType="java.util.List">
+        insert into xys_coupon_store
+        (
+          coupon_id,
+          store_id,
+          mer_id
+        )
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+            (
+            #{item.couponId},
+            #{item.storeId},
+            #{item.merId}
+            )
+        </foreach>
+  </insert>
+
+  <update id="updateCouponInfo" parameterType="com.shouzan.back.entity.Coupon" >
+        update xys_coupon
+        <set >
+            <if test="couponName != null" >
+                coupon_name = #{couponName,jdbcType=VARCHAR},
+            </if>
+            <if test="couponShotName != null" >
+                coupon_shot_name = #{couponShotName,jdbcType=VARCHAR},
+            </if>
+            <if test="couponType != null" >
+                coupon_type = #{couponType,jdbcType=TINYINT},
+            </if>
+            <if test="couponValidTimeStart != null" >
+                coupon_valid_time_start = #{couponValidTimeStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="couponValidTimeEnd != null" >
+                coupon_valid_time_end = #{couponValidTimeEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="couponState != null" >
+                coupon_state = #{couponState,jdbcType=TINYINT},
+            </if>
+            <if test="merId != null" >
+                mer_id = #{merId,jdbcType=INTEGER},
+            </if>
+            <if test="bankId != null" >
+                bank_id = #{bankId,jdbcType=INTEGER},
+            </if>
+            <if test="upshelfTime != null" >
+                upshelf_time = #{upshelfTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="downshelfTime != null" >
+                downshelf_time = #{downshelfTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="limitBuyType != null" >
+                limit_buy_type = #{limitBuyType,jdbcType=TINYINT},
+            </if>
+            <if test="limitPersonNum != null" >
+                limit_person_num = #{limitPersonNum,jdbcType=INTEGER},
+            </if>
+            <if test="limitBuyNum != null" >
+                limit_buy_num = #{limitBuyNum,jdbcType=INTEGER},
+            </if>
+            <if test="describes != null" >
+                describes = #{describes,jdbcType=VARCHAR},
+            </if>
+            <if test="matter != null" >
+                matter = #{matter,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorId != null" >
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="lastEditTime != null" >
+                last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastEditId != null" >
+                last_edit_id = #{lastEditId,jdbcType=INTEGER},
+            </if>
+            <if test="isPreferen != null" >
+                is_preferen = #{isPreferen,jdbcType=TINYINT},
+            </if>
+            <if test="isSelect != null" >
+                is_select = #{isSelect,jdbcType=TINYINT},
+            </if>
+            <if test="priority != null" >
+                priority = #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="goodsTag != null" >
+                goods_tag = #{goodsTag,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null" >
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="discountPrice != null" >
+                discount_price = #{discountPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="couponStockId != null" >
+                coupon_stock_id = #{couponStockId,jdbcType=VARCHAR},
+            </if>
+            <if test="couponImage != null" >
+                coupon_image = #{couponImage,jdbcType=VARCHAR},
+            </if>
+            <if test="couponUseRange != null" >
+                coupon_use_range = #{couponUseRange,jdbcType=VARCHAR},
+            </if>
+            <if test="isSell != null" >
+                is_sell = #{isSell,jdbcType=TINYINT},
+            </if>
+            <if test="isDisplay != null" >
+                is_display = #{isDisplay,jdbcType=TINYINT},
+            </if>
+            <if test="returnMoney != null" >
+                return_money = #{returnMoney,jdbcType=DECIMAL},
+            </if>
+
+            <if test="makeIntegral != null" >
+                make_integral = #{makeIntegral,jdbcType=INTEGER},
+            </if>
+            <if test="useIntegral != null" >
+                use_integral = #{useIntegral,jdbcType=INTEGER},
+            </if>
+            <if test="integralSign != null" >
+                integral_sign = #{integralSign,jdbcType=VARCHAR},
+            </if>
+            <if test="integralCash != null" >
+                integral_cash = #{integralCash,jdbcType=DECIMAL},
+            </if>
+            <if test="isPartakeCash != null" >
+                is_partake_cash = #{isPartakeCash,jdbcType=TINYINT},
+            </if>
+            <if test="isIntegral != null" >
+                is_integral = #{isIntegral,jdbcType=TINYINT},
+            </if>
+            <if test="cardPackageId != null" >
+                card_package_id = #{cardPackageId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteStoreById" parameterType="java.lang.Integer" >
+    delete from xys_coupon_store
+    where coupon_id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <select id="selectCouponAllInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from xys_coupon
+        where coupon_state in (0,1)
+        order by is_select DESC , priority DESC , create_time desc
+    </select>
+
+    <update id="updateCouponStatus">
+   		UPDATE xys_coupon
+   		   SET coupon_state = #{status}
+   	 	 WHERE id IN (${id})
+   </update>
+
+    <select id="selectCouponByMerId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from xys_coupon
+        where mer_id = #{id}
+    </select>
+
+    <select id="selectCouponByBankId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from xys_coupon
+        where bank_id = #{id}
+    </select>
+
+    <update id="updateIsSellDisp">
+   		UPDATE xys_coupon
+   		   SET is_sell = 1 , is_display = 1
+   	 	 WHERE id IN (${id})
+   </update>
+
+    <update id="updateNoSellDisp">
+   		UPDATE xys_coupon
+   		   SET is_sell = #{sell} , is_display = 0
+   	 	 WHERE id =#{id}
+   </update>
+
+</mapper>

@@ -1,0 +1,103 @@
+spring:
+  application:
+    name: manage-gate
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non-null
+  redis: # y
+    database: 15
+    host: 140.143.122.180
+    port: 6379
+    password: redisDbs
+    pool:
+      max-active: 20
+  http:
+    multipart:
+      max-file-size: 102400KB
+      max-request-size: 102400KB
+
+server:
+  port: 8080 #启动端口
+  session:
+    timeout: 60
+
+zuul:
+  #  host:
+  #    max-per-route-connections: 200
+  #    max-total-connections: 500
+  #    connect-timeout-millis: 60000
+  #    socket-timeout-millis: 60000
+  routes:
+    back:
+      path: /back/**
+      serviceId: manage-back
+      sensitive-headers:   #zuul默认是屏蔽Cookie的 需要把这个设为空
+
+
+
+
+ribbon:
+  #debug调试时，可能会报连接超时等异常 。可通过调整如下两个参数，增加调试时间
+  ReadTimeout: 150000
+  ConnectTimeout: 150000
+  eureka:
+    enabled: true
+
+eureka:
+  instance:
+    statusPageUrlPath: /info
+    healthCheckUrlPath: /health
+
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+
+
+security:
+  basic:
+    enabled: false
+  sso:
+    #    默认登录地址
+    loginPath: /login1
+  oauth2:
+    client:
+      clientId: acme
+      clientSecret: acmesecret
+      scope: openid
+      #      获取访问令牌
+      accessTokenUri: http://10.0.0.12:8081/oauth/token
+      #      用户将被重定向到的授权
+      userAuthorizationUri: http://10.0.0.12:8081/oauth/authorize
+    resource:
+      #      用于获取当前用户的详细信息
+      userInfoUri: http://10.0.0.12:8081/auth/user/me
+      jwt:
+        #        拿认证服务器密钥解析jwt
+        key-uri:  http://10.0.0.12:8081/oauth/token_key
+
+# 控制网关调用超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+gate:
+  ignore:
+    startWith: /static
+    contain: .
+  oauth:
+    prefix: /api
+
+  jwt:
+    secret: Xe*g@1jda
+    expiration: 7200
+    header: access-token
+
+filePath: /Users/bin.yang/Desktop/ftp/index.html
+loginOut: http://127.0.0.1:8081/logout

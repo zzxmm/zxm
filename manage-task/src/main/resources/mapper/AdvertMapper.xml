@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.task.mapper.AdvertMapper" >
+
+    <update id="advertTimingUpper" >
+      UPDATE xys_advert SET advert_state = 0
+        WHERE advert_state = 2 and upshelf_time <![CDATA[ < ]]> '${localeDate}'
+    </update>
+
+    <update id="advertTimingLower" >
+      UPDATE xys_advert SET advert_state = 1
+        WHERE advert_state = 0  and downshelf_time <![CDATA[ < ]]> '${localeDate}'
+    </update>
+
+</mapper>

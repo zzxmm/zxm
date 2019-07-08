@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: manange-center
+
+server:
+  port: 8761 #启动端口
+
+eureka:
+
+  instance:
+    hostname: eureka
+  #    prefer-ip-address: true
+  #    ip-address: 192.168.117.112
+  client:
+    registerWithEureka: true  #false:不作为一个客户端注册到注册中心
+    fetchRegistry: true      #为true时，可以启动，但报异常：Cannot execute request on any known server
+    serviceUrl:
+      defaultZone: http://140.143.132.159:8761/eureka/
+
+  server:
+    # 测试时关闭自我保护机制，保证不可用服务及时踢出
+    enable-self-preservation: false

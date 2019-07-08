@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.BillsMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.Bills" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bills_type" property="billsType" jdbcType="TINYINT" />
+    <result column="bills_object" property="billsObject" jdbcType="TINYINT" />
+    <result column="out_acc_party" property="outAccParty" jdbcType="TINYINT" />
+    <result column="out_acc_party_id" property="outAccPartyId" jdbcType="INTEGER" />
+    <result column="out_acc_party_name" property="outAccPartyName" jdbcType="VARCHAR" />
+    <result column="out_acc_party_balance" property="outAccPartyBalance" jdbcType="DECIMAL" />
+    <result column="put_acc_party" property="putAccParty" jdbcType="TINYINT" />
+    <result column="put_acc_party_id" property="putAccPartyId" jdbcType="INTEGER" />
+    <result column="put_acc_party_name" property="putAccPartyName" jdbcType="VARCHAR" />
+    <result column="put_acc_party_balance" property="putAccPartyBalance" jdbcType="DECIMAL" />
+    <result column="describes" property="describes" jdbcType="VARCHAR" />
+    <result column="transaction_amount" property="transactionAmount" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_id" property="lastEditId" jdbcType="INTEGER" />
+    <result column="last_edit_name" property="lastEditName" jdbcType="VARCHAR" />
+    <result column="last_edit_describe" property="lastEditDescribe" jdbcType="VARCHAR" />
+    <result column="pay_acc_party" property="payAccParty" jdbcType="TINYINT" />
+    <result column="pay_acc_id" property="payAccId" jdbcType="INTEGER" />
+    <result column="pay_acc_party_name" property="payAccPartyName" jdbcType="VARCHAR" />
+    <result column="pay_acc_party_balance" property="payAccPartyBalance" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="bankBaseResultMap" type="com.shouzan.back.entity.Bank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="service_tel_number" property="serviceTelNumber" jdbcType="VARCHAR" />
+    <result column="enable_state" property="enableState" jdbcType="TINYINT" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="merBaseResultMap" type="com.shouzan.back.entity.Merchants" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mer_name" property="merName" jdbcType="VARCHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="enable_state" property="enableState" jdbcType="TINYINT" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bills_type, bills_object, out_acc_party, out_acc_party_id,
+    out_acc_party_balance, put_acc_party, put_acc_party_id,  put_acc_party_balance,
+    describes, transaction_amount, create_time, creator_id, creator_name, last_edit_time,
+    last_edit_id, last_edit_name, last_edit_describe, pay_acc_party, pay_acc_id,
+    pay_acc_party_balance
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    COUNT(id)
+    from xys_bills
+    <where>
+      <if test="keywords != null  and keywords != '' " >
+        and (put_acc_party_name LIKE #{keywords} or out_acc_party_name LIKE #{keywords} or describes LIKE #{keywords} or last_edit_describe LIKE #{keywords})
+      </if>
+      <if test="belonged != null " >
+        and bills_object = #{belonged}
+      </if>
+      <if test="id != null " >
+        and (out_acc_party_id = #{id} or put_acc_party_id = #{id})
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    id , out_acc_party_name ,1*ABS(transaction_amount) AS transaction_amount , out_acc_party_balance ,
+    put_acc_party_name, put_acc_party_balance , create_time , last_edit_time , creator_name, put_acc_party_id,
+    out_acc_party_id, pay_acc_id, describes, creator_id ,last_edit_id
+    from xys_bills
+      <where>
+        <if test="keywords != null  and keywords != '' " >
+          and (put_acc_party_name LIKE #{keywords} or out_acc_party_name LIKE #{keywords} or describes LIKE #{keywords} or last_edit_describe LIKE #{keywords})
+        </if>
+        <if test="belonged != null " >
+          and bills_object = #{belonged}
+        </if>
+        <if test="id != null " >
+          and (out_acc_party_id = #{id} or put_acc_party_id = #{id})
+        </if>
+        <if test="createTimeStart != null" >
+          and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+        </if>
+        <if test="createTimeEnd != null" >
+          and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+        </if>
+      </where>
+      ORDER BY create_time DESC
+  </select>
+
+  <select id="queryBillsOverview" resultType="com.shouzan.back.entity.BillsOverview" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT exp.exp AS totalExpenditure , put.put AS totalIncome , bln.bln AS totalBalance
+    FROM
+    ( SELECT SUM(transaction_amount) AS exp FROM xys_bills where bills_type = 0
+      <if test="keywords != null  and keywords != '' " >
+        and (put_acc_party_name LIKE #{keywords} or out_acc_party_name LIKE #{keywords} or describes LIKE #{keywords} or last_edit_describe LIKE #{keywords})
+      </if>
+      <if test="belonged != null " >
+        and bills_object = #{belonged}
+      </if>
+      <if test="id != null " >
+        and (out_acc_party_id = #{id} or put_acc_party_id = #{id})
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    ) exp ,
+    ( SELECT SUM(transaction_amount) AS put FROM xys_bills where bills_type = 1
+      <if test="keywords != null  and keywords != '' " >
+        and (put_acc_party_name LIKE #{keywords} or out_acc_party_name LIKE #{keywords} or describes LIKE #{keywords} or last_edit_describe LIKE #{keywords})
+      </if>
+      <if test="belonged != null " >
+        and bills_object = #{belonged}
+      </if>
+      <if test="id != null " >
+        and (out_acc_party_id = #{id} or put_acc_party_id = #{id})
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    ) put ,
+    ( SELECT SUM(transaction_amount) AS bln FROM xys_bills ) bln
+  </select>
+
+  <select id="queryBillsBalance" resultType="java.math.BigDecimal" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT SUM(transaction_amount)  FROM xys_bills
+  </select>
+
+  <select id="selectBankList" resultMap="bankBaseResultMap">
+    SELECT bank.id, bank.bank_name, bank.enable_state, bank.logo_url, bill.pay_acc_party_balance AS balance FROM xys_bank bank
+      LEFT JOIN
+      (SELECT * FROM xys_bills WHERE id IN (SELECT MAX(id) FROM xys_bills GROUP BY pay_acc_id)) bill
+      ON  bank.id =bill.pay_acc_id
+  </select>
+
+  <select id="selectMerList" resultMap="merBaseResultMap">
+    SELECT mer.id, mer.mer_name, mer.logo_url, mer.enable_state, bill.put_acc_party_balance AS balance FROM xys_merchants mer
+      LEFT JOIN
+      (SELECT * FROM xys_bills WHERE id IN (SELECT MAX(id) FROM xys_bills GROUP BY put_acc_party_id)) bill
+      ON  mer.id =bill.put_acc_party_id
+  </select>
+
+  <select id="selectBillsInfoById" resultMap="BaseResultMap">
+    select
+      bills_type , out_acc_party_name,out_acc_party_balance, put_acc_party_name,
+      put_acc_party_balance, pay_acc_party_name,pay_acc_party_balance,
+      transaction_amount ,describes, create_time, creator_id,out_acc_party_id,pay_acc_id,put_acc_party_id
+      from xys_bills
+      WHERE id = #{id}
+  </select>
+
+  <insert id="addTransactionRecord" parameterType="com.shouzan.back.entity.Bills" >
+    insert into xys_bills
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="billsType != null" >
+        bills_type,
+      </if>
+      <if test="billsObject != null" >
+        bills_object,
+      </if>
+      <if test="outAccParty != null" >
+        out_acc_party,
+      </if>
+      <if test="outAccPartyId != null" >
+        out_acc_party_id,
+      </if>
+      <if test="outAccPartyName != null" >
+        out_acc_party_name,
+      </if>
+      <if test="outAccPartyBalance != null" >
+        out_acc_party_balance,
+      </if>
+      <if test="putAccParty != null" >
+        put_acc_party,
+      </if>
+      <if test="putAccPartyId != null" >
+        put_acc_party_id,
+      </if>
+      <if test="putAccPartyName != null" >
+        put_acc_party_name,
+      </if>
+      <if test="putAccPartyBalance != null" >
+        put_acc_party_balance,
+      </if>
+      <if test="describes != null" >
+        describes,
+      </if>
+      <if test="transactionAmount != null" >
+        transaction_amount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="creatorName != null" >
+        creator_name,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="lastEditId != null" >
+        last_edit_id,
+      </if>
+      <if test="lastEditName != null" >
+        last_edit_name,
+      </if>
+      <if test="lastEditDescribe != null" >
+        last_edit_describe,
+      </if>
+      <if test="payAccParty != null" >
+        pay_acc_party,
+      </if>
+      <if test="payAccId != null" >
+        pay_acc_id,
+      </if>
+      <if test="payAccPartyName != null" >
+        pay_acc_party_name,
+      </if>
+      <if test="payAccPartyBalance != null" >
+        pay_acc_party_balance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="billsType != null" >
+        #{billsType,jdbcType=TINYINT},
+      </if>
+      <if test="billsObject != null" >
+        #{billsObject,jdbcType=TINYINT},
+      </if>
+      <if test="outAccParty != null" >
+        #{outAccParty,jdbcType=TINYINT},
+      </if>
+      <if test="outAccPartyId != null" >
+        #{outAccPartyId,jdbcType=INTEGER},
+      </if>
+      <if test="outAccPartyName != null" >
+        #{outAccPartyName,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccPartyBalance != null" >
+        #{outAccPartyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="putAccParty != null" >
+        #{putAccParty,jdbcType=TINYINT},
+      </if>
+      <if test="putAccPartyId != null" >
+        #{putAccPartyId,jdbcType=INTEGER},
+      </if>
+      <if test="putAccPartyName != null" >
+        #{putAccPartyName,jdbcType=VARCHAR},
+      </if>
+      <if test="putAccPartyBalance != null" >
+        #{putAccPartyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="describes != null" >
+        #{describes,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionAmount != null" >
+        #{transactionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditId != null" >
+        #{lastEditId,jdbcType=INTEGER},
+      </if>
+      <if test="lastEditName != null" >
+        #{lastEditName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastEditDescribe != null" >
+        #{lastEditDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccParty != null" >
+        #{payAccParty,jdbcType=TINYINT},
+      </if>
+      <if test="payAccId != null" >
+        #{payAccId,jdbcType=INTEGER},
+      </if>
+      <if test="payAccPartyName != null" >
+        #{payAccPartyName,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccPartyBalance != null" >
+        #{payAccPartyBalance,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectInfoAll" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+       id , out_acc_party_name,-1*ABS(transaction_amount) AS transaction_amount, out_acc_party_balance ,
+       put_acc_party_name, put_acc_party_balance , pay_acc_party_name,
+       create_time , last_edit_time , creator_id ,out_acc_party_id,pay_acc_id,put_acc_party_id
+      from xys_bills
+    <where>
+      <if test="belonged != null " >
+        and bills_object = #{belonged}
+      </if>
+      <if test="id != null " >
+        and (out_acc_party_id = #{id} or put_acc_party_id = #{id})
+      </if>
+      <if test="startTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> '${startTimeStart}'
+      </if>
+      <if test="startTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> '${startTimeEnd}'
+      </if>
+    </where>
+    ORDER BY create_time DESC
+  </select>
+
+  <select id="selectMerBalanceById" resultMap="BaseResultMap">
+      SELECT id , put_acc_party_id , put_acc_party_balance
+			FROM xys_bills WHERE id IN (SELECT MAX(id) FROM xys_bills GROUP BY put_acc_party_id)
+			and put_acc_party_id = #{id}
+  </select>
+
+</mapper>

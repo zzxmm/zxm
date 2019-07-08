@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.task.mapper.OperateMapper" >
+
+    <update id="LowerShelfToTime" >
+      UPDATE xys_operate_theme SET card_state = 2
+        WHERE card_state <![CDATA[ <> ]]> 2  AND deleted = 0
+        AND downshelf_time <![CDATA[ < ]]> '${localeDate}'
+    </update>
+
+    <update id="UpperShelfToTime" >
+      UPDATE xys_operate_theme SET card_state = 0
+        WHERE card_state = 2  AND deleted = 0
+        AND  downshelf_time <![CDATA[ > ]]> '${localeDate}' AND upshelf_time <![CDATA[ < ]]> '${localeDate}'
+    </update>
+
+</mapper>

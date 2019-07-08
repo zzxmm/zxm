@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.extend.ExtendExchangeMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.extend.ExtendExchange" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_openid" property="userOpenid" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="ex_order" property="exOrder" jdbcType="VARCHAR" />
+    <result column="exchange_money" property="exchangeMoney" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="deal_state" property="dealState" jdbcType="TINYINT" />
+    <result column="deal_time" property="dealTime" jdbcType="TIMESTAMP" />
+    <result column="deal_user" property="dealUser" jdbcType="INTEGER" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    exc.id, exc.user_name, exc.user_openid, exc.ex_order, exc.exchange_money, exc.create_time, exc.deal_state,
+    exc.deal_time, exc.deal_user, notes, usr.phone
+  </sql>
+  <resultMap id="BaseResultRecordMap" type="com.shouzan.back.entity.extend.ExtendRecord" >
+    <result column="reward_money" property="rewardMoney" jdbcType="DECIMAL" />
+    <result column="reward_type" property="rewardType" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="queryPageBonusCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    COUNT(*)
+    from xys_extend_exchange
+    <where>
+      <if test="keywords != null">
+        and (id LIKE #{keywords} OR user_name LIKE #{keywords} OR user_openid LIKE #{keywords})
+      </if>
+      <if test="status != null">
+        and deal_state = #{status}
+      </if>
+      <if test="createTimeStart != null">
+        and create_time <![CDATA[ >= ]]> #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null">
+        and create_time <![CDATA[ <= ]]> #{createTimeEnd}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPageBonusList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_extend_exchange exc
+    LEFT JOIN xys_user usr ON exc.user_id = usr.id
+    <where>
+      <if test="keywords != null">
+        and (exc.id LIKE #{keywords} OR exc.user_name LIKE #{keywords} OR exc.user_openid LIKE #{keywords})
+      </if>
+      <if test="status != null">
+        and exc.deal_state = #{status}
+      </if>
+      <if test="createTimeStart != null">
+        and exc.create_time <![CDATA[ >= ]]> #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null">
+        and exc.create_time <![CDATA[ <= ]]> #{createTimeEnd}
+      </if>
+    </where>
+    order by  exc.create_time desc
+  </select>
+
+  <select id="findInfoBonusById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from xys_extend_exchange exc
+    LEFT JOIN xys_user usr ON exc.user_id = usr.id
+    where exc.id = #{id}
+  </select>
+
+  <select id="selectBonusRecordList" resultMap="BaseResultRecordMap" parameterType="java.lang.Integer" >
+    SELECT record.reward_money,record.reward_type,record.create_time from xys_extend_record record
+	LEFT JOIN xys_extend_exchange excha ON excha.user_openid = record.inviter_openid
+		WHERE excha.id = #{id}
+		order by record.create_time desc
+  </select>
+
+  <update id="updateBonusStatus">
+    update xys_extend_exchange
+    set deal_state = #{status}, deal_user = #{userId}
+    <if test="notes != null" >
+       , notes = #{notes}
+    </if>
+    where id = #{id}
+  </update>
+
+</mapper>

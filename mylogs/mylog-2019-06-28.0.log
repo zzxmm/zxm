@@ -1,0 +1,58 @@
+[ INFO ] [2019-06-28 16:30:31] org.springframework.context.annotation.AnnotationConfigApplicationContext [582] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@72e5a8e: startup date [Fri Jun 28 16:30:31 CST 2019]; root of context hierarchy
+[ INFO ] [2019-06-28 16:30:31] org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor [155] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[ INFO ] [2019-06-28 16:30:31] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'configurationPropertiesRebinderAutoConfiguration' of type [class org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$552623b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:51] com.shouzan.back.BackService [665] - The following profiles are active: dev
+[ INFO ] [2019-06-28 16:30:51] org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext [582] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@70d2e40b: startup date [Fri Jun 28 16:30:51 CST 2019]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@72e5a8e
+[ INFO ] [2019-06-28 16:30:53] org.springframework.beans.factory.support.DefaultListableBeanFactory [821] - Overriding bean definition for bean 'hystrixFeature' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.cloud.netflix.hystrix.HystrixCircuitBreakerConfiguration$HystrixWebConfiguration; factoryMethodName=hystrixFeature; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/cloud/netflix/hystrix/HystrixCircuitBreakerConfiguration$HystrixWebConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.cloud.netflix.hystrix.HystrixCircuitBreakerConfiguration; factoryMethodName=hystrixFeature; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/cloud/netflix/hystrix/HystrixCircuitBreakerConfiguration.class]]
+[ INFO ] [2019-06-28 16:30:53] org.springframework.data.repository.config.RepositoryConfigurationDelegate [170] - Multiple Spring Data modules found, entering strict repository configuration mode!
+[ INFO ] [2019-06-28 16:30:53] org.springframework.data.repository.config.RepositoryConfigurationDelegate [170] - Multiple Spring Data modules found, entering strict repository configuration mode!
+[ WARN ] [2019-06-28 16:30:53] org.springframework.context.annotation.ConfigurationClassPostProcessor [389] - Cannot enhance @Configuration bean definition 'refreshScope' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+[ INFO ] [2019-06-28 16:30:53] org.springframework.cloud.context.scope.GenericScope [263] - BeanFactory id=963c053c-00ad-37ff-bc5e-b6f124138991
+[ INFO ] [2019-06-28 16:30:53] org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor [155] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[ INFO ] [2019-06-28 16:30:53] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'backService' of type [class com.shouzan.back.BackService$$EnhancerBySpringCGLIB$$db9a1cb9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:53] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'com.shouzan.back.rpc.MerFeignService' of type [class org.springframework.cloud.netflix.feign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:53] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'com.shouzan.back.rpc.MobileFeignService' of type [class org.springframework.cloud.netflix.feign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:53] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'com.shouzan.back.rpc.StoreFeignService' of type [class org.springframework.cloud.netflix.feign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:53] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'com.shouzan.back.rpc.UserFeignService' of type [class org.springframework.cloud.netflix.feign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:54] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e9385f3e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:54] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'org.springframework.cloud.netflix.metrics.MetricsInterceptorConfiguration$MetricsRestTemplateConfiguration' of type [class org.springframework.cloud.netflix.metrics.MetricsInterceptorConfiguration$MetricsRestTemplateConfiguration$$EnhancerBySpringCGLIB$$1b65057f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:54] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [325] - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [class org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$552623b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[ INFO ] [2019-06-28 16:30:54] org.xnio [99] - XNIO version 3.3.6.Final
+[ INFO ] [2019-06-28 16:30:54] org.xnio.nio [55] - XNIO NIO Implementation Version 3.3.6.Final
+[ WARN ] [2019-06-28 16:30:54] io.undertow.websockets.jsr [67] - UT026009: XNIO worker was not set on WebSocketDeploymentInfo, the default worker will be used
+[ WARN ] [2019-06-28 16:30:54] io.undertow.websockets.jsr [76] - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+[ INFO ] [2019-06-28 16:30:54] io.undertow.servlet [313] - Initializing Spring embedded WebApplicationContext
+[ INFO ] [2019-06-28 16:30:54] org.springframework.web.context.ContextLoader [276] - Root WebApplicationContext: initialization completed in 2664 ms
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.ServletRegistrationBean [190] - Mapping servlet: 'dispatcherServlet' to [/]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.ServletRegistrationBean [190] - Mapping servlet: 'com.shouzan.back.config.druid.DruidStatViewServlet' to [/druid/*]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'metricsFilter' to: [/*]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'requestContextFilter' to: [/*]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'webRequestLoggingFilter' to: [/*]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.FilterRegistrationBean [271] - Mapping filter: 'druidWebStatFilter' to urls: [/druid/*]
+[ INFO ] [2019-06-28 16:30:54] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'applicationContextIdFilter' to: [/*]
+[ INFO ] [2019-06-28 16:30:56] org.springframework.context.annotation.AnnotationConfigApplicationContext [582] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@bb38c49: startup date [Fri Jun 28 16:30:56 CST 2019]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@70d2e40b
+[ INFO ] [2019-06-28 16:30:56] org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor [155] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[ INFO ] [2019-06-28 16:31:06] io.undertow.servlet [313] - jolokia: No access restrictor found, access to any MBean is allowed
+[ WARN ] [2019-06-28 16:31:07] org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext [550] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'achievementController': Unsatisfied dependency expressed through field 'achievementRuleBiz'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.shouzan.back.biz.AchievementRuleBiz' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+[ INFO ] [2019-06-28 16:31:07] org.springframework.context.annotation.AnnotationConfigApplicationContext [987] - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@bb38c49: startup date [Fri Jun 28 16:30:56 CST 2019]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@70d2e40b
+[ INFO ] [2019-06-28 16:31:07] org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer [101] - 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+[ ERROR] [2019-06-28 16:31:07] org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [42] - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field achievementRuleBiz in com.shouzan.back.rest.AchievementController required a bean of type 'com.shouzan.back.biz.AchievementRuleBiz' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.shouzan.back.biz.AchievementRuleBiz' in your configuration.
+

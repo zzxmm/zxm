@@ -1,0 +1,51 @@
+
+--  ------------
+--  Date 2019-1-25
+--  ------------
+
+CREATE TABLE `xys_bank_scene_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单id',
+  `order_no` varchar(150) NOT NULL COMMENT '内部订单号',
+  `wechat_order_no` varchar(255) DEFAULT NULL COMMENT '微信订单号',
+  `order_amount` decimal(20,2) DEFAULT NULL COMMENT '订单金额',
+  `order_state` tinyint(4) NOT NULL COMMENT '订单状态：0已支付 1未支付 ',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+  `wechat_openid` varchar(32) DEFAULT NULL COMMENT '用户微信openid',
+  `cheap_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '卡券优惠金额',
+  `actual_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '实际支付金额',
+  `main_openid` varchar(64) DEFAULT NULL COMMENT '主商户openid',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `IX_order_state` (`order_state`) USING BTREE COMMENT 'state索引',
+  KEY `IX_wechat_openid` (`wechat_openid`) USING BTREE COMMENT 'openid索引',
+  KEY `UN_order_no` (`order_no`) USING BTREE COMMENT 'orderno索引'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='银行1分钱支付场景订单表';
+
+-- ----------------------------
+-- DDL for xys_bank_scene_order
+-- ----------------------------
+
+-- 结构同步
+ALTER TABLE `szxys`.`xys_bank_scene_order` MODIFY COLUMN `order_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '内部订单号' AFTER `id`;
+ALTER TABLE `szxys`.`xys_bank_scene_order` MODIFY COLUMN `wechat_order_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信订单号' AFTER `order_no`;
+
+--
+--  2019-5-28 ⬆️ Submitted  ✅
+--
+
+-- 增加用户Id
+ALTER TABLE `szxys`.`xys_bank_scene_order`
+ADD COLUMN `user_id` int(11) NULL COMMENT '用户ID' AFTER `create_time`;
+ALTER TABLE `szxys`.`xys_bank_scene_order`
+ADD INDEX `IX_userid`(`user_id`) USING BTREE COMMENT 'userID索引';
+
+--
+--  2019-6-19 ⬆️ Submitted  ✅
+--
+
+
+
+
+
+
+
+

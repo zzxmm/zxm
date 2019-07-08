@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouzan.back.mapper.integral.IntegralRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.shouzan.back.entity.integral.IntegralRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="openid" property="openId" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="integral_type" property="integralType" jdbcType="TINYINT" />
+    <result column="record_type" property="recordType" jdbcType="TINYINT" />
+    <result column="integral_number" property="integralNumber" jdbcType="INTEGER" />
+    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="current_integral" property="currentIntegral" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="INTEGER" />
+    <result column="integral_save_money" property="integralSaveMoney" jdbcType="INTEGER" />
+    <result column="final_cheap_price" property="finalCheapPrice" jdbcType="INTEGER" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+     re.id, re.openid, us.nick_name, us.phone,  re.integral_type, re.record_type, re.integral_number,
+     re.coupon_id, re.create_time, us.current_integral, re.order_no, re.integral_save_money, re.final_cheap_price, us.id AS user_id
+  </sql>
+
+  <select id="queryPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    COUNT(id)
+    FROM
+    (
+    SELECT
+    re.id, re.openid, us.nick_name, us.phone,  re.integral_type, re.record_type, re.integral_number,
+    re.coupon_id, re.create_time, us.current_integral, re.order_no, re.integral_save_money, re.final_cheap_price, us.id AS user_id
+    FROM
+    xys_integral_record re
+    LEFT JOIN xys_user us ON re.user_id = us.id
+    <where>
+      <if test="name != null" >
+        and re.user_id = #{name}
+      </if>
+      <if test="keywords != null  and keywords != '' " >
+        and (us.nick_name LIKE #{keywords} or us.id LIKE #{keywords} or us.phone LIKE #{keywords} or re.openid  LIKE #{keywords})
+      </if>
+      <if test="createTimeStart != null" >
+        and re.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and re.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+    GROUP BY
+    user_id
+    ) t
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    *
+    FROM
+    (
+    SELECT
+    re.id, re.openid, us.nick_name, us.phone,  re.integral_type, re.record_type, re.integral_number,
+    re.coupon_id, re.create_time, us.current_integral, re.order_no, re.integral_save_money, re.final_cheap_price, us.id AS user_id
+    FROM
+    xys_integral_record re
+    LEFT JOIN xys_user us ON re.user_id = us.id
+    <where>
+      <if test="name != null" >
+        and re.user_id = #{name}
+      </if>
+      <if test="keywords != null  and keywords != '' " >
+        and (us.nick_name LIKE #{keywords} or us.id LIKE #{keywords} or us.phone LIKE #{keywords} or re.openid  LIKE #{keywords})
+      </if>
+      <if test="createTimeStart != null" >
+        and re.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and re.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+    GROUP BY
+    user_id
+    ) t
+    ORDER BY
+    create_time DESC
+  </select>
+
+  <select id="queryIntegralPageCount" resultType="java.lang.Integer" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    SELECT
+    COUNT(re.id)
+    from xys_integral_record re LEFT JOIN xys_user us on re.user_id = us.id
+    <where>
+      <if test="name != null" >
+        and re.user_id = #{name}
+      </if>
+      <if test="keywords != null  and keywords != '' " >
+        and (us.nick_name LIKE #{keywords} or us.id LIKE #{keywords} or us.phone LIKE #{keywords} )
+      </if>
+      <if test="status != null " >
+        and state = #{status}
+      </if>
+      <if test="createTimeStart != null" >
+        and re.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and re.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+  </select>
+
+  <select id="queruIntegralPageList" resultMap="BaseResultMap" parameterType="com.shouzan.back.vo.SearchSatisfy">
+    select
+    <include refid="Base_Column_List"/>
+    from xys_integral_record re LEFT JOIN xys_user us on re.user_id = us.id
+    <where>
+      <if test="name != null" >
+        and re.user_id = #{name}
+      </if>
+      <if test="status != null " >
+        and state = #{status}
+      </if>
+      <if test="keywords != null  and keywords != '' " >
+        and (us.nick_name LIKE #{keywords} or us.id LIKE #{keywords} or us.phone LIKE #{keywords} )
+      </if>
+      <if test="createTimeStart != null" >
+        and re.create_time <![CDATA[ >= ]]> '${createTimeStart}'
+      </if>
+      <if test="createTimeEnd != null" >
+        and re.create_time <![CDATA[ <= ]]> '${createTimeEnd}'
+      </if>
+    </where>
+    ORDER BY re.create_time DESC
+  </select>
+
+  <select id="selectIntegralRecord" resultMap="BaseResultMap">
+    SELECT
+    id,
+    user_id,
+    nick_name,
+    phone,
+    integral_type,
+    record_type,
+    integral_number,
+    coupon_id,
+    create_time,
+    order_no,
+    integral_save_money,
+    final_cheap_price
+    from xys_integral_record
+    WHERE order_no = #{orderNo};
+     </select>
+
+
+</mapper>
